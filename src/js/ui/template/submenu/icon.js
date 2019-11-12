@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => `
+export default ({locale, iconStyle: {normal, active}}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-icon-add-button">
             <div class="tui-image-editor-button" data-icontype="icon-arrow">
@@ -17,7 +17,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('粗箭头')}
+                    ${locale.localize('Arrow')}
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-arrow-2">
@@ -30,7 +30,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('细箭头')}
+                    ${locale.localize('Arrow-2')}
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-arrow-3">
@@ -43,22 +43,18 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('向右')}
+                    ${locale.localize('Arrow-3')}
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-star">
                 <div>
                     <svg class="svg_ic-submenu">
-                        <use xlink:href="${normal.path}#${
-    normal.name
-}-ic-icon-star" class="normal"/>
-                        <use xlink:href="${active.path}#${
-    active.name
-}-ic-icon-star" class="active"/>
+                        <use xlink:href="${normal.path}#${normal.name}-ic-icon-star" class="normal"/>
+                        <use xlink:href="${active.path}#${active.name}-ic-icon-star" class="active"/>
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('星形')}
+                    ${locale.localize('Star-1')}
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-star-2">
@@ -71,7 +67,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('多边星')}
+                    ${locale.localize('Star-2')}
                 </label>
             </div>
 
@@ -85,7 +81,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('多边形')}
+                    ${locale.localize('Polygon')}
                 </label>
             </div>
 
@@ -99,7 +95,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('位置')}
+                    ${locale.localize('Location')}
                 </label>
             </div>
 
@@ -113,7 +109,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('爱心')}
+                    ${locale.localize('Heart')}
                 </label>
             </div>
 
@@ -127,7 +123,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('气泡')}
+                    ${locale.localize('Bubble')}
                 </label>
             </div>
         </li>
@@ -139,16 +135,12 @@ export default ({locale, iconStyle: {normal, active}}) => `
                 <div>
                     <input type="file" accept="image/*" id="tie-icon-image-file">
                     <svg class="svg_ic-submenu">
-                        <use xlink:href="${normal.path}#${
-    normal.name
-}-ic-icon-load" class="normal"/>
-                        <use xlink:href="${active.path}#${
-    active.name
-}-ic-icon-load" class="active"/>
+                        <use xlink:href="${normal.path}#${normal.name}-ic-icon-load" class="normal"/>
+                        <use xlink:href="${active.path}#${active.name}-ic-icon-load" class="active"/>
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('自定义图标')}
+                    ${locale.localize('Custom icon')}
                 </label>
             </div>
         </li>
@@ -156,7 +148,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
             <div></div>
         </li>
         <li>
-            <div id="tie-icon-color" title="${locale.localize('颜色')}"></div>
+            <div id="tie-icon-color" title="${locale.localize('Color')}"></div>
         </li>
     </ul>
-`;
+`);

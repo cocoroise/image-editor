@@ -1,10 +1,4 @@
-export default ({
-    locale,
-    biImage,
-    iconStyle: {normal, hover, disabled},
-    loadButtonStyle,
-    downloadButtonStyle
-}) => `
+export default ({locale, biImage, iconStyle: {normal, hover, disabled}, loadButtonStyle, downloadButtonStyle}) => (`
     <div class="tui-image-editor-controls">
         <div class="tui-image-editor-controls-logo">
             <img src="${biImage}" />
@@ -44,9 +38,7 @@ export default ({
             <li id="tie-btn-delete-all" class="tui-image-editor-item">
                 <svg class="svg_ic-menu">
                     <use xlink:href="${normal.path}#${normal.name}-ic-delete-all" class="enabled"/>
-                    <use xlink:href="${disabled.path}#${
-    disabled.name
-}-ic-delete-all" class="normal"/>
+                    <use xlink:href="${disabled.path}#${disabled.name}-ic-delete-all" class="normal"/>
                     <use xlink:href="${hover.path}#${hover.name}-ic-delete-all" class="hover"/>
                 </svg>
             </li>
@@ -57,12 +49,12 @@ export default ({
 
         <div class="tui-image-editor-controls-buttons">
             <div style="${loadButtonStyle}">
-                ${locale.localize('上传')}
+                ${locale.localize('Load')}
                 <input type="file" class="tui-image-editor-load-btn" />
             </div>
             <button class="tui-image-editor-download-btn" style="${downloadButtonStyle}">
-                ${locale.localize('保存')}
+                ${locale.localize('Download')}
             </button>
         </div>
     </div>
-`;
+`);

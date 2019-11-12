@@ -1,24 +1,16 @@
-export default ({
-    locale,
-    biImage,
-    commonStyle,
-    headerStyle,
-    loadButtonStyle,
-    downloadButtonStyle,
-    submenuStyle
-}) => `
+export default ({locale, biImage, commonStyle, headerStyle, loadButtonStyle, downloadButtonStyle, submenuStyle}) => (`
     <div class="tui-image-editor-main-container" style="${commonStyle}">
         <div class="tui-image-editor-header" style="${headerStyle}">
             <div class="tui-image-editor-header-logo">
-                作业编辑器
+                <img src="${biImage}" />
             </div>
             <div class="tui-image-editor-header-buttons">
                 <div style="${loadButtonStyle}">
-                    ${locale.localize('上传')}
+                    ${locale.localize('Load')}
                     <input type="file" class="tui-image-editor-load-btn" />
                 </div>
                 <button class="tui-image-editor-download-btn" style="${downloadButtonStyle}">
-                    ${locale.localize('保存')}
+                    ${locale.localize('Download')}
                 </button>
             </div>
         </div>
@@ -35,4 +27,4 @@ export default ({
             </div>
         </div>
     </div>
-`;
+`);

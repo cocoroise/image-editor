@@ -2,17 +2,17 @@
  * @param {Locale} locale - Translate text
  * @returns {string}
  */
-export default ({locale}) => `
+export default ({locale}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li class="tui-image-editor-submenu-align">
             <div class="tui-image-editor-checkbox-wrap fixed-width">
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-grayscale">
-                    <label for="tie-grayscale">${locale.localize('灰度')}</label>
+                    <label for="tie-grayscale">${locale.localize('Grayscale')}</label>
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-invert">
-                    <label for="tie-invert">${locale.localize('反转')}</label>
+                    <label for="tie-invert">${locale.localize('Invert')}</label>
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-sepia">
@@ -24,15 +24,15 @@ export default ({locale}) => `
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-blur">
-                    <label for="tie-blur">${locale.localize('模糊')}</label>
+                    <label for="tie-blur">${locale.localize('Blur')}</label>
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-sharpen">
-                    <label for="tie-sharpen">${locale.localize('锐化')}</label>
+                    <label for="tie-sharpen">${locale.localize('Sharpen')}</label>
                 </div>
                 <div class="tui-image-editor-checkbox">
                     <input type="checkbox" id="tie-emboss">
-                    <label for="tie-emboss">${locale.localize('浮雕')}</label>
+                    <label for="tie-emboss">${locale.localize('Emboss')}</label>
                 </div>
             </div>
         </li>
@@ -124,4 +124,4 @@ export default ({locale}) => `
             </div>
         </li>
     </ul>
-`;
+`);

@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => `
+export default ({locale, iconStyle: {normal, active}}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-retate-button">
             <div class="tui-image-editor-button clockwise">
@@ -34,9 +34,9 @@ export default ({locale, iconStyle: {normal, active}}) => `
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('角度')}</label>
+            <label class="range">${locale.localize('Range')}</label>
             <div id="tie-rotate-range"></div>
             <input id="tie-ratate-range-value" class="tui-image-editor-range-value" value="0" />
         </li>
     </ul>
-`;
+`);

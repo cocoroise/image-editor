@@ -1,4 +1,4 @@
-let whiteTheme = {
+var whiteTheme = {
     'common.bi.image': 'https://uicdn.toast.com/toastui/img/tui-image-editor-bi.png',
     'common.bisize.width': '251px',
     'common.bisize.height': '21px',
@@ -15,14 +15,14 @@ let whiteTheme = {
     'loadButton.backgroundColor': '#fff',
     'loadButton.border': '1px solid #ddd',
     'loadButton.color': '#222',
-    'loadButton.fontFamily': "'Noto Sans', sans-serif",
+    'loadButton.fontFamily': '\'Noto Sans\', sans-serif',
     'loadButton.fontSize': '12px',
 
     // download button
     'downloadButton.backgroundColor': '#fdba3b',
     'downloadButton.border': '1px solid #fdba3b',
     'downloadButton.color': '#fff',
-    'downloadButton.fontFamily': "'Noto Sans', sans-serif",
+    'downloadButton.fontFamily': '\'Noto Sans\', sans-serif',
     'downloadButton.fontSize': '12px',
 
     // main icons

@@ -1,4 +1,9 @@
 /**
+ * @fileoverview The standard theme
+ * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
+ */
+
+/**
  * Full configuration for theme.<br>
  * @typedef {object} themeConfig
  * @property {string} common.bi.image - Brand icon image
@@ -145,14 +150,14 @@ export default {
     'loadButton.backgroundColor': '#fff',
     'loadButton.border': '1px solid #ddd',
     'loadButton.color': '#222',
-    'loadButton.fontFamily': "'Noto Sans', sans-serif",
+    'loadButton.fontFamily': '\'Noto Sans\', sans-serif',
     'loadButton.fontSize': '12px',
 
     // download button
     'downloadButton.backgroundColor': '#fdba3b',
     'downloadButton.border': '1px solid #fdba3b',
     'downloadButton.color': '#fff',
-    'downloadButton.fontFamily': "'Noto Sans', sans-serif",
+    'downloadButton.fontFamily': '\'Noto Sans\', sans-serif',
     'downloadButton.fontSize': '12px',
 
     // main icons

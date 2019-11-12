@@ -1,3 +1,7 @@
+/**
+ * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
+ * @fileoverview Graphics module
+ */
 import snippet from 'tui-code-snippet';
 import Promise from 'core-js/library/es6/promise';
 import fabric from 'fabric';
@@ -23,15 +27,7 @@ const components = consts.componentNames;
 const events = consts.eventNames;
 
 const {drawingModes, fObjectOptions} = consts;
-const {
-    extend,
-    stamp,
-    isArray,
-    isString,
-    forEachArray,
-    forEachOwnProperties,
-    CustomEvents
-} = snippet;
+const {extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents} = snippet;
 
 const DEFAULT_CSS_MAX_WIDTH = 1000;
 const DEFAULT_CSS_MAX_HEIGHT = 800;
@@ -55,10 +51,12 @@ const backstoreOnly = {
  * @ignore
  */
 class Graphics {
-    constructor(
-        element,
-        {cssMaxWidth, cssMaxHeight, useItext = false, useDragAddIcon = false} = {}
-    ) {
+    constructor(element, {
+        cssMaxWidth,
+        cssMaxHeight,
+        useItext = false,
+        useDragAddIcon = false
+    } = {}) {
         /**
          * Fabric image instance
          * @type {fabric.Image}
@@ -531,15 +529,12 @@ class Graphics {
         const callback = this._callbackAfterLoadingImageObject.bind(this);
 
         return new Promise(resolve => {
-            fabric.Image.fromURL(
-                imgUrl,
-                image => {
-                    callback(image);
-                    resolve(this.createObjectProperties(image));
-                },
-                {
-                    crossOrigin: 'Anonymous'
-                }
+            fabric.Image.fromURL(imgUrl, image => {
+                callback(image);
+                resolve(this.createObjectProperties(image));
+            }, {
+                crossOrigin: 'Anonymous'
+            }
             );
         });
     }
@@ -901,9 +896,7 @@ class Graphics {
             crossOrigin: 'Anonymous'
         });
 
-        this.getCanvas()
-            .add(obj)
-            .setActiveObject(obj);
+        this.getCanvas().add(obj).setActiveObject(obj);
     }
 
     /**

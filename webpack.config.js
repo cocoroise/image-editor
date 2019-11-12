@@ -1,17 +1,33 @@
+/**
+ * webpack.config.js created on 2016. 12. 01.
+ * @author NHN Ent. FE Development Lab <dl_javascript@nhn.com>
+ */
+const pkg = require('./package.json');
 const webpack = require('webpack');
 const SafeUmdPlugin = require('safe-umd-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const isProduction = process.argv.indexOf('-p') > -1;
 
+const FILENAME = pkg.name + (isProduction ? '.min' : '');
+const BANNER = [
+    `${FILENAME}.js`,
+    `@version ${pkg.version}`,
+    `@author ${pkg.author}`,
+    `@license ${pkg.license}`
+].join('\n');
+
 module.exports = {
+    eslint: {
+        failOnError: isProduction
+    },
     entry: './src/index.js',
     output: {
         library: ['tui', 'ImageEditor'],
         libraryTarget: 'umd',
         path: 'dist',
         publicPath: 'dist',
-        filename: `bundle.js`
+        filename: `${FILENAME}.js`
     },
     externals: {
         'tui-code-snippet': {
@@ -48,16 +64,6 @@ module.exports = {
                 loader: 'babel'
             },
             {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {url: false}
-                    }
-                ]
-            },
-            {
                 test: /\.styl$/,
                 loader: ExtractTextPlugin.extract(
                     'css-loader?sourceMap!stylus-loader?paths=src/css/'
@@ -66,20 +72,15 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin(`bundle.css`),
-        new SafeUmdPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.BannerPlugin(BANNER),
+        new ExtractTextPlugin(`${FILENAME}.css`),
+        new SafeUmdPlugin()
     ],
-    devtool: 'cheap-module-source-map',
     devServer: {
-        hot: true,
         historyApiFallback: false,
         progress: true,
         inline: true,
-        host: 'localhost',
+        host: '0.0.0.0',
         disableHostCheck: true
-    },
-    eslint: {
-        failOnError: isProduction
     }
 };

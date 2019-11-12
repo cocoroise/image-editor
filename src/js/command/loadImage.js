@@ -1,3 +1,7 @@
+/**
+ * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
+ * @fileoverview Load a background (main) image
+ */
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
@@ -19,9 +23,7 @@ const command = {
         const prevImage = loader.getCanvasImage();
         const prevImageWidth = prevImage ? prevImage.width : 0;
         const prevImageHeight = prevImage ? prevImage.height : 0;
-        const objects = graphics
-            .removeAll(true)
-            .filter(objectItem => objectItem.type !== 'cropzone');
+        const objects = graphics.removeAll(true).filter(objectItem => objectItem.type !== 'cropzone');
 
         objects.forEach(objectItem => {
             objectItem.evented = true;

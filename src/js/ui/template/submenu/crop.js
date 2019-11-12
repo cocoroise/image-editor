@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => `
+export default ({locale, iconStyle: {normal, active}}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-crop-preset-button">
             <div class="tui-image-editor-button preset preset-none active">
@@ -16,7 +16,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('自定义')} </label>
+                <label> ${locale.localize('Custom')} </label>
             </div>
             <div class="tui-image-editor-button preset preset-square">
                 <div>
@@ -27,7 +27,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('方形')} </label>
+                <label> ${locale.localize('Square')} </label>
             </div>
             <div class="tui-image-editor-button preset preset-3-2">
                 <div>
@@ -97,7 +97,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     <use xlink:href="${active.path}#${active.name}-ic-apply" class="active"/>
                 </svg>
                 <label>
-                    ${locale.localize('确定')}
+                    ${locale.localize('Apply')}
                 </label>
             </div>
             <div class="tui-image-editor-button cancel">
@@ -106,9 +106,9 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     <use xlink:href="${active.path}#${active.name}-ic-cancel" class="active"/>
                 </svg>
                 <label>
-                    ${locale.localize('取消')}
+                    ${locale.localize('Cancel')}
                 </label>
             </div>
         </li>
     </ul>
-`;
+`);

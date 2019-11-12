@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => `
+export default ({locale, iconStyle: {normal, active}}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-shape-button">
             <div class="tui-image-editor-button rect">
@@ -16,7 +16,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('矩形')} </label>
+                <label> ${locale.localize('Rectangle')} </label>
             </div>
             <div class="tui-image-editor-button circle">
                 <div>
@@ -27,7 +27,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('圆形')} </label>
+                <label> ${locale.localize('Circle')} </label>
             </div>
             <div class="tui-image-editor-button triangle">
                 <div>
@@ -38,23 +38,23 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('三角形')} </label>
+                <label> ${locale.localize('Triangle')} </label>
             </div>
         </li>
         <li class="tui-image-editor-partition">
             <div></div>
         </li>
         <li id="tie-shape-color-button">
-            <div id="tie-color-fill" title="${locale.localize('填充')}"></div>
-            <div id="tie-color-stroke" title="${locale.localize('画笔')}"></div>
+            <div id="tie-color-fill" title="${locale.localize('Fill')}"></div>
+            <div id="tie-color-stroke" title="${locale.localize('Stroke')}"></div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('画笔')}</label>
+            <label class="range">${locale.localize('Stroke')}</label>
             <div id="tie-stroke-range"></div>
             <input id="tie-stroke-range-value" class="tui-image-editor-range-value" value="0" />
         </li>
     </ul>
-`;
+`);

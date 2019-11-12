@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => `
+export default ({locale, iconStyle: {normal, active}}) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-text-effect-button">
             <div class="tui-image-editor-button bold">
@@ -14,7 +14,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     <use xlink:href="${active.path}#${active.name}-ic-text-bold" class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('加粗')} </label>
+                <label> ${locale.localize('Bold')} </label>
             </div>
             <div class="tui-image-editor-button italic">
                 <div>
@@ -23,7 +23,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                     <use xlink:href="${active.path}#${active.name}-ic-text-italic" class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('斜体')} </label>
+                <label> ${locale.localize('Italic')} </label>
             </div>
             <div class="tui-image-editor-button underline">
                 <div>
@@ -34,7 +34,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('下划线')} </label>
+                <label> ${locale.localize('Underline')} </label>
             </div>
         </li>
         <li class="tui-image-editor-partition">
@@ -50,7 +50,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                         class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('左对齐')} </label>
+                <label> ${locale.localize('Left')} </label>
             </div>
             <div class="tui-image-editor-button center">
                 <div>
@@ -61,7 +61,7 @@ export default ({locale, iconStyle: {normal, active}}) => `
                         class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('居中')} </label>
+                <label> ${locale.localize('Center')} </label>
             </div>
             <div class="tui-image-editor-button right">
                 <div>
@@ -72,22 +72,22 @@ export default ({locale, iconStyle: {normal, active}}) => `
                         class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('右对齐')} </label>
+                <label> ${locale.localize('Right')} </label>
             </div>
         </li>
         <li class="tui-image-editor-partition">
             <div></div>
         </li>
         <li>
-            <div id="tie-text-color" title="${locale.localize('颜色')}"></div>
+            <div id="tie-text-color" title="${locale.localize('Color')}"></div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('字体大小')}</label>
+            <label class="range">${locale.localize('Text size')}</label>
             <div id="tie-text-range"></div>
             <input id="tie-text-range-value" class="tui-image-editor-range-value" value="0" />
         </li>
     </ul>
-`;
+`);

@@ -17,7 +17,7 @@ export default ({
     submenuIconSize,
     menuIconSize,
     biSize
-}) => `
+}) => (`
     #tie-icon-add-button.icon-bubble .tui-image-editor-button[data-icontype="icon-bubble"] label,
     #tie-icon-add-button.icon-heart .tui-image-editor-button[data-icontype="icon-heart"] label,
     #tie-icon-add-button.icon-location .tui-image-editor-button[data-icontype="icon-location"] label,
@@ -104,10 +104,5 @@ export default ({
     .tui-image-editor-container .tui-image-editor-header-logo > img {
         ${biSize}
     }
-    .tui-image-editor-header-logo{
-        font-size:24px;
-        font-weight: bold;
-        color:#FDBA3B;
-    }
 
-`;
+`);
