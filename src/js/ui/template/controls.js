@@ -1,8 +1,5 @@
 export default ({locale, biImage, iconStyle: {normal, hover, disabled}, loadButtonStyle, downloadButtonStyle}) => (`
     <div class="tui-image-editor-controls">
-        <div class="tui-image-editor-controls-logo">
-            <img src="${biImage}" />
-        </div>
         <ul class="tui-image-editor-menu">
             <li id="tie-btn-undo" class="tui-image-editor-item">
                 <svg class="svg_ic-menu">
@@ -49,11 +46,11 @@ export default ({locale, biImage, iconStyle: {normal, hover, disabled}, loadButt
 
         <div class="tui-image-editor-controls-buttons">
             <div style="${loadButtonStyle}">
-                ${locale.localize('Load')}
+            上传
                 <input type="file" class="tui-image-editor-load-btn" />
             </div>
             <button class="tui-image-editor-download-btn" style="${downloadButtonStyle}">
-                ${locale.localize('Download')}
+               下载
             </button>
         </div>
     </div>

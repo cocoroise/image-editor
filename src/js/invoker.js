@@ -1,7 +1,4 @@
-/**
- * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
- * @fileoverview Invoker - invoke commands
- */
+
 import snippet from 'tui-code-snippet';
 import Promise from 'core-js/library/es6/promise';
 import commandFactory from './factory/command';
@@ -12,6 +9,7 @@ const {isFunction, isString, CustomEvents} = snippet;
 
 /**
  * Invoker
+ * 保存命令栈，执行命令，用来支持撤销等功能
  * @class
  * @ignore
  */

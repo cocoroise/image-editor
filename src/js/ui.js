@@ -10,9 +10,10 @@ import Flip from './ui/flip';
 import Rotate from './ui/rotate';
 import Text from './ui/text';
 import Mask from './ui/mask';
+import Select from './ui/select';
 import Icon from './ui/icon';
 import Draw from './ui/draw';
-import Filter from './ui/filter';
+// import Filter from './ui/filter';
 import Locale from './ui/locale/locale';
 
 const SUB_UI_COMPONENT = {
@@ -24,7 +25,7 @@ const SUB_UI_COMPONENT = {
     Mask,
     Icon,
     Draw,
-    Filter
+    Select
 };
 
 const BI_EXPRESSION_MINSIZE_WHEN_TOP_POSITION = '1300';
@@ -236,7 +237,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['crop', 'flip', 'rotate', 'draw', 'shape', 'icon', 'text', 'mask', 'filter'],
+            menu: ['select', 'draw', 'text', 'rotate', 'crop', 'flip', 'shape', 'icon', 'mask'],
             initMenu: '',
             uiSize: {
                 width: '100%',
@@ -272,7 +273,6 @@ class Ui {
 
             // menu btn element
             this._els[menuName] = this._menuElement.querySelector(`#tie-btn-${menuName}`);
-
             // submenu ui instance
             this[menuName] = new SubComponentClass(this._subMenuElement, {
                 locale: this._locale,
@@ -308,15 +308,15 @@ class Ui {
             loadButtonStyle: this.theme.getStyle('loadButton'),
             downloadButtonStyle: this.theme.getStyle('downloadButton')
         }) +
-        mainContainer({
-            locale: this._locale,
-            biImage: this.theme.getStyle('common.bi'),
-            commonStyle: this.theme.getStyle('common'),
-            headerStyle: this.theme.getStyle('header'),
-            loadButtonStyle: this.theme.getStyle('loadButton'),
-            downloadButtonStyle: this.theme.getStyle('downloadButton'),
-            submenuStyle: this.theme.getStyle('submenu')
-        });
+            mainContainer({
+                locale: this._locale,
+                biImage: this.theme.getStyle('common.bi'),
+                commonStyle: this.theme.getStyle('common'),
+                headerStyle: this.theme.getStyle('header'),
+                loadButtonStyle: this.theme.getStyle('loadButton'),
+                downloadButtonStyle: this.theme.getStyle('downloadButton'),
+                submenuStyle: this.theme.getStyle('submenu')
+            });
 
         this._selectedElement = selectedElement;
         this._selectedElement.classList.add(this.options.menuBarPosition);
@@ -518,7 +518,7 @@ class Ui {
             this[this.submenu].changeStartMode();
         }
 
-        this.resizeEditor();
+        // this.resizeEditor();
     }
 
     /**

@@ -60,13 +60,13 @@ class Submenu {
      * Interface method whose implementation is optional.
      * Returns the menu to its default state.
      */
-    changeStandbyMode() {}
+    changeStandbyMode() { }
 
     /**
      * Interface method whose implementation is optional.
      * Executed when the menu starts.
      */
-    changeStartMode() {}
+    changeStartMode() { }
 
     /**
      * Make submenu dom element

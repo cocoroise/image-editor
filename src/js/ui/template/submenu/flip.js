@@ -15,7 +15,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Flip X')}
+                   左右翻转
                 </label>
             </div>
             <div class="tui-image-editor-button flipY">
@@ -26,7 +26,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Flip Y')}
+                    上下翻转
                 </label>
             </div>
         </li>

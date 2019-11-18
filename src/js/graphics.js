@@ -15,6 +15,7 @@ import Text from './component/text';
 import Icon from './component/icon';
 import Filter from './component/filter';
 import Shape from './component/shape';
+import Select from './component/select';
 import CropperDrawingMode from './drawingMode/cropper';
 import FreeDrawingMode from './drawingMode/freeDrawing';
 import LineDrawingMode from './drawingMode/lineDrawing';
@@ -46,7 +47,7 @@ const backstoreOnly = {
  * @param {Object} [option] - Canvas max width & height of css
  *  @param {number} option.cssMaxWidth - Canvas css-max-width
  *  @param {number} option.cssMaxHeight - Canvas css-max-height
- *  @param {boolean} option.useItext - Use IText in text mode
+ *  @param {boolean} option.useItext -   IText in text mode
  *  @param {boolean} option.useDragAddIcon - Use dragable add in icon mode
  * @ignore
  */
@@ -141,6 +142,9 @@ class Graphics {
          */
         this._handler = {
             onMouseDown: this._onMouseDown.bind(this),
+            onMouseMove: this._onMouseMove.bind(this),
+            onMouseUp: this._onMouseUp.bind(this),
+            onMouseWheel: this._onMouseWheel.bind(this),
             onObjectAdded: this._onObjectAdded.bind(this),
             onObjectRemoved: this._onObjectRemoved.bind(this),
             onObjectMoved: this._onObjectMoved.bind(this),
@@ -433,6 +437,7 @@ class Graphics {
      */
     adjustCanvasDimension() {
         const canvasImage = this.canvasImage.scale(1);
+
         const {width, height} = canvasImage.getBoundingRect();
         const maxDimension = this._calcMaxDimension(width, height);
 
@@ -817,7 +822,7 @@ class Graphics {
     }
 
     /**
-     * Create components
+     * 创建components 传入graphics参数
      * @private
      */
     _createComponents() {
@@ -831,6 +836,7 @@ class Graphics {
         this._register(this._componentMap, new Icon(this));
         this._register(this._componentMap, new Filter(this));
         this._register(this._componentMap, new Shape(this));
+        this._register(this._componentMap, new Select(this));
     }
 
     /**
@@ -907,6 +913,9 @@ class Graphics {
         const handler = this._handler;
         canvas.on({
             'mouse:down': handler.onMouseDown,
+            'mouse:move': handler.onMouseMove,
+            'mouse:up': handler.onMouseUp,
+            'mouse:wheel': handler.onMouseWheel,
             'object:added': handler.onObjectAdded,
             'object:removed': handler.onObjectRemoved,
             'object:moving': handler.onObjectMoved,
@@ -927,6 +936,41 @@ class Graphics {
     _onMouseDown(fEvent) {
         const originPointer = this._canvas.getPointer(fEvent.e);
         this.fire(events.MOUSE_DOWN, fEvent.e, originPointer);
+    }
+
+    _onMouseMove(fEvent) {
+        const originPointer = this._canvas.getPointer(fEvent.e);
+        this.fire(events.MOUSE_MOVE, fEvent.e, originPointer);
+    }
+
+    _onMouseUp(fEvent) {
+        const originPointer = this._canvas.getPointer(fEvent.e);
+        this.fire(events.MOUSE_UP, fEvent.e, originPointer);
+    }
+
+    /**
+     * "mouse:wheel" canvas event handler
+     * 放大缩小功能
+     * @param {{target: fabric.Object, e: MouseEvent}} fEvent - Fabric event
+     * @private
+     */
+    _onMouseWheel(fEvent) {
+        const delta = fEvent.e.deltaY / 1000;
+        let zoom = this._canvas.getZoom();
+        zoom = zoom + delta;
+        if (zoom > 20) {
+            zoom = 20;
+        }
+        if (zoom < 0.01) {
+            zoom = 0.01;
+        }
+        // this._canvas.setZoom(zoom);
+        this._canvas.zoomToPoint({
+            x: fEvent.e.offsetX,
+            y: fEvent.e.offsetY
+        }, zoom);
+        fEvent.e.preventDefault();
+        fEvent.e.stopPropagation();
     }
 
     /**
@@ -996,8 +1040,10 @@ class Graphics {
      * @private
      */
     _onPathCreated(obj) {
-        obj.path.set(consts.fObjectOptions.SELECTION_STYLE);
-
+        const SELECTION_STYLE = Object.assign({}, consts.fObjectOptions.SELECTION_STYLE);
+        SELECTION_STYLE.originX = 'left';
+        SELECTION_STYLE.originY = 'top';
+        obj.path.set(SELECTION_STYLE);
         const params = this.createObjectProperties(obj.path);
 
         this.fire(events.ADD_OBJECT, params);

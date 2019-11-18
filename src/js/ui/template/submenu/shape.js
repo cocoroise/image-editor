@@ -16,7 +16,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Rectangle')} </label>
+                <label> 方形 </label>
             </div>
             <div class="tui-image-editor-button circle">
                 <div>
@@ -27,7 +27,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Circle')} </label>
+                <label> 圆 </label>
             </div>
             <div class="tui-image-editor-button triangle">
                 <div>
@@ -38,21 +38,21 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Triangle')} </label>
+                <label> 三角形</label>
             </div>
         </li>
         <li class="tui-image-editor-partition">
             <div></div>
         </li>
         <li id="tie-shape-color-button">
-            <div id="tie-color-fill" title="${locale.localize('Fill')}"></div>
-            <div id="tie-color-stroke" title="${locale.localize('Stroke')}"></div>
+            <div id="tie-color-fill" title="填充"></div>
+            <div id="tie-color-stroke" title="颜色"></div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('Stroke')}</label>
+            <label class="range">粗细</label>
             <div id="tie-stroke-range"></div>
             <input id="tie-stroke-range-value" class="tui-image-editor-range-value" value="0" />
         </li>

@@ -123,6 +123,8 @@ class ImageEditor {
         this._handlers = {
             keydown: this._onKeyDown.bind(this),
             mousedown: this._onMouseDown.bind(this),
+            mousemove: this._onMouseMove.bind(this),
+            mouseup: this._onMouseUp.bind(this),
             objectActivated: this._onObjectActivated.bind(this),
             objectMoved: this._onObjectMoved.bind(this),
             objectScaled: this._onObjectScaled.bind(this),
@@ -275,6 +277,8 @@ class ImageEditor {
     _attachGraphicsEvents() {
         this._graphics.on({
             'mousedown': this._handlers.mousedown,
+            'mousemove': this._handlers.mousemove,
+            'mouseup': this._handlers.mouseup,
             'objectMoved': this._handlers.objectMoved,
             'objectScaled': this._handlers.objectScaled,
             'objectActivated': this._handlers.objectActivated,
@@ -406,6 +410,14 @@ class ImageEditor {
          * });
          */
         this.fire(events.MOUSE_DOWN, event, originPointer);
+    }
+
+    _onMouseMove(event, originPointer) {
+        this.fire(events.MOUSE_MOVE, event, originPointer);
+    }
+
+    _onMouseUp(event, originPointer) {
+        this.fire(events.MOUSE_UP, event, originPointer);
     }
 
     /**

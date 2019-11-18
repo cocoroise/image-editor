@@ -34,7 +34,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('Range')}</label>
+            <label class="range">角度</label>
             <div id="tie-rotate-range"></div>
             <input id="tie-ratate-range-value" class="tui-image-editor-range-value" value="0" />
         </li>

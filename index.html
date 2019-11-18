@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>0. Design</title>
+    <title>批改编辑器</title>
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css" rel="stylesheet">
     <link type="text/css" href="../dist/tui-image-editor.css" rel="stylesheet">
     <style>
@@ -25,107 +25,31 @@
     <script type="text/javascript" src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../dist/tui-image-editor.js"></script>
     <script type="text/javascript" src="../examples/js/theme/white-theme.js"></script>
     <script>
-
+        const windowHeight = document.body.clientHeight - 80;
+        const windowWidth = document.body.clientWidth - 80;
         // Image editor
-        var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+        const imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
             includeUI: {
                 loadImage: {
                     path: '../examples/img/sampleImage2.png',
                     name: 'SampleImage'
                 },
                 theme: whiteTheme, // or whiteTheme
-                initMenu: 'filter',
-                menuBarPosition: 'bottom'
+                initMenu: 'draw',
+                menuBarPosition: 'left'
             },
-            cssMaxWidth: 700,
-            cssMaxHeight: 500,
+            cssMaxWidth: windowWidth,
+            cssMaxHeight: windowHeight,
             usageStatistics: false
         });
 
         window.onresize = function () {
             imageEditor.ui.resizeEditor();
         }
-         // zoom
-            // $("#tui-image-editor .tui-image-editor").on("mousewheel", e => {
-            $(".tui-image-editor").on("mousewheel", e => {
-                var imageOriginalSize = {
-                    width: imageEditor._graphics.canvasImage.width,
-                    height: imageEditor._graphics.canvasImage.height
-                }
-                var wDelta = e.originalEvent.wheelDelta || e.originalEvent.deltaY
-                var imageEditorWindow = e.currentTarget
-                var scrollContainer = $(".tui-image-editor-wrap")
-                var initWidth = imageEditorWindow.style.width
-                var initHeight = imageEditorWindow.style.height
-                var scrollContainerInitial = {
-                    top: scrollContainer.scrollTop(),
-                    left: scrollContainer.scrollLeft(),
-                    height: scrollContainer[0].scrollHeight,
-                    width: scrollContainer[0].scrollWidth
-                }
-                var mousePosition = {
-                    top: e.clientY - $(imageEditorWindow).offset().top,
-                    left: e.clientX - $(imageEditorWindow).offset().left
-                }
-                var newWidth
-                var newHeight
-                var offsetY
-                var offsetX
-                // Zoom step 10%
-                if (wDelta > 0) {
-                    newWidth = parseInt(initWidth, 10) * 1.1
-                    newHeight = parseInt(initHeight, 10) * 1.1
-                    // Limit maximum zoom by image resolution
-                    // if (
-                    //     newWidth > imageOriginalSize.width ||
-                    //     newHeight > imageOriginalSize.height
-                    // ) {
-                    //     newWidth = imageOriginalSize.width
-                    //     newHeight = imageOriginalSize.height
-                    // }
-                } else {
-                    newWidth = parseInt(initWidth, 10) * 0.9
-                    newHeight = parseInt(initHeight, 10) * 0.9
-                    // Limit minimum zoom by 0.5 of original container size
-                    if (
-                        parseInt(imageEditorWindow.dataset.minWidth, 10) * 0.5 >
-                        parseInt(newWidth, 10)
-                    ) {
-                        newWidth = parseInt(imageEditorWindow.dataset.minWidth, 10) * 0.5
-                        newHeight = parseInt(imageEditorWindow.dataset.minHeight, 10) * 0.5
-                    }
-                }
-                imageEditorWindow.style.width = newWidth + "px"
-                imageEditorWindow.style.height = newHeight + "px"
-                $(imageEditorWindow)
-                    .find("canvas, .tui-image-editor-canvas-container")
-                    .css("max-width", imageEditorWindow.style.width)
-                    .css("max-height", imageEditorWindow.style.height)
-                // Save initial size of container
-                if (imageEditorWindow.dataset.minHeight === undefined) {
-                    imageEditorWindow.dataset.minHeight = initHeight
-                    imageEditorWindow.dataset.minWidth = initWidth
-                }
-                // Calculate scroll offset for new position
-                offsetY =
-                    (scrollContainer[0].scrollHeight - scrollContainerInitial.height) *
-                    (mousePosition.top / scrollContainerInitial.height)
-                offsetX =
-                    (scrollContainer[0].scrollWidth - scrollContainerInitial.width) *
-                    (mousePosition.left / scrollContainerInitial.width)
-                scrollContainer.scrollTop(scrollContainerInitial.top + offsetY)
-                scrollContainer.scrollLeft(scrollContainerInitial.left + offsetX)
-                e.preventDefault()
-                e.stopPropagation()
-            })
-            // Prevent scroll with wheel
-            $(".tui-image-editor-wrap")[0].onwheel = function() {
-                return false
-            }
     </script>
 </body>
 

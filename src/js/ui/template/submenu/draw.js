@@ -15,7 +15,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Free')}
+                    笔
                 </label>
             </div>
             <div class="tui-image-editor-button line">
@@ -26,7 +26,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Straight')}
+                    直线
                 </label>
             </div>
         </li>
@@ -34,13 +34,13 @@ export default ({locale, iconStyle: {normal, active}}) => (`
             <div></div>
         </li>
         <li>
-            <div id="tie-draw-color" title="${locale.localize('Color')}"></div>
+            <div id="tie-draw-color" title="颜色"></div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
-            <label class="range">${locale.localize('Range')}</label>
+            <label class="range">粗细</label>
             <div id="tie-draw-range"></div>
             <input id="tie-draw-range-value" class="tui-image-editor-range-value" value="0" />
         </li>

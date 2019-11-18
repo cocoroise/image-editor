@@ -14,6 +14,7 @@ module.exports = {
         'CROPPER',
         'FLIP',
         'ROTATION',
+        'SELECT',
         'FREE_DRAWING',
         'LINE',
         'TEXT',
@@ -64,9 +65,11 @@ module.exports = {
         ADD_TEXT: 'addText',
         ADD_OBJECT: 'addObject',
         ADD_OBJECT_AFTER: 'addObjectAfter',
+        // MOUSE EVENTS
         MOUSE_DOWN: 'mousedown',
         MOUSE_UP: 'mouseup',
         MOUSE_MOVE: 'mousemove',
+        MOUSE_WHEEL: 'mousewheel',
         // UNDO/REDO Events
         REDO_STACK_CHANGED: 'redoStackChanged',
         UNDO_STACK_CHANGED: 'undoStackChanged',

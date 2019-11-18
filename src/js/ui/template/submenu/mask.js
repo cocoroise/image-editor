@@ -15,7 +15,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                         <use xlink:href="${active.path}#${active.name}-ic-mask-load" class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Load Mask Image')} </label>
+                <label> 上传贴图 </label>
             </div>
         </li>
         <li class="tui-image-editor-partition only-left-right">
@@ -28,7 +28,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     <use xlink:href="${active.path}#${active.name}-ic-apply" class="active"/>
                 </svg>
                 <label>
-                    ${locale.localize('Apply')}
+                    确认
                 </label>
             </div>
         </li>

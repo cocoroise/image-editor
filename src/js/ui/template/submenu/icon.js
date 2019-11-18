@@ -17,7 +17,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Arrow')}
+                    箭头
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-arrow-2">
@@ -30,7 +30,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Arrow-2')}
+                    箭头2
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-arrow-3">
@@ -43,7 +43,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Arrow-3')}
+                    箭头3
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-star">
@@ -54,7 +54,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Star-1')}
+                    星形1
                 </label>
             </div>
             <div class="tui-image-editor-button" data-icontype="icon-star-2">
@@ -67,7 +67,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Star-2')}
+                    星形2
                 </label>
             </div>
 
@@ -81,7 +81,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Polygon')}
+                    多边形
                 </label>
             </div>
 
@@ -95,7 +95,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Location')}
+                    位置
                 </label>
             </div>
 
@@ -109,7 +109,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Heart')}
+                    心形
                 </label>
             </div>
 
@@ -123,7 +123,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Bubble')}
+                    气泡
                 </label>
             </div>
         </li>
@@ -140,7 +140,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     </svg>
                 </div>
                 <label>
-                    ${locale.localize('Custom icon')}
+                    自定义形状
                 </label>
             </div>
         </li>
@@ -148,7 +148,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
             <div></div>
         </li>
         <li>
-            <div id="tie-icon-color" title="${locale.localize('Color')}"></div>
+            <div id="tie-icon-color" title="颜色"></div>
         </li>
     </ul>
 `);

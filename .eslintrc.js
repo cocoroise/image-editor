@@ -22,6 +22,8 @@ module.exports = {
             VariableDeclarator: { array: true, object: true },
             AssignmentExpression: { array: false, object: false }
         }],
-        "linebreak-style": ['error', 'windows']
+        "linebreak-style": ['error', 'windows'],
+        "no-unused-vars": "off",
+        "no-console": "off"
     }
 };

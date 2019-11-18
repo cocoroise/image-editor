@@ -16,6 +16,7 @@ export default {
             crop: this._cropAction(),
             flip: this._flipAction(),
             rotate: this._rotateAction(),
+            select: this._selectAction(),
             text: this._textAction(),
             mask: this._maskAction(),
             draw: this._drawAction(),
@@ -221,6 +222,7 @@ export default {
         return extend({
             setDrawMode: (type, settings) => {
                 this.stopDrawingMode();
+
                 if (type === 'free') {
                     this.startDrawingMode('FREE_DRAWING', settings);
                 } else {
@@ -281,13 +283,23 @@ export default {
         return extend({
             rotate: (angle, isSilent) => {
                 this.rotate(angle, isSilent);
-                this.ui.resizeEditor();
+                // this.ui.resizeEditor();
                 this.ui.rotate.setRangeBarAngle('rotate', angle);
             },
             setAngle: (angle, isSilent) => {
                 this.setAngle(angle, isSilent);
-                this.ui.resizeEditor();
+                // this.ui.resizeEditor();
                 this.ui.rotate.setRangeBarAngle('setAngle', angle);
+            }
+        }, this._commonAction());
+    },
+    // 选择action
+    _selectAction() {
+        return extend({
+            setDrag: dragValue => {
+                // hack???
+                this._graphics.getComponent('SELECT').setDrag(dragValue);
+                // this.ui.changeMenu('select');
             }
         }, this._commonAction());
     },
@@ -333,6 +345,7 @@ export default {
                 this.stopDrawingMode();
                 this.ui.changeMenu('crop');
             },
+            // eslint-disable-next-line complexity
             preset: presetType => {
                 switch (presetType) {
                     case 'preset-square':

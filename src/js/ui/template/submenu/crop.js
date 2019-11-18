@@ -16,7 +16,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Custom')} </label>
+                <label> 自定义</label>
             </div>
             <div class="tui-image-editor-button preset preset-square">
                 <div>
@@ -27,7 +27,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> ${locale.localize('Square')} </label>
+                <label> 正方形 </label>
             </div>
             <div class="tui-image-editor-button preset preset-3-2">
                 <div>
@@ -97,7 +97,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     <use xlink:href="${active.path}#${active.name}-ic-apply" class="active"/>
                 </svg>
                 <label>
-                    ${locale.localize('Apply')}
+                    确定
                 </label>
             </div>
             <div class="tui-image-editor-button cancel">
@@ -106,7 +106,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                     <use xlink:href="${active.path}#${active.name}-ic-cancel" class="active"/>
                 </svg>
                 <label>
-                    ${locale.localize('Cancel')}
+                    取消
                 </label>
             </div>
         </li>

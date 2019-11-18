@@ -18,9 +18,6 @@ const BANNER = [
 ].join('\n');
 
 module.exports = {
-    eslint: {
-        failOnError: isProduction
-    },
     entry: './src/index.js',
     output: {
         library: ['tui', 'ImageEditor'],
@@ -72,15 +69,16 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.BannerPlugin(BANNER),
+        // new webpack.BannerPlugin(BANNER),
         new ExtractTextPlugin(`${FILENAME}.css`),
         new SafeUmdPlugin()
     ],
+    devtool: 'cheap-module-source-map',
     devServer: {
         historyApiFallback: false,
         progress: true,
         inline: true,
-        host: '0.0.0.0',
+        host: 'localhost',
         disableHostCheck: true
     }
 };
