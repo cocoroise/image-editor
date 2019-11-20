@@ -64,6 +64,7 @@ class FreeDrawing extends Component {
         const canvas = this.getCanvas();
 
         canvas.isDrawingMode = false;
+        canvas.renderAll();
     }
 }
 

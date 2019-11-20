@@ -4,8 +4,8 @@ import templateHtml from './template/submenu/rotate';
 import {toInteger} from '../util';
 import {defaultRotateRangeValus} from '../consts';
 
-const CLOCKWISE = 30;
-const COUNTERCLOCKWISE = -30;
+const CLOCKWISE = 90;
+const COUNTERCLOCKWISE = -90;
 
 /**
  * Rotate ui class

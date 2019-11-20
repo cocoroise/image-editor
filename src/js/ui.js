@@ -579,11 +579,13 @@ class Ui {
                 } else {
                     top = 150 / 2;
                 }
+                // 去掉了画板会往右移一下的功能
             } else if (menuBarPosition === 'left') {
                 if (width > this._editorElementWrap.offsetWidth - 248) {
-                    left = (248 / 2) - ((width - (this._editorElementWrap.offsetWidth - 248)) / 2);
+                    // left = (248 / 2) - ((width - (this._editorElementWrap.offsetWidth - 248)) / 2);
                 } else {
-                    left = 248 / 2;
+                    // left = 248 / 2;
+
                 }
             } else if (menuBarPosition === 'right') {
                 if (width > this._editorElementWrap.scrollWidth - 248) {

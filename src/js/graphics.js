@@ -448,9 +448,13 @@ class Graphics {
             'max-height': `${maxDimension.height}px`
         });
 
+        // this.setCanvasBackstoreDimension({
+        //     width,
+        //     height
+        // });
         this.setCanvasBackstoreDimension({
-            width,
-            height
+            width: maxDimension.width,
+            height: maxDimension.height
         });
         this._canvas.centerObject(canvasImage);
     }
@@ -764,6 +768,15 @@ class Graphics {
         };
     }
 
+    setCanvasSize(width, height) {
+        const image = this.getCanvasImage();
+
+        image.set({
+            width,
+            height
+        });
+    }
+
     /**
      * Get a DrawingMode instance
      * @param {string} modeName - DrawingMode Class Name
@@ -958,17 +971,15 @@ class Graphics {
         const delta = fEvent.e.deltaY / 1000;
         let zoom = this._canvas.getZoom();
         zoom = zoom + delta;
-        if (zoom > 20) {
-            zoom = 20;
+        if (zoom > 5) {
+            zoom = 5;
         }
-        if (zoom < 0.01) {
-            zoom = 0.01;
+        if (zoom < 1) {
+            zoom = 1;
         }
-        // this._canvas.setZoom(zoom);
-        this._canvas.zoomToPoint({
-            x: fEvent.e.offsetX,
-            y: fEvent.e.offsetY
-        }, zoom);
+        this._canvas.setZoom(zoom);
+        // 更新vptCoords的坐标
+        this._canvas.calcViewportBoundaries();
         fEvent.e.preventDefault();
         fEvent.e.stopPropagation();
     }

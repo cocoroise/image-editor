@@ -46,7 +46,7 @@ class Rotation extends Component {
 
         const canvasImage = this.getCanvasImage();
         const oldImageCenter = canvasImage.getCenterPoint();
-        canvasImage.set({angle}).setCoords();
+        canvasImage.set({angle}).setCoords(true);
         this.adjustCanvasDimension();
         const newImageCenter = canvasImage.getCenterPoint();
         this._rotateForEachObject(oldImageCenter, newImageCenter, angle - oldAngle);
@@ -67,12 +67,13 @@ class Rotation extends Component {
             x: oldImageCenter.x - newImageCenter.x,
             y: oldImageCenter.y - newImageCenter.y
         };
-
-        canvas.forEachObject(obj => {
+        console.log('canvas', canvas.getWidth(), canvas.getHeight());
+        console.log('getCanvasSize', this.graphics.getCanvasSize());
+        // this.graphics.setCanvasSize(canvas.getWidth(), canvas.setWidth());
+        canvas.forEachObject((obj, index) => {
             const objCenter = obj.getCenterPoint();
             const radian = fabric.util.degreesToRadians(angleDiff);
             const newObjCenter = fabric.util.rotatePoint(objCenter, oldImageCenter, radian);
-
             obj.set({
                 left: newObjCenter.x - centerDiff.x,
                 top: newObjCenter.y - centerDiff.y,

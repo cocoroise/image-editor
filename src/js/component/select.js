@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 /**
  * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
  * @fileoverview Image rotation module
@@ -6,7 +7,7 @@ import fabric from 'fabric';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {componentNames} = consts;
+const { componentNames } = consts;
 
 /**
  * Image Select Component
@@ -43,7 +44,8 @@ class Select extends Component {
         // 设置别的object都不可点击
         canvas.forEachObject(obj => {
             obj.set({
-                evented: false
+                evented: false,
+                selectable: false
             });
         });
 
@@ -57,13 +59,14 @@ class Select extends Component {
 
         canvas.defaultCursor = 'default';
 
+        canvas.off('mouse:down', this._listeners.mousedown);
         this.isDragging = false;
         canvas.forEachObject(obj => {
             obj.set({
-                evented: true
+                evented: true,
+                selectable: true
             });
         });
-        canvas.off('mouse:down', this._listeners.mousedown);
     }
 
     /**
@@ -86,12 +89,32 @@ class Select extends Component {
     // fabric canvas的mousemove
     _onFabricMouseMove(fEvent) {
         const canvas = this.getCanvas();
-        const pointer = canvas.getPointer(fEvent.e);
         if (this.isDragging) {
             // eslint-disable-next-line prefer-destructuring
             const e = fEvent.e;
-            canvas.viewportTransform[4] += e.clientX - this.lastPosX;
-            canvas.viewportTransform[5] += e.clientY - this.lastPosY;
+            const vpt = canvas.viewportTransform;
+            const zoom = canvas.getZoom();
+            const offsetX = e.clientX - this.lastPosX;
+            const offsetY = e.clientY - this.lastPosY;
+
+            // viewportTransform 4/5是偏移px
+            vpt[4] += offsetX;
+            vpt[5] += offsetY;
+            const width = canvas.getWidth();
+            const height = canvas.getHeight();
+
+            // 限制画布拖动位置
+            if (vpt[4] >= 0) {
+                vpt[4] = 0;
+            } else if (vpt[4] <= width - width * zoom) {
+                vpt[4] = width - width * zoom;
+            }
+            if (vpt[5] >= 0) {
+                vpt[5] = 0;
+            } else if (vpt[5] <= height - height * zoom) {
+                vpt[5] = height - height * zoom;
+            }
+
             canvas.renderAll();
             this.lastPosX = e.clientX;
             this.lastPosY = e.clientY;
