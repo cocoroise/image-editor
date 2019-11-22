@@ -27,8 +27,8 @@ import util from './util';
 const components = consts.componentNames;
 const events = consts.eventNames;
 
-const {drawingModes, fObjectOptions} = consts;
-const {extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents} = snippet;
+const { drawingModes, fObjectOptions } = consts;
+const { extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents } = snippet;
 
 const DEFAULT_CSS_MAX_WIDTH = 1000;
 const DEFAULT_CSS_MAX_HEIGHT = 800;
@@ -166,7 +166,7 @@ class Graphics {
      * Destroy canvas element
      */
     destroy() {
-        const {wrapperEl} = this._canvas;
+        const { wrapperEl } = this._canvas;
 
         this._canvas.clear();
 
@@ -438,7 +438,7 @@ class Graphics {
     adjustCanvasDimension() {
         const canvasImage = this.canvasImage.scale(1);
 
-        const {width, height} = canvasImage.getBoundingRect();
+        const { width, height } = canvasImage.getBoundingRect();
         const maxDimension = this._calcMaxDimension(width, height);
 
         this.setCanvasCssDimension({
@@ -447,7 +447,6 @@ class Graphics {
             'max-width': `${maxDimension.width}px`,
             'max-height': `${maxDimension.height}px`
         });
-
         this.setCanvasBackstoreDimension({
             width: maxDimension.width,
             height: maxDimension.height
@@ -480,7 +479,7 @@ class Graphics {
      * @param {boolean} [withRendering] - If true, The changed image will be reflected in the canvas
      */
     setImageProperties(setting, withRendering) {
-        const {canvasImage} = this;
+        const { canvasImage } = this;
 
         if (!canvasImage) {
             return;
@@ -731,7 +730,7 @@ class Graphics {
      */
     setObjectPosition(id, posInfo) {
         const targetObj = this.getObject(id);
-        const {x, y, originX, originY} = posInfo;
+        const { x, y, originX, originY } = posInfo;
         if (!targetObj) {
             return false;
         }
@@ -964,7 +963,11 @@ class Graphics {
         if (zoom < 1) {
             zoom = 1;
         }
-        this._canvas.setZoom(zoom);
+        // this._canvas.setZoom(zoom);
+        this._canvas.zoomToPoint({
+            x: fEvent.e.offsetX,
+            y: fEvent.e.offsetY
+        }, zoom);
         // 更新vptCoords的坐标
         this._canvas.calcViewportBoundaries();
         fEvent.e.preventDefault();
@@ -1002,7 +1005,7 @@ class Graphics {
      * @private
      */
     _onObjectMoved(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_MOVED, params);
@@ -1014,7 +1017,7 @@ class Graphics {
      * @private
      */
     _onObjectScaled(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_SCALED, params);
@@ -1026,7 +1029,7 @@ class Graphics {
      * @private
      */
     _onObjectSelected(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_ACTIVATED, params);

@@ -78,6 +78,9 @@ class Cropper extends Component {
             return;
         }
         const canvas = this.getCanvas();
+        canvas.setZoom(1);
+        this.getCanvasImage().viewportCenter().setCoords();
+        canvas.renderAll();
 
         canvas.forEachObject(obj => { // {@link http://fabricjs.com/docs/fabric.Object.html#evented}
             obj.evented = false;
