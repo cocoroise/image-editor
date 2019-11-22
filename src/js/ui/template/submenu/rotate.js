@@ -16,7 +16,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> 30 </label>
+                <label> 90 </label>
             </div>
             <div class="tui-image-editor-button counterclockwise">
                 <div>
@@ -27,7 +27,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                             class="active"/>
                     </svg>
                 </div>
-                <label> -30 </label>
+                <label> -90 </label>
             </div>
         </li>
         <li class="tui-image-editor-partition only-left-right">

@@ -22,12 +22,15 @@ class FreeDrawing extends Component {
          * @type {number}
          */
         this.width = 12;
-
+        this.setting = null;
         /**
          * fabric.Color instance for brush color
          * @type {fabric.Color}
          */
         this.oColor = new fabric.Color('rgba(0, 0, 0, 0.5)');
+        this._listeners = {
+            mouseup: this._onFabricMouseUp.bind(this)
+        };
     }
 
     /**
@@ -38,7 +41,11 @@ class FreeDrawing extends Component {
         const canvas = this.getCanvas();
 
         canvas.isDrawingMode = true;
+        this.setting = setting;
         this.setBrush(setting);
+        canvas.on({
+            'mouse:up': this._listeners.mouseup
+        });
     }
 
     /**
@@ -49,6 +56,7 @@ class FreeDrawing extends Component {
         const brush = this.getCanvas().freeDrawingBrush;
 
         setting = setting || {};
+        this.setting = setting;
         this.width = setting.width || this.width;
         if (setting.color) {
             this.oColor = new fabric.Color(setting.color);
@@ -62,9 +70,19 @@ class FreeDrawing extends Component {
      */
     end() {
         const canvas = this.getCanvas();
-
+        canvas.off({
+            'mouse:up': this._listeners.mouseup
+        });
         canvas.isDrawingMode = false;
         canvas.renderAll();
+    }
+
+    _onFabricMouseUp() {
+        const canvas = this.getCanvas();
+        // 这样可以解决画完之后放大笔迹有残留的bug
+        canvas.isDrawingMode = false;
+        canvas.renderAll();
+        canvas.isDrawingMode = true;
     }
 }
 

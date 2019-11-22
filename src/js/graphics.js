@@ -433,7 +433,7 @@ class Graphics {
     }
 
     /**
-     * Adjust canvas dimension with scaling image
+     * 适配canvas缩放到image的比例
      */
     adjustCanvasDimension() {
         const canvasImage = this.canvasImage.scale(1);
@@ -448,10 +448,6 @@ class Graphics {
             'max-height': `${maxDimension.height}px`
         });
 
-        // this.setCanvasBackstoreDimension({
-        //     width,
-        //     height
-        // });
         this.setCanvasBackstoreDimension({
             width: maxDimension.width,
             height: maxDimension.height
@@ -768,15 +764,6 @@ class Graphics {
         };
     }
 
-    setCanvasSize(width, height) {
-        const image = this.getCanvasImage();
-
-        image.set({
-            width,
-            height
-        });
-    }
-
     /**
      * Get a DrawingMode instance
      * @param {string} modeName - DrawingMode Class Name
@@ -1052,6 +1039,7 @@ class Graphics {
      */
     _onPathCreated(obj) {
         const SELECTION_STYLE = Object.assign({}, consts.fObjectOptions.SELECTION_STYLE);
+        // 如果改了这里画笔的位置会不对但是旋转是对的
         SELECTION_STYLE.originX = 'left';
         SELECTION_STYLE.originY = 'top';
         obj.path.set(SELECTION_STYLE);

@@ -111,8 +111,8 @@ module.exports = {
             borderColor: 'red',
             cornerColor: 'green',
             cornerSize: 10,
-            originX: 'center',
-            originY: 'center',
+            originX: 'center', // left | right | center
+            originY: 'center', // top | bottom | center
             transparentCorners: false
         }
     },
