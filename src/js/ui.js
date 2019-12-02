@@ -28,7 +28,7 @@ const SUB_UI_COMPONENT = {
     Select
 };
 
-const BI_EXPRESSION_MINSIZE_WHEN_TOP_POSITION = '1300';
+const BI_EXPRESSION_MINSIZE_WHEN_TOP_POSITION = '1800';
 
 /**
  * Ui class
@@ -65,6 +65,7 @@ class Ui {
         this._makeUiElement(element);
         this._setUiSize();
         this._initMenuEvent = false;
+        this.selectIndex = 0;
 
         this._els = {
             'undo': this._menuElement.querySelector('#tie-btn-undo'),
@@ -73,7 +74,14 @@ class Ui {
             'delete': this._menuElement.querySelector('#tie-btn-delete'),
             'deleteAll': this._menuElement.querySelector('#tie-btn-delete-all'),
             'download': this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
-            'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
+            'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn'),
+            'paperList': this._selectedElement.querySelector('#paper_list_btn'),
+            'paperListBox': null,
+            'paperPre': this._selectedElement.querySelector('#paper_list_pre'), // 上一题 题下有很多作业
+            'paperNext': this._selectedElement.querySelector('#paper_list_next'),
+            'paperImagePre': this._selectedElement.querySelector('#papaer_image_pre'), // 上一个作业
+            'paperImageNext': this._selectedElement.querySelector('#papaer_image_next'),
+            'paperReset': this._selectedElement.querySelector('#paper_reset')
         };
 
         this._makeSubMenu();
@@ -387,6 +395,77 @@ class Ui {
         });
     }
 
+    _addGetPaperEvent() {
+        this._els.paperList.addEventListener('click', e => {
+            const paperListContaienr = this._selectedElement.querySelector('.tui-image-editor-header-papers');
+            paperListContaienr.classList.toggle('displayNone');
+        });
+    }
+
+    _addChangePaperEvent() {
+        snippet.forEach(this._els.paperListBox, element => {
+            element.addEventListener('click', e => {
+                this._changeImage(e.target.dataset.index);
+            });
+        });
+    }
+
+    // 切上下作业的图片
+    _addChangePaperStepEvent() {
+        this._els.paperImagePre.addEventListener('click', e => {
+            this._changeImage(this.selectIndex - 1);
+        });
+        this._els.paperImageNext.addEventListener('click', e => {
+            this._changeImage(this.selectIndex + 1);
+        });
+    }
+
+    // 加载所有的试卷
+    _loadAllPapers() {
+        const imageLists = ['https://q-independent.aixuexi.com/B:1019:K/1564934400/46ffb802aab84ae59f42033a2f086b4f.JPEG', 'https://q-independent.aixuexi.com/B:1019:K/1564934400/b6b8168ac96e4079bb5b7657e39a88af.JPEG', 'https://q-independent.aixuexi.com/B:1019:K/1565020800/f3fa95c33bfe45268ef1e6d6f7a98224.jpg', 'https://q-independent.aixuexi.com/B:1019:K/1565020800/e8f0d6162c9d4bb6ad5614748728a766.jpg'];
+        const imageBoxRef = this._selectedElement.querySelector('.tui-image-editor-header-papers-container');
+        const allImageRef = imageLists.map((imageUrl, index) => {
+            if (index === 0) {
+                return `<img data-index="${index}" class="tui-image-editor-header-papers-box tui-image-editor-selectedBox" src="${imageUrl}"/>`;
+            }
+
+            return `<img data-index="${index}" class="tui-image-editor-header-papers-box" src="${imageUrl}"/>`;
+        });
+        imageBoxRef.innerHTML = allImageRef;
+        this._els.paperListBox = this._selectedElement.querySelectorAll('.tui-image-editor-header-papers-box');
+        this._addGetPaperEvent(); // 获取作业列表
+        this._addChangePaperEvent(); // 点击更换
+        this._addChangePaperStepEvent(); // 点击切换上下作业
+    }
+
+    _changeImage(index) {
+        const srcList = [];
+        snippet.forEach(this._els.paperListBox, element => {
+            srcList.push(element.src);
+        });
+        if (index < 0) {
+            this.selectIndex = 0;
+        } else if (index >= srcList.length) {
+            this.selectIndex = srcList.length - 1;
+        } else {
+            this.selectIndex = index;
+        }
+
+        snippet.forEach(this._els.paperListBox, element => {
+            element.classList.remove('tui-image-editor-selectedBox');
+        });
+        this._els.paperListBox[this.selectIndex].classList.add('tui-image-editor-selectedBox');
+        this._actions.main.initLoadImage(srcList[this.selectIndex], 'paperName');
+        this._actions.main.resetCanvas();
+    }
+
+    // 清空canvas 去掉所有object 旋转和zoom和偏移还原
+    _addResetPaperEvent() {
+        this._els.paperReset.addEventListener('click', () => {
+            this._actions.main.resetCanvas();
+        });
+    }
+
     /**
      * Add menu event
      * @param {string} menuName - menu name
@@ -425,6 +504,9 @@ class Ui {
             return;
         }
 
+        // 加载所有的试卷列表
+        this._loadAllPapers();
+
         this._addHelpActionEvent('undo');
         this._addHelpActionEvent('redo');
         this._addHelpActionEvent('reset');
@@ -432,6 +514,7 @@ class Ui {
         this._addHelpActionEvent('deleteAll');
 
         this._addDownloadEvent();
+        this._addResetPaperEvent();
 
         snippet.forEach(this.options.menu, menuName => {
             this._addMenuEvent(menuName);
@@ -518,7 +601,7 @@ class Ui {
             this[this.submenu].changeStartMode();
         }
 
-        // this.resizeEditor();
+        this.resizeEditor();
     }
 
     /**
@@ -563,38 +646,9 @@ class Ui {
     _setEditorPosition(menuBarPosition) { // eslint-disable-line complexity
         const {width, height} = this._getEditorDimension();
         const editorElementStyle = this._editorElement.style;
-        let top = 0;
-        let left = 0;
+        const top = 0;
+        const left = 0;
 
-        if (this.submenu) {
-            if (menuBarPosition === 'bottom') {
-                if (height > this._editorElementWrap.scrollHeight - 150) {
-                    top = (height - this._editorElementWrap.scrollHeight) / 2;
-                } else {
-                    top = (150 / 2) * -1;
-                }
-            } else if (menuBarPosition === 'top') {
-                if (height > this._editorElementWrap.offsetHeight - 150) {
-                    top = (150 / 2) - ((height - (this._editorElementWrap.offsetHeight - 150)) / 2);
-                } else {
-                    top = 150 / 2;
-                }
-                // 去掉了画板会往右移一下的功能
-            } else if (menuBarPosition === 'left') {
-                if (width > this._editorElementWrap.offsetWidth - 248) {
-                    // left = (248 / 2) - ((width - (this._editorElementWrap.offsetWidth - 248)) / 2);
-                } else {
-                    // left = 248 / 2;
-
-                }
-            } else if (menuBarPosition === 'right') {
-                if (width > this._editorElementWrap.scrollWidth - 248) {
-                    left = (width - this._editorElementWrap.scrollWidth) / 2;
-                } else {
-                    left = (248 / 2) * -1;
-                }
-            }
-        }
         editorElementStyle.top = `${top}px`;
         editorElementStyle.left = `${left}px`;
     }

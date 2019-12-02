@@ -30,8 +30,8 @@
     <script type="text/javascript" src="../dist/tui-image-editor.js"></script>
     <script type="text/javascript" src="../examples/js/theme/white-theme.js"></script>
     <script>
-        const windowHeight = document.body.clientHeight;
-        const windowWidth = document.body.clientWidth;
+        const windowHeight = document.body.clientHeight - 80;
+        const windowWidth = document.body.clientWidth - 80;
         // Image editor
         const imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
             includeUI: {
@@ -39,16 +39,20 @@
                     path: 'https://q-independent.aixuexi.com/B:1019:K/1564934400/46ffb802aab84ae59f42033a2f086b4f.JPEG',
                     name: 'SampleImage'
                 },
+                // loadImage: {
+                //     path: '../examples/img/sampleImage2.jpg',
+                //     name: 'SampleImage'
+                // },
                 theme: whiteTheme, // or whiteTheme
                 initMenu: 'select',
                 menuBarPosition: 'left'
             },
-            cssMaxWidth: windowWidth,
+            cssMaxWidth: 2000,
             cssMaxHeight: windowHeight,
             usageStatistics: false
         });
         // TODO:去掉
-        // document.getElementsByClassName("tui-image-editor-canvas-container")[0].setAttribute("style", "border:10px solid red;")
+        document.getElementsByClassName("tui-image-editor-canvas-container")[0].setAttribute("style", "border:10px solid red;")
 
         window.onresize = function () {
             imageEditor.ui.resizeEditor();

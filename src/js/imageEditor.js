@@ -114,7 +114,6 @@ class ImageEditor {
                 useDragAddIcon: !!this.ui
             }
         );
-
         /**
          * Event handler list
          * @type {Object}

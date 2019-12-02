@@ -54,6 +54,8 @@ export default {
                     exitCropOnAction();
                     this.ui.initializeImgUrl = imagePath;
                     this.ui.resizeEditor({imageSize: sizeValue});
+                    this._graphics.adjustCanvasDimension();
+                    this._graphics.renderAll();
                     this.clearUndoStack();
                 })
             ),
@@ -120,6 +122,9 @@ export default {
                     w = window.open();
                     w.document.body.innerHTML = `<img src='${dataURL}'>`;
                 }
+            },
+            resetCanvas: () => {
+                this._graphics.resetCanvas();
             }
         }, this._commonAction());
     },

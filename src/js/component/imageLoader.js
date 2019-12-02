@@ -65,10 +65,10 @@ class ImageLoader extends Component {
         if (!img) {
             return Promise.reject(rejectMessages.loadImage);
         }
+        // img = this.compressImage(img);
 
         return new Promise((resolve, reject) => {
             const canvas = this.getCanvas();
-
             canvas.setBackgroundImage(img, () => {
                 const oImage = canvas.backgroundImage;
 
@@ -79,6 +79,43 @@ class ImageLoader extends Component {
                 }
             }, imageOption);
         });
+    }
+
+    compressImage(img) {
+        const reader = new FileReader();
+        reader.onload = event => {
+            const image = new Image();
+            const opts = {};
+            image.onload = () => {
+                const imgInstance = new fabric.Image(image, opts);
+                if (imgInstance.getWidth() > this.graphics._canvas.getWidth()) {
+                    imgInstance.scaleToWidth(this.graphics._canvas.getWidth());
+                }
+                if (imgInstance.getHeight() > this.graphics._canvas.getHeight()) {
+                    imgInstance.scaleToHeight(this.graphics._canvas.getHeight());
+                }
+                this.graphics._canvas.add(imgInstance);
+                this.graphics._canvas.renderAll();
+                img = null;
+
+                const photoObjIx = 0;
+                const originalPhotoObject = this.graphics._canvas.getObjects()[photoObjIx];
+                const nImg = new Image();
+                nImg.onload = () => {
+                    const imgNInstance = new fabric.Image(nImg, {selectable: false});
+                    // 移除刚刚的图片
+                    this.graphics._canvas.remove(originalPhotoObject);
+
+                    return imgNInstance;
+                    // this.graphics._canvs.add(imgNInstance);
+                    // this.graphics._canvas.renderAll();
+                    // nImg = null;
+                };
+                nImg.src = originalPhotoObject.toDataURL();
+            };
+            image.src = event.target.result;
+        };
+        reader.readAsDataURL(img);
     }
 }
 

@@ -27,11 +27,11 @@ import util from './util';
 const components = consts.componentNames;
 const events = consts.eventNames;
 
-const { drawingModes, fObjectOptions } = consts;
-const { extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents } = snippet;
+const {drawingModes, fObjectOptions} = consts;
+const {extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents} = snippet;
 
-const DEFAULT_CSS_MAX_WIDTH = 1000;
-const DEFAULT_CSS_MAX_HEIGHT = 800;
+const DEFAULT_CSS_MAX_WIDTH = 2000;
+const DEFAULT_CSS_MAX_HEIGHT = 2000;
 
 const cssOnly = {
     cssOnly: true
@@ -166,7 +166,7 @@ class Graphics {
      * Destroy canvas element
      */
     destroy() {
-        const { wrapperEl } = this._canvas;
+        const {wrapperEl} = this._canvas;
 
         this._canvas.clear();
 
@@ -437,21 +437,32 @@ class Graphics {
      */
     adjustCanvasDimension() {
         const canvasImage = this.canvasImage.scale(1);
+        this._canvas.setZoom(1);
+        this._canvas.calcViewportBoundaries();
 
-        const { width, height } = canvasImage.getBoundingRect();
+        // ! 参数：use coordinates without viewportTransform
+        const {width, height} = canvasImage.getBoundingRect(true);
         const maxDimension = this._calcMaxDimension(width, height);
-
+        this.setCanvasBackstoreDimension({
+            width,
+            height
+        });
         this.setCanvasCssDimension({
             width: '100%',
             height: '100%', // Set height '' for IE9
             'max-width': `${maxDimension.width}px`,
             'max-height': `${maxDimension.height}px`
         });
-        this.setCanvasBackstoreDimension({
-            width: maxDimension.width,
-            height: maxDimension.height
-        });
         this._canvas.centerObject(canvasImage);
+        this.renderAll();
+    }
+
+    // 把画布重置为初始状态 笔迹和图形不消失 方便上传服务器
+    resetCanvas() {
+        const vpt = this._canvas.viewportTransform;
+        vpt[4] = 0;
+        vpt[5] = 0;
+        this.adjustCanvasDimension();
     }
 
     /**
@@ -479,7 +490,7 @@ class Graphics {
      * @param {boolean} [withRendering] - If true, The changed image will be reflected in the canvas
      */
     setImageProperties(setting, withRendering) {
-        const { canvasImage } = this;
+        const {canvasImage} = this;
 
         if (!canvasImage) {
             return;
@@ -730,7 +741,7 @@ class Graphics {
      */
     setObjectPosition(id, posInfo) {
         const targetObj = this.getObject(id);
-        const { x, y, originX, originY } = posInfo;
+        const {x, y, originX, originY} = posInfo;
         if (!targetObj) {
             return false;
         }
@@ -872,13 +883,20 @@ class Graphics {
         let cssMaxWidth = Math.min(width, this.cssMaxWidth);
         let cssMaxHeight = Math.min(height, this.cssMaxHeight);
 
-        if (wScaleFactor < 1 && wScaleFactor < hScaleFactor) {
+        if (wScaleFactor < hScaleFactor) {
             cssMaxWidth = width * wScaleFactor;
             cssMaxHeight = height * wScaleFactor;
-        } else if (hScaleFactor < 1 && hScaleFactor < wScaleFactor) {
+        } else if (hScaleFactor < wScaleFactor) {
             cssMaxWidth = width * hScaleFactor;
             cssMaxHeight = height * hScaleFactor;
         }
+        // if (wScaleFactor < 1 && wScaleFactor < hScaleFactor) {
+        //     cssMaxWidth = width * wScaleFactor;
+        //     cssMaxHeight = height * wScaleFactor;
+        // } else if (hScaleFactor < 1 && hScaleFactor < wScaleFactor) {
+        //     cssMaxWidth = width * hScaleFactor;
+        //     cssMaxHeight = height * hScaleFactor;
+        // }
 
         return {
             width: Math.floor(cssMaxWidth),
@@ -956,19 +974,31 @@ class Graphics {
     _onMouseWheel(fEvent) {
         const delta = fEvent.e.deltaY / 1000;
         let zoom = this._canvas.getZoom();
-        zoom = zoom + delta;
-        if (zoom > 5) {
+        const width = this._canvas.getWidth();
+        const height = this._canvas.getHeight();
+
+        zoom = zoom - delta;
+        if (zoom >= 5) {
             zoom = 5;
         }
-        if (zoom < 1) {
+        if (zoom <= 1) {
             zoom = 1;
         }
+        // const setHeight = (1 + delta) * height;
+        // const setWidth = (1 + delta) * width;
+        this._canvas.setZoom(zoom);
+
+        // this.getCanvasImage().set({
+        //     height: setHeight,
+        //     width: setWidth,
+        //     originX: 'left',
+        //     originY: 'top'
+        // });
+        // this._canvas.setDimensions({
+        //     width: setWidth,
+        //     height: setHeight
+        // });
         // this._canvas.setZoom(zoom);
-        this._canvas.zoomToPoint({
-            x: fEvent.e.offsetX,
-            y: fEvent.e.offsetY
-        }, zoom);
-        // 更新vptCoords的坐标
         this._canvas.calcViewportBoundaries();
         fEvent.e.preventDefault();
         fEvent.e.stopPropagation();
@@ -1005,7 +1035,7 @@ class Graphics {
      * @private
      */
     _onObjectMoved(fEvent) {
-        const { target } = fEvent;
+        const {target} = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_MOVED, params);
@@ -1017,7 +1047,7 @@ class Graphics {
      * @private
      */
     _onObjectScaled(fEvent) {
-        const { target } = fEvent;
+        const {target} = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_SCALED, params);
@@ -1029,7 +1059,7 @@ class Graphics {
      * @private
      */
     _onObjectSelected(fEvent) {
-        const { target } = fEvent;
+        const {target} = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_ACTIVATED, params);
