@@ -1545,6 +1545,17 @@ class ImageEditor {
     setObjectPosition(id, posInfo) {
         return this.execute(commands.SET_OBJECT_POSITION, id, posInfo);
     }
+
+    // 作业批改部分方法
+    resetCanvas() {
+        this._graphics.resetCanvas();
+    }
+
+    downLoadImage() {
+        this.resetCanvas();
+
+        return this.toDataURL();
+    }
 }
 
 action.mixin(ImageEditor);

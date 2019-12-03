@@ -14,12 +14,160 @@
             height: 100%;
             margin: 0;
         }
+
+        .tui-image-editor-header {
+            margin: 10px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .tui-image-editor-header-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .primary_btn {
+            height: 40px;
+            width: 120px;
+            margin: 0 10px;
+            padding: 0;
+            display: inline-block;
+            background-color: #fdba3b;
+            color: #fff;
+            line-height: 40px;
+            outline: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            vertical-align: middle;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
+        .normal_btn {
+            height: 40px;
+            width: 120px;
+            display: inline-block;
+            background-color: #fff;
+            color: black;
+            padding: 0;
+            margin: 0 10px;
+            line-height: 40px;
+            outline: none;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            vertical-align: middle;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
+        .tui-image-editor-header-papers {
+            display: flex;
+            justify-content: space-between;
+            height: 150px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, .7);
+            z-index: 1;
+            position: absolute;
+            top: 62px;
+            width: 97%;
+            text-align: center;
+            transition: all 1s;
+        }
+
+        .tui-image-editor-header-papers-container {
+            width: 66%;
+            height: 150px;
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        .tui-image-editor-header-papers-left {
+            border: 1px solid;
+            border-radius: 5px;
+            height: 50px;
+            width: 50px;
+            margin-top: 50px;
+            margin-left: 100px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .tui-image-editor-header-papers-left:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+        }
+
+        .tui-image-editor-header-papers-right:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+        }
+
+        .tui-image-editor-header-papers-right {
+            border: 1px solid;
+            border-radius: 5px;
+            height: 50px;
+            width: 50px;
+            float: right;
+            text-align: center;
+            margin-right: 100px;
+            margin-top: 50px;
+            line-height: 40px;
+        }
+
+        .tui-image-editor-header-papers-box {
+            height: 92%;
+            flex: 0;
+            margin: 5px;
+        }
+
+        .tui-image-editor-header-papers-box:hover {
+            cursor: pointer;
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+        }
+
+        .tui-image-editor-selectedBox {
+            border: 2px solid #fdba3b;
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+        }
+
+        .displayNone {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
+    <div class="tui-image-editor-header">
+        <div class="tui-image-editor-header-buttons">
+            <div id="paper_list_btn" class="primary_btn">作业列表</div>
+            <!-- <div id="paper_reset" class="normal_btn">
+                重新批改
+            </div> -->
+            <div id="paper_list_next" class="normal_btn">下一题</div>
+            <div id="paper_save" class="primary_btn">
+                保存
+            </div>
+        </div>
+        <div class="tui-image-editor-header-papers displayNone">
+            <div id="papaer_image_pre" class="tui-image-editor-header-papers-left">👈</div>
+            <div class="tui-image-editor-header-papers-container">
+            </div>
+            <div id="papaer_image_next" class="tui-image-editor-header-papers-right">👉</div>
+        </div>
+    </div>
     <div id="tui-image-editor-container"></div>
-    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.3.2/fabric.js"></script> -->
     <script type="text/javascript" src="https://cdn.bootcss.com/fabric.js/3.4.0/fabric.min.js"></script>
     <script type="text/javascript"
         src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
@@ -47,12 +195,92 @@
             cssMaxHeight: windowHeight,
             usageStatistics: false
         });
-        // TODO:去掉
-        // document.getElementsByClassName("tui-image-editor-canvas-container")[0].setAttribute("style", "border:10px solid red;")
 
         window.onresize = function () {
             imageEditor.ui.resizeEditor();
         }
+        let selectIndex = 0;
+        const paperRef = document.getElementsByClassName("tui-image-editor-header")[0];
+
+        // 作业列表
+        const paper_list_btn = document.getElementById("paper_list_btn");
+        // 下一题
+        const paper_list_next = document.getElementById("paper_list_next");
+        // 保存作业
+        const paper_save = document.getElementById("paper_save");
+        // 所有作业的ref
+        const paperList = document.getElementsByClassName("tui-image-editor-header-papers")[0];
+        // 上一张作业
+        const papaer_image_pre = document.getElementById("papaer_image_pre")
+        // 下一张作业
+        const papaer_image_next = document.getElementById("papaer_image_next")
+
+        // 添加所有的监听事件
+        function addAllEvents() {
+            paper_list_btn.addEventListener('click', function (e) {
+                paperList.classList.toggle('displayNone');
+            })
+            paper_list_next.addEventListener('click', function (e) {
+                console.log('click--> 下一题')
+            })
+            paper_save.addEventListener('click', function (e) {
+                const imageUrl = imageEditor.downLoadImage();
+                console.log('click--> 保存作业', imageUrl)
+            })
+            papaer_image_pre.addEventListener('click', function (e) {
+                changeImage(selectIndex - 1);
+            })
+            papaer_image_next.addEventListener('click', function (e) {
+                changeImage(selectIndex + 1);
+            })
+        }
+        function getRemoteImage() {
+            // 接口获取数据
+            const imageLists = ['https://q-independent.aixuexi.com/B:1019:K/1564934400/46ffb802aab84ae59f42033a2f086b4f.JPEG', 'https://q-independent.aixuexi.com/B:1019:K/1564934400/b6b8168ac96e4079bb5b7657e39a88af.JPEG', 'https://q-independent.aixuexi.com/B:1019:K/1565020800/f3fa95c33bfe45268ef1e6d6f7a98224.jpg', 'https://q-independent.aixuexi.com/B:1019:K/1565020800/e8f0d6162c9d4bb6ad5614748728a766.jpg'];
+            loadAllPapers(imageLists);
+        }
+        // 加载所有的试卷
+        function loadAllPapers(imageLists) {
+            const imageContainer = document.getElementsByClassName("tui-image-editor-header-papers-container")[0];
+            const imageBox = document.getElementsByClassName('tui-image-editor-header-papers-box');
+            const allImageRef = imageLists.map((imageUrl, index) => {
+                if (index === 0) {
+                    return `<img data-index="${index}" class="tui-image-editor-header-papers-box tui-image-editor-selectedBox" src="${imageUrl}"/>`;
+                }
+
+                return `<img data-index="${index}" class="tui-image-editor-header-papers-box" src="${imageUrl}"/>`;
+            });
+            imageContainer.innerHTML = allImageRef;
+            snippet.forEach(imageBox, element => {
+                element.addEventListener('click', function (e) {
+                    changeImage(e.target.dataset.index)
+                })
+            })
+        }
+        // 改变图片
+        function changeImage(index) {
+            image_box = document.getElementsByClassName("tui-image-editor-header-papers-box");
+            const srcList = [];
+            snippet.forEach(image_box, element => {
+                srcList.push(element.src);
+            });
+            if (index < 0) {
+                selectIndex = 0;
+            } else if (index >= srcList.length) {
+                selectIndex = srcList.length - 1;
+            } else {
+                selectIndex = index;
+            }
+
+            snippet.forEach(image_box, element => {
+                element.classList.remove('tui-image-editor-selectedBox');
+            });
+            image_box[selectIndex].classList.add('tui-image-editor-selectedBox');
+            imageEditor.loadImageFromURL(srcList[selectIndex], 'paperName');
+            imageEditor.resetCanvas();
+        }
+        addAllEvents();
+        getRemoteImage();
     </script>
 </body>
 
