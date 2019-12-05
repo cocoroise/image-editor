@@ -16,10 +16,14 @@ class Select extends Submenu {
             templateHtml,
             usageStatistics
         });
-        this.btnValue = false;
+
+        this._btnValue = true;
+        this._isLocked = false;
+
         this.actions = null;
 
         this._els = {
+            lockButton: document.getElementsByClassName('tui-image-editor-button')[0],
             selectButton: document.getElementById('tie-btn-select')
         };
     }
@@ -32,19 +36,25 @@ class Select extends Submenu {
      */
     addEvent(actions) {
         this.actions = actions;
+        // this._els.lockButton.addEventListener('click', this.lockSelectEvent.bind(this));
         // this._els.selectButton.addEventListener('click', this.selectCanvas.bind(this));
+    }
+
+    lockSelectEvent() {
+        this._isLocked = !this._isLocked;
+        this.actions.setLockValue(this._isLocked);
     }
 
     // 点击menu的时候执行
     changeStartMode() {
-        this.btnValue = true;
-        this.actions.setDrag(this.btnValue);
+        this._btnValue = true;
+        this.actions.setDrag(this._btnValue);
     }
 
     // 回初始状态的时候执行
     changeStandbyMode() {
-        this.btnValue = false;
-        this.actions.setDrag(this.btnValue);
+        this._btnValue = false;
+        this.actions.setDrag(this._btnValue);
     }
 }
 

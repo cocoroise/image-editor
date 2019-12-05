@@ -75,13 +75,6 @@ class Ui {
             'deleteAll': this._menuElement.querySelector('#tie-btn-delete-all'),
             'download': this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
             'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
-            // 'paperList': this._selectedElement.querySelector('#paper_list_btn'),
-            // 'paperListBox': null,
-            // 'paperPre': this._selectedElement.querySelector('#paper_list_pre'), // 上一题 题下有很多作业
-            // 'paperNext': this._selectedElement.querySelector('#paper_list_next'),
-            // 'paperImagePre': this._selectedElement.querySelector('#papaer_image_pre'), // 上一个作业
-            // 'paperImageNext': this._selectedElement.querySelector('#papaer_image_next'),
-            // 'paperReset': this._selectedElement.querySelector('#paper_reset')
         };
 
         this._makeSubMenu();
@@ -141,7 +134,6 @@ class Ui {
         const {width, height} = this._getEditorDimension();
         const editorElementStyle = this._editorElement.style;
         const {menuBarPosition} = this.options;
-
         editorElementStyle.height = `${height}px`;
         editorElementStyle.width = `${width}px`;
 
@@ -237,6 +229,7 @@ class Ui {
      * @returns {Object} initialize option
      * @private
      */
+    // menu: ['select', 'draw', 'text', 'rotate', 'crop', 'flip', 'shape', 'icon', 'mask'],
     _initializeOption(options) {
         return snippet.extend({
             loadImage: {
@@ -245,7 +238,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['select', 'draw', 'text', 'rotate', 'crop', 'flip', 'shape', 'icon', 'mask'],
+            menu: ['select', 'draw', 'text', 'rotate', 'flip', 'shape', 'icon', 'mask'],
             initMenu: '',
             uiSize: {
                 width: '100%',
@@ -546,36 +539,52 @@ class Ui {
     }
 
     /**
-     * Get editor dimension
+     * 获取editor的高度和宽度
+     * $('#tui-image-editor')
      * @returns {Object} - width & height of editor
      * @private
      */
     _getEditorDimension() {
-        const maxHeight = parseFloat(this._editorContainerElement.style.maxHeight);
-        const height = (this.imageSize.newHeight > maxHeight) ? maxHeight : this.imageSize.newHeight;
+        // const maxHeight = parseFloat(this._editorContainerElement.style.maxHeight) | 1000;
+        // const height = (this.imageSize.newHeight > maxHeight) ? maxHeight : this.imageSize.newHeight;
 
-        const maxWidth = parseFloat(this._editorContainerElement.style.maxWidth);
-        const width = (this.imageSize.newWidth > maxWidth) ? maxWidth : this.imageSize.newWidth;
+        // const maxWidth = parseFloat(this._editorContainerElement.style.maxWidth) | 1000;
+        // const width = (this.imageSize.newWidth > maxWidth) ? maxWidth : this.imageSize.newWidth;
+        // console.log('_getEditorDimension width', this.imageSize, maxWidth);
+
+        const windowHeight = document.body.clientHeight - 100;
+        const windowWidth = document.body.clientWidth - 100;
+        let width = this.imageSize.newWidth | windowWidth;
+        let height = this.imageSize.newHeight | windowHeight;
+        const containerHeight = document.getElementsByClassName('tui-image-editor-canvas-container')[0].style.height;
+        const containerWidth = document.getElementsByClassName('tui-image-editor-canvas-container')[0].style.width;
+        if (windowWidth <= this.imageSize.newWidth) {
+            width = windowWidth;
+        }
+        if (windowHeight <= this.imageSize.newHeight) {
+            height = windowHeight;
+        }
+        // console.log('imageSize', this.imageSize);
 
         return {
-            width,
-            height
+            width: containerWidth,
+            height: containerHeight
         };
     }
 
     /**
      * Set editor position
-     * @param {string} menuBarPosition - top or right or bottom or left
      * @private
      */
-    _setEditorPosition(menuBarPosition) { // eslint-disable-line complexity
+    _setEditorPosition() { // eslint-disable-line complexity
         const {width, height} = this._getEditorDimension();
         const editorElementStyle = this._editorElement.style;
         const top = 0;
         const left = 0;
-
         editorElementStyle.top = `${top}px`;
         editorElementStyle.left = `${left}px`;
+        editorElementStyle.width = `${width}px`;
+        editorElementStyle.height = `${height}px`;
     }
 }
 

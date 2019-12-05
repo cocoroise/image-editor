@@ -130,7 +130,13 @@ export default ({locale, iconStyle: {normal, active}}) => (`
         <li class="tui-image-editor-partition">
             <div></div>
         </li>
-        <li id="tie-icon-add-button">
+        <li>
+            <div id="tie-icon-color" title="颜色"></div>
+        </li>
+    </ul>
+`);
+/**
+ *  <li id="tie-icon-add-button">
             <div class="tui-image-editor-button" style="margin:0">
                 <div>
                     <input type="file" accept="image/*" id="tie-icon-image-file">
@@ -144,11 +150,4 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                 </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition">
-            <div></div>
-        </li>
-        <li>
-            <div id="tie-icon-color" title="颜色"></div>
-        </li>
-    </ul>
-`);
+ */

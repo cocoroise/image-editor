@@ -4,7 +4,7 @@ import Range from './tools/range';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/draw';
 import {defaultDrawRangeValus} from '../consts';
-const DRAW_OPACITY = 0.7;
+const DRAW_OPACITY = 0.9;
 
 /**
  * Draw ui class
@@ -25,7 +25,7 @@ class Draw extends Submenu {
         this._els = {
             lineSelectButton: this.selector('#tie-draw-line-select-button'),
             drawColorpicker: new Colorpicker(
-                this.selector('#tie-draw-color'), '#00a9ff', this.toggleDirection, this.usageStatistics
+                this.selector('#tie-draw-color'), '#c30000', this.toggleDirection, this.usageStatistics
             ),
             drawRange: new Range(this.selector('#tie-draw-range'), defaultDrawRangeValus),
             drawRangeValue: this.selector('#tie-draw-range-value')

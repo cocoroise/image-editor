@@ -23,7 +23,6 @@ class Rotate extends Submenu {
             usageStatistics
         });
         this._value = 0;
-
         this._els = {
             rotateButton: this.selector('#tie-retate-button'),
             rotateRange: new Range(this.selector('#tie-rotate-range'), defaultRotateRangeValus),

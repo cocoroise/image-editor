@@ -7,9 +7,9 @@ function getFileList(dir) {
     const targetDir = `${svgDir}/${dir}`;
     const sprites = svgstore();
     fs.readdir(targetDir, (err, files) => {
-        if (!files) return;
+        if (!files) {return;}
         files.forEach(file => {
-            if (file.match(/^\./)) return;
+            if (file.match(/^\./)) {return;}
             const id = `${dir}-${file.replace(/\.svg$/, '')}`;
             const svg = fs.readFileSync(`${targetDir}/${file}`);
             sprites.add(id, svg);
@@ -18,7 +18,7 @@ function getFileList(dir) {
     });
 }
 
-mkdirp('./dist/svg', (mkdirpErr) => {
+mkdirp('./dist/svg', mkdirpErr => {
     if (mkdirpErr) {
         console.error(mkdirpErr);
     } else {

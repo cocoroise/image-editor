@@ -8,7 +8,7 @@ import templateHtml from './template/submenu/mask';
  * @ignore
  */
 class Mask extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics }) {
         super(subMenuElement, {
             locale,
             name: 'mask',
@@ -19,7 +19,7 @@ class Mask extends Submenu {
         });
 
         this._els = {
-            applyButton: this.selector('#tie-mask-apply'),
+            // applyButton: this.selector('#tie-mask-apply'),
             maskImageButton: this.selector('#tie-mask-image-file')
         };
     }
@@ -33,17 +33,17 @@ class Mask extends Submenu {
     addEvent(actions) {
         this.actions = actions;
         this._els.maskImageButton.addEventListener('change', this._loadMaskFile.bind(this));
-        this._els.applyButton.addEventListener('click', this._applyMask.bind(this));
+        // this._els.applyButton.addEventListener('click', this._applyMask.bind(this));
     }
 
     /**
      * Apply mask
      * @private
      */
-    _applyMask() {
-        this.actions.applyFilter();
-        this._els.applyButton.classList.remove('active');
-    }
+    // _applyMask() {
+    //     this.actions.applyFilter();
+    //     this._els.applyButton.classList.remove('active');
+    // }
 
     /**
      * Load mask file
@@ -61,8 +61,9 @@ class Mask extends Submenu {
 
         if (file) {
             imgUrl = URL.createObjectURL(file);
+
             this.actions.loadImageFromURL(imgUrl, file);
-            this._els.applyButton.classList.add('active');
+            // this._els.applyButton.classList.add('active');
         }
     }
 }

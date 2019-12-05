@@ -38,7 +38,7 @@ class Shape extends Submenu {
                 this.selector('#tie-color-fill'), '', this.toggleDirection, this.usageStatistics
             ),
             strokeColorpicker: new Colorpicker(
-                this.selector('#tie-color-stroke'), '#ffbb3b', this.toggleDirection, this.usageStatistics
+                this.selector('#tie-color-stroke'), '#c30000', this.toggleDirection, this.usageStatistics
             )
         };
 

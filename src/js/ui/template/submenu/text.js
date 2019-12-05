@@ -25,17 +25,7 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                 </div>
                 <label> 斜体 </label>
             </div>
-            <div class="tui-image-editor-button underline">
-                <div>
-                    <svg class="svg_ic-submenu">
-                        <use xlink:href="${normal.path}#${normal.name}-ic-text-underline"
-                            class="normal"/>
-                        <use xlink:href="${active.path}#${active.name}-ic-text-underline"
-                            class="active"/>
-                    </svg>
-                </div>
-                <label> 下划线 </label>
-            </div>
+           
         </li>
         <li class="tui-image-editor-partition">
             <div></div>
@@ -91,3 +81,16 @@ export default ({locale, iconStyle: {normal, active}}) => (`
         </li>
     </ul>
 `);
+/**
+ *  <div class="tui-image-editor-button underline">
+                <div>
+                    <svg class="svg_ic-submenu">
+                        <use xlink:href="${normal.path}#${normal.name}-ic-text-underline"
+                            class="normal"/>
+                        <use xlink:href="${active.path}#${active.name}-ic-text-underline"
+                            class="active"/>
+                    </svg>
+                </div>
+                <label> 下划线 </label>
+            </div>
+ */

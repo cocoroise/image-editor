@@ -22,8 +22,8 @@ class Text extends Submenu {
         });
         this.effect = {
             bold: false,
-            italic: false,
-            underline: false
+            italic: false
+            // underline: false
         };
         this.align = 'left';
         this._els = {
@@ -98,11 +98,10 @@ class Text extends Submenu {
      */
     _setTextEffectHandler(event) {
         const button = event.target.closest('.tui-image-editor-button');
-        const [styleType] = button.className.match(/(bold|italic|underline)/);
+        const [styleType] = button.className.match(/(bold|italic)/);
         const styleObj = {
             'bold': {fontWeight: 'bold'},
-            'italic': {fontStyle: 'italic'},
-            'underline': {textDecoration: 'underline'}
+            'italic': {fontStyle: 'italic'}
         }[styleType];
 
         this.effect[styleType] = !this.effect[styleType];

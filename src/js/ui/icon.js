@@ -25,10 +25,10 @@ class Icon extends Submenu {
         this._iconMap = {};
 
         this._els = {
-            registIconButton: this.selector('#tie-icon-image-file'),
-            addIconButton: this.selector('#tie-icon-add-button'),
+            // registIconButton: this.selector('#tie-icon-image-file'),
+            // addIconButton: this.selector('#tie-icon-add-button'),
             iconColorpicker: new Colorpicker(
-                this.selector('#tie-icon-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
+                this.selector('#tie-icon-color'), '#c30000', this.toggleDirection, this.usageStatistics
             )
         };
     }
@@ -44,15 +44,15 @@ class Icon extends Submenu {
         this.actions = actions;
 
         this._els.iconColorpicker.on('change', this._changeColorHandler.bind(this));
-        this._els.registIconButton.addEventListener('change', this._registeIconHandler.bind(this));
-        this._els.addIconButton.addEventListener('click', this._addIconHandler.bind(this));
+        // this._els.registIconButton.addEventListener('change', this._registeIconHandler.bind(this));
+        // this._els.addIconButton.addEventListener('click', this._addIconHandler.bind(this));
     }
 
     /**
      * Clear icon type
      */
     clearIconType() {
-        this._els.addIconButton.classList.remove(this.iconType);
+        // this._els.addIconButton.classList.remove(this.iconType);
         this.iconType = null;
     }
 
@@ -104,8 +104,8 @@ class Icon extends Submenu {
             const iconColor = this._els.iconColorpicker.color;
             this.actions.discardSelection();
             this.actions.changeSelectableAll(false);
-            this._els.addIconButton.classList.remove(this.iconType);
-            this._els.addIconButton.classList.add(iconType);
+            // this._els.addIconButton.classList.remove(this.iconType);
+            // this._els.addIconButton.classList.add(iconType);
 
             if (this.iconType === iconType) {
                 this.changeStandbyMode();

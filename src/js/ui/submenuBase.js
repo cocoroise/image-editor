@@ -84,7 +84,6 @@ class Submenu {
             locale,
             iconStyle
         });
-
         subMenuElement.appendChild(iconSubMenu);
     }
 }

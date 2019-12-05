@@ -18,7 +18,10 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                 <label> 上传贴图 </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition only-left-right">
+    </ul>
+`);
+/**
+ * <li class="tui-image-editor-partition only-left-right">
             <div></div>
         </li>
         <li id="tie-mask-apply" class="tui-image-editor-newline apply" style="margin-top: 22px;margin-bottom: 5px">
@@ -32,5 +35,4 @@ export default ({locale, iconStyle: {normal, active}}) => (`
                 </label>
             </div>
         </li>
-    </ul>
-`);
+ */

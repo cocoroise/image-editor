@@ -438,20 +438,25 @@ class Graphics {
     adjustCanvasDimension() {
         const canvasImage = this.canvasImage.scale(1);
         this._canvas.setZoom(1);
-        this._canvas.calcViewportBoundaries();
 
         // ! 参数：use coordinates without viewportTransform
         const {width, height} = canvasImage.getBoundingRect(true);
         const maxDimension = this._calcMaxDimension(width, height);
+        // 图片展示的尺寸
         this.setCanvasBackstoreDimension({
             width,
             height
         });
+        // 画布的尺寸
+        // this.setCanvasCssDimension({
+        //     width: '100%',
+        //     height: '100%', // Set height '' for IE9
+        //     'max-width': `${maxDimension.width}px`,
+        //     'max-height': `${maxDimension.height}px`
+        // });
         this.setCanvasCssDimension({
-            width: '100%',
-            height: '100%', // Set height '' for IE9
-            'max-width': `${maxDimension.width}px`,
-            'max-height': `${maxDimension.height}px`
+            width: `${maxDimension.width}px`,
+            height: `${maxDimension.height}px`
         });
         this._canvas.centerObject(canvasImage);
         this.renderAll();
@@ -538,18 +543,22 @@ class Graphics {
     /**
      * Add image object on canvas
      * @param {string} imgUrl - Image url to make object
+     * @param {object} opts - Image options
      * @returns {Promise}
      */
     addImageObject(imgUrl) {
         const callback = this._callbackAfterLoadingImageObject.bind(this);
+        const imgOptions = Object.assign({}, {
+            crossOrigin: 'Anonymous'
+        });
 
         return new Promise(resolve => {
             fabric.Image.fromURL(imgUrl, image => {
+                image.scaleToWidth(200);
+                image.scaleToHeight(200);
                 callback(image);
                 resolve(this.createObjectProperties(image));
-            }, {
-                crossOrigin: 'Anonymous'
-            }
+            }, imgOptions
             );
         });
     }
@@ -877,26 +886,32 @@ class Graphics {
      * @returns {{width: number, height: number}} - Max width & Max height
      * @private
      */
+    // eslint-disable-next-line complexity
     _calcMaxDimension(width, height) {
         const wScaleFactor = this.cssMaxWidth / width;
         const hScaleFactor = this.cssMaxHeight / height;
         let cssMaxWidth = Math.min(width, this.cssMaxWidth);
         let cssMaxHeight = Math.min(height, this.cssMaxHeight);
 
-        if (wScaleFactor < hScaleFactor) {
-            cssMaxWidth = width * wScaleFactor;
-            cssMaxHeight = height * wScaleFactor;
-        } else if (hScaleFactor < wScaleFactor) {
-            cssMaxWidth = width * hScaleFactor;
-            cssMaxHeight = height * hScaleFactor;
-        }
-        // if (wScaleFactor < 1 && wScaleFactor < hScaleFactor) {
+        // if (wScaleFactor < hScaleFactor) {
         //     cssMaxWidth = width * wScaleFactor;
         //     cssMaxHeight = height * wScaleFactor;
-        // } else if (hScaleFactor < 1 && hScaleFactor < wScaleFactor) {
+        // } else if (hScaleFactor < wScaleFactor) {
         //     cssMaxWidth = width * hScaleFactor;
         //     cssMaxHeight = height * hScaleFactor;
         // }
+
+        if (wScaleFactor <= 1 && wScaleFactor < hScaleFactor) {
+            cssMaxWidth = width * wScaleFactor;
+            cssMaxHeight = height * wScaleFactor;
+        } else if (hScaleFactor <= 1 && hScaleFactor < wScaleFactor) {
+            cssMaxWidth = width * hScaleFactor;
+            cssMaxHeight = height * hScaleFactor;
+        } else if ((wScaleFactor > 1.5 && wScaleFactor < hScaleFactor) || (hScaleFactor > 1.5 && hScaleFactor < wScaleFactor)) {
+            cssMaxWidth = width * 1.5;
+            cssMaxHeight = height * 1.5;
+        }
+        console.log('_calcMaxDimension width', width, cssMaxWidth);
 
         return {
             width: Math.floor(cssMaxWidth),
@@ -974,8 +989,6 @@ class Graphics {
     _onMouseWheel(fEvent) {
         const delta = fEvent.e.deltaY / 1000;
         let zoom = this._canvas.getZoom();
-        const width = this._canvas.getWidth();
-        const height = this._canvas.getHeight();
 
         zoom = zoom - delta;
         if (zoom >= 5) {
@@ -984,21 +997,8 @@ class Graphics {
         if (zoom <= 1) {
             zoom = 1;
         }
-        // const setHeight = (1 + delta) * height;
-        // const setWidth = (1 + delta) * width;
         this._canvas.setZoom(zoom);
 
-        // this.getCanvasImage().set({
-        //     height: setHeight,
-        //     width: setWidth,
-        //     originX: 'left',
-        //     originY: 'top'
-        // });
-        // this._canvas.setDimensions({
-        //     width: setWidth,
-        //     height: setHeight
-        // });
-        // this._canvas.setZoom(zoom);
         this._canvas.calcViewportBoundaries();
         fEvent.e.preventDefault();
         fEvent.e.stopPropagation();
@@ -1071,11 +1071,11 @@ class Graphics {
      * @private
      */
     _onPathCreated(obj) {
-        const SELECTION_STYLE = Object.assign({}, consts.fObjectOptions.SELECTION_STYLE);
-        // 如果改了这里画笔的位置会不对但是旋转是对的
-        SELECTION_STYLE.originX = 'left';
-        SELECTION_STYLE.originY = 'top';
-        obj.path.set(SELECTION_STYLE);
+        const {x: left, y: top} = obj.path.getCenterPoint();
+        obj.path.set(extend({
+            left,
+            top
+        }, consts.fObjectOptions.SELECTION_STYLE));
         const params = this.createObjectProperties(obj.path);
 
         this.fire(events.ADD_OBJECT, params);

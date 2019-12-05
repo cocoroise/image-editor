@@ -301,10 +301,11 @@ export default {
     // 选择action
     _selectAction() {
         return extend({
-            setDrag: dragValue => {
-                // hack???
-                this._graphics.getComponent('SELECT').setDrag(dragValue);
-                // this.ui.changeMenu('select');
+            setDrag: value => {
+                this._graphics.getComponent('SELECT').setDrag(value);
+            },
+            setLockValue: value => {
+                this._graphics.getComponent('SELECT').setLockValue(value);
             }
         }, this._commonAction());
     },
@@ -471,7 +472,7 @@ export default {
             },
             /* eslint-enable complexity */
             addText: pos => {
-                this.addText('Double Click', {
+                this.addText('双击修改文字', {
                     position: pos.originPosition,
                     styles: {
                         fill: this.ui.text.textColor,

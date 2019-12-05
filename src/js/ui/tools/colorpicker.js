@@ -9,7 +9,7 @@ const PICKER_COLOR = [
     '#d2d2d2',
     '#ffffff',
     '',
-    '#ff4040',
+    '#c30000',
     '#ff6518',
     '#ffbb3b',
     '#03bd9e',
@@ -25,7 +25,7 @@ const PICKER_COLOR = [
  * @ignore
  */
 class Colorpicker {
-    constructor(colorpickerElement, defaultColor = '#7e7e7e', toggleDirection = 'up', usageStatistics) {
+    constructor(colorpickerElement, defaultColor = '#ff0000', toggleDirection = 'up', usageStatistics) {
         const title = colorpickerElement.getAttribute('title');
         this.usageStatistics = usageStatistics;
 

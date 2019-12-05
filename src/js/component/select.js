@@ -21,7 +21,9 @@ class Select extends Component {
     constructor(graphics) {
         super(componentNames.SELECT, graphics);
         this.isDrag = false;
+        this._isLocked = false;
         this.isDragging = false;
+
         this.lastPosX = 0;
         this.lastPosY = 0;
         this._listeners = {
@@ -37,6 +39,25 @@ class Select extends Component {
         val ? this.start() : this.end();
     }
 
+    setLockValue(val) {
+        this._isLocked = val;
+        const canvas = this.getCanvas();
+
+        if (val) {
+            canvas.forEachObject(obj => {
+                obj.set({
+                    selectable: true
+                });
+            });
+        } else {
+            canvas.forEachObject(obj => {
+                obj.set({
+                    selectable: false
+                });
+            });
+        }
+    }
+
     start() {
         const canvas = this.getCanvas();
         canvas.defaultCursor = 'grab';
@@ -44,11 +65,14 @@ class Select extends Component {
         // 设置别的object都不可点击
         canvas.forEachObject(obj => {
             obj.set({
-                evented: false,
-                selectable: false
+                evented: false
             });
         });
-
+        if (this._isLocked) {
+            this.setLockValue(false);
+        } else {
+            this.setLockValue(true);
+        }
         canvas.on({
             'mouse:down': this._listeners.mousedown
         });
@@ -64,7 +88,7 @@ class Select extends Component {
         canvas.forEachObject(obj => {
             obj.set({
                 evented: true,
-                selectable: true
+                selected: true
             });
         });
     }

@@ -186,7 +186,7 @@ function resizeEditor() {
 }
 
 function getBrushSettings() {
-    var brushWidth = $inputBrushWidthRange.val();
+    var brushWidth = parseInt($inputBrushWidthRange.val(), 10);
     var brushColor = brushColorpicker.getColor();
 
     return {
@@ -309,7 +309,7 @@ imageEditor.on({
         }
     },
     addText(pos) {
-        imageEditor.addText('Double Click', {
+        imageEditor.addText('双击添加文字', {
             position: pos.originPosition
         }).then(objectProps => {
             console.log(objectProps);
@@ -444,7 +444,7 @@ $btnRotateCounterClockWise.on('click', () => {
 
 $inputRotationRange.on('mousedown', () => {
     var changeAngle = function() {
-        imageEditor.setAngle(parseInt($inputRotationRange.val(), 10))['catch'](() => {});
+        imageEditor.setAngle(parseInt($inputRotationRange.val(), 10))['catch'](() => { });
     };
     $(document).on('mousemove', changeAngle);
     $(document).on('mouseup', function stopChangingAngle() {
@@ -454,7 +454,7 @@ $inputRotationRange.on('mousedown', () => {
 });
 
 $inputRotationRange.on('change', () => {
-    imageEditor.setAngle(parseInt($inputRotationRange.val(), 10))['catch'](() => {});
+    imageEditor.setAngle(parseInt($inputRotationRange.val(), 10))['catch'](() => { });
 });
 
 $inputBrushWidthRange.on('change', function() {
@@ -615,7 +615,7 @@ $inputFontSizeRange.on('change', function() {
     });
 });
 
-$btnTextStyle.on('click', function(e) { // eslint-disable-line
+$btnTextStyle.on('click', function (e) { // eslint-disable-line
     var styleType = $(this).attr('data-style-type');
     var styleObj;
 
