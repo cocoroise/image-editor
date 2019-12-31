@@ -1,5 +1,5 @@
-export default ({locale, biImage, commonStyle, headerStyle, loadButtonStyle, downloadButtonStyle, submenuStyle}) => (`
-    <div class="tui-image-editor-main-container" style="${commonStyle}">
+export default ({ locale, biImage, commonStyle, headerStyle, loadButtonStyle, downloadButtonStyle, submenuStyle }) => (`
+    <div class="tui-image-editor-main-container">
         <div class="tui-image-editor-main">
             <div class="tui-image-editor-submenu">
                 <div class="tui-image-editor-submenu-style" style="${submenuStyle}"></div>

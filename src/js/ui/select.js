@@ -7,16 +7,16 @@ import templateHtml from './template/submenu/select';
  * @ignore
  */
 class Select extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics, showSubmenu }) {
         super(subMenuElement, {
             locale,
             name: 'select',
             iconStyle,
             menuBarPosition,
             templateHtml,
-            usageStatistics
+            usageStatistics,
+            showSubmenu
         });
-
         this._btnValue = true;
         this._isLocked = false;
 

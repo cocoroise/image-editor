@@ -2,8 +2,8 @@
  * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
  * @fileoverview Util
  */
-import {forEach, sendHostname} from 'tui-code-snippet';
-const {min, max} = Math;
+import { forEach, sendHostname } from 'tui-code-snippet';
+const { min, max } = Math;
 let hostnameSent = false;
 
 module.exports = {
@@ -63,7 +63,7 @@ module.exports = {
      */
     getProperties(obj, keys) {
         const props = {};
-        const {length} = keys;
+        const { length } = keys;
         let i = 0;
         let key;
 
@@ -185,6 +185,6 @@ module.exports = {
             uInt8Array[i] = raw.charCodeAt(i);
         }
 
-        return new Blob([uInt8Array], {type: mimeString});
+        return new Blob([uInt8Array], { type: mimeString });
     }
 };

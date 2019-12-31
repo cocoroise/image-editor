@@ -4,14 +4,11 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => (`
-            <ui class="tui-image-editor-submenu-item">
-                <li id="tie-btn-select">
-                    
-                </li>
-            </ui>
+export default ({ locale, iconStyle: { normal, active } }) => (`
+            
 `);
 /**
+ *
  * <div class="tui-image-editor-button">
                     <div>
                         <svg class="svg_ic-submenu">

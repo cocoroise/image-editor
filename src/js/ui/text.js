@@ -1,9 +1,8 @@
-import Range from './tools/range';
+import Range from './tools/penRange';
 import Colorpicker from './tools/colorpicker';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/text';
-import {toInteger} from '../util';
-import {defaultTextRangeValus} from '../consts';
+import { toInteger } from '../util';
 
 /**
  * Crop ui class
@@ -11,14 +10,15 @@ import {defaultTextRangeValus} from '../consts';
  * @ignore
  */
 class Text extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics, showSubmenu }) {
         super(subMenuElement, {
             locale,
             name: 'text',
             iconStyle,
             menuBarPosition,
             templateHtml,
-            usageStatistics
+            usageStatistics,
+            showSubmenu
         });
         this.effect = {
             bold: false,
@@ -28,12 +28,10 @@ class Text extends Submenu {
         this.align = 'left';
         this._els = {
             textEffectButton: this.selector('#tie-text-effect-button'),
-            textAlignButton: this.selector('#tie-text-align-button'),
             textColorpicker: new Colorpicker(
-                this.selector('#tie-text-color'), '#ffbb3b', this.toggleDirection, this.usageStatistics
+                this.selector('#tie-text-color'), '#c30000', this.toggleDirection, this.usageStatistics
             ),
-            textRange: new Range(this.selector('#tie-text-range'), defaultTextRangeValus),
-            textRangeValue: this.selector('#tie-text-range-value')
+            textRange: new Range(this.selector('#tie-text-range'), 2)
         };
     }
 
@@ -45,10 +43,7 @@ class Text extends Submenu {
     addEvent(actions) {
         this.actions = actions;
         this._els.textEffectButton.addEventListener('click', this._setTextEffectHandler.bind(this));
-        this._els.textAlignButton.addEventListener('click', this._setTextAlignHandler.bind(this));
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
-        this._els.textRangeValue.value = this._els.textRange.value;
-        this._els.textRangeValue.setAttribute('readonly', true);
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
     }
 
@@ -88,7 +83,6 @@ class Text extends Submenu {
      */
     set fontSize(value) {
         this._els.textRange.value = value;
-        this._els.textRangeValue.value = value;
     }
 
     /**
@@ -100,33 +94,13 @@ class Text extends Submenu {
         const button = event.target.closest('.tui-image-editor-button');
         const [styleType] = button.className.match(/(bold|italic)/);
         const styleObj = {
-            'bold': {fontWeight: 'bold'},
-            'italic': {fontStyle: 'italic'}
+            'bold': { fontWeight: 'bold' },
+            'italic': { fontStyle: 'italic' }
         }[styleType];
 
         this.effect[styleType] = !this.effect[styleType];
         button.classList.toggle('active');
         this.actions.changeTextStyle(styleObj);
-    }
-
-    /**
-     * text effect set handler
-     * @param {object} event - add button event object
-     * @private
-     */
-    _setTextAlignHandler(event) {
-        const button = event.target.closest('.tui-image-editor-button');
-        if (button) {
-            const styleType = this.getButtonType(button, ['left', 'center', 'right']);
-
-            event.currentTarget.classList.remove(this.align);
-            if (this.align !== styleType) {
-                event.currentTarget.classList.add(styleType);
-            }
-            this.actions.changeTextStyle({textAlign: styleType});
-
-            this.align = styleType;
-        }
     }
 
     /**
@@ -136,12 +110,9 @@ class Text extends Submenu {
      */
     _changeTextRnageHandler(value) {
         value = toInteger(value);
-        if (toInteger(this._els.textRangeValue.value) !== value) {
-            this.actions.changeTextStyle({
-                fontSize: value
-            });
-            this._els.textRangeValue.value = value;
-        }
+        this.actions.changeTextStyle({
+            fontSize: value
+        });
     }
 
     /**

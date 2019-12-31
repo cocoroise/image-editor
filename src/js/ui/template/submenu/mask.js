@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => (`
+export default ({ locale, iconStyle: { normal, active } }) => (`
     <ul class="tui-image-editor-submenu-item">
         <li>
             <div class="tui-image-editor-button">

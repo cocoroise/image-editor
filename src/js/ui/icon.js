@@ -2,8 +2,8 @@ import snippet from 'tui-code-snippet';
 import Colorpicker from './tools/colorpicker';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/icon';
-import {isSupportFileApi} from '../util';
-import {defaultIconPath} from '../consts';
+import { isSupportFileApi } from '../util';
+import { defaultIconPath } from '../consts';
 
 /**
  * Icon ui class
@@ -11,14 +11,15 @@ import {defaultIconPath} from '../consts';
  * @ignore
  */
 class Icon extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics, showSubmenu }) {
         super(subMenuElement, {
             locale,
             name: 'icon',
             iconStyle,
             menuBarPosition,
             templateHtml,
-            usageStatistics
+            usageStatistics,
+            showSubmenu
         });
 
         this.iconType = null;
@@ -26,7 +27,7 @@ class Icon extends Submenu {
 
         this._els = {
             // registIconButton: this.selector('#tie-icon-image-file'),
-            // addIconButton: this.selector('#tie-icon-add-button'),
+            addIconButton: this.selector('#tie-icon-add-button'),
             iconColorpicker: new Colorpicker(
                 this.selector('#tie-icon-color'), '#c30000', this.toggleDirection, this.usageStatistics
             )
@@ -45,14 +46,14 @@ class Icon extends Submenu {
 
         this._els.iconColorpicker.on('change', this._changeColorHandler.bind(this));
         // this._els.registIconButton.addEventListener('change', this._registeIconHandler.bind(this));
-        // this._els.addIconButton.addEventListener('click', this._addIconHandler.bind(this));
+        this._els.addIconButton.addEventListener('click', this._addIconHandler.bind(this));
     }
 
     /**
      * Clear icon type
      */
     clearIconType() {
-        // this._els.addIconButton.classList.remove(this.iconType);
+        this._els.addIconButton.classList.remove(this.iconType);
         this.iconType = null;
     }
 
@@ -104,8 +105,8 @@ class Icon extends Submenu {
             const iconColor = this._els.iconColorpicker.color;
             this.actions.discardSelection();
             this.actions.changeSelectableAll(false);
-            // this._els.addIconButton.classList.remove(this.iconType);
-            // this._els.addIconButton.classList.add(iconType);
+            this._els.addIconButton.classList.remove(this.iconType);
+            this._els.addIconButton.classList.add(iconType);
 
             if (this.iconType === iconType) {
                 this.changeStandbyMode();

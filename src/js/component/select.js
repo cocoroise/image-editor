@@ -7,7 +7,7 @@ import fabric from 'fabric';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {componentNames} = consts;
+const { componentNames } = consts;
 
 /**
  * Image Select Component

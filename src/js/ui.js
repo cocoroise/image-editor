@@ -123,7 +123,7 @@ class Ui {
      * // Apply the ui state while preserving the previous attribute (for example, if responsive Ui)
      * imageEditor.ui.resizeEditor();
      */
-    resizeEditor({uiSize, imageSize = this.imageSize} = {}) {
+    resizeEditor({ uiSize, imageSize = this.imageSize } = {}) {
         if (imageSize !== this.imageSize) {
             this.imageSize = imageSize;
         }
@@ -131,9 +131,9 @@ class Ui {
             this._setUiSize(uiSize);
         }
 
-        const {width, height} = this._getEditorDimension();
+        const { width, height } = this._getEditorDimension();
         const editorElementStyle = this._editorElement.style;
-        const {menuBarPosition} = this.options;
+        const { menuBarPosition } = this.options;
         editorElementStyle.height = `${height}px`;
         editorElementStyle.width = `${width}px`;
 
@@ -238,7 +238,18 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['select', 'draw', 'text', 'rotate', 'flip', 'shape', 'icon', 'mask'],
+            menu: ['select', 'draw', 'text', 'shape', 'flip', 'rotate', 'mask'],
+            // is submenu show
+            showSubmenu: {
+                'select': false,
+                'draw': true,
+                'text': true,
+                'shape': true,
+                'icon': true,
+                'flip': false,
+                'rotate': false,
+                'mask': true
+            },
             initMenu: '',
             uiSize: {
                 width: '100%',
@@ -279,7 +290,8 @@ class Ui {
                 locale: this._locale,
                 iconStyle: this.theme.getStyle('submenu.icon'),
                 menuBarPosition: this.options.menuBarPosition,
-                usageStatistics: this.options.usageStatistics
+                usageStatistics: this.options.usageStatistics,
+                showSubmenu: this.options.showSubmenu[`${menuName}`]
             });
         });
     }
@@ -336,7 +348,7 @@ class Ui {
      */
     _makeMenuElement(menuName) {
         const btnElement = document.createElement('li');
-        const {normal, active, hover} = this.theme.getStyle('menu.icon');
+        const { normal, active, hover } = this.theme.getStyle('menu.icon');
         const menuItemHtml = `
             <svg class="svg_ic-menu">
                 <use xlink:href="${normal.path}#${normal.name}-ic-${menuName}" class="normal"/>
@@ -347,7 +359,17 @@ class Ui {
 
         btnElement.id = `tie-btn-${menuName}`;
         btnElement.className = 'tui-image-editor-item normal';
-        btnElement.setAttribute('tooltip-content', this._locale.localize(menuName.replace(/^[a-z]/g, $0 => $0.toUpperCase())));
+        const menuMap = {
+            'select': '选择',
+            'draw': '画笔',
+            'icon': '图标',
+            'text': '文字',
+            'rotate': '旋转',
+            'flip': '翻转',
+            'shape': '图形',
+            'mask': '贴图'
+        };
+        btnElement.setAttribute('tooltip-content', menuMap[menuName]);
         btnElement.innerHTML = menuItemHtml;
 
         this._menuElement.appendChild(btnElement);
@@ -428,9 +450,9 @@ class Ui {
 
         this._addHelpActionEvent('undo');
         this._addHelpActionEvent('redo');
-        this._addHelpActionEvent('reset');
+        // this._addHelpActionEvent('reset');changeResetButtonStatus
         this._addHelpActionEvent('delete');
-        this._addHelpActionEvent('deleteAll');
+        // this._addHelpActionEvent('deleteAll');
 
         // this._addDownloadEvent();
 
@@ -577,7 +599,7 @@ class Ui {
      * @private
      */
     _setEditorPosition() { // eslint-disable-line complexity
-        const {width, height} = this._getEditorDimension();
+        const { width, height } = this._getEditorDimension();
         const editorElementStyle = this._editorElement.style;
         const top = 0;
         const left = 0;

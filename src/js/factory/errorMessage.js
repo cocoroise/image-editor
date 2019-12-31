@@ -3,7 +3,7 @@
  * @fileoverview Error-message factory
  */
 import snippet from 'tui-code-snippet';
-import {keyMirror} from '../util';
+import { keyMirror } from '../util';
 
 const types = keyMirror(
     'UN_IMPLEMENTATION',

@@ -15,7 +15,7 @@ const whiteTheme = {
     'loadButton.backgroundColor': '#fff',
     'loadButton.border': '1px solid #ddd',
     'loadButton.color': '#222',
-    'loadButton.fontFamily': '\'Noto Sans\', sans-serif',
+    'loadButton.fontFamily': '\'Noto Sans\',f sans-serif',
     'loadButton.fontSize': '12px',
 
     // download button
@@ -26,14 +26,14 @@ const whiteTheme = {
     'downloadButton.fontSize': '12px',
 
     // main icons
-    'menu.normalIcon.path': '../dist/svg/icon-d.svg',
-    'menu.normalIcon.name': 'icon-d',
-    'menu.activeIcon.path': '../dist/svg/icon-b.svg',
-    'menu.activeIcon.name': 'icon-b',
+    'menu.normalIcon.path': '../dist/svg/icon-a.svg',
+    'menu.normalIcon.name': 'icon-a',
+    'menu.activeIcon.path': '../dist/svg/icon-a.svg',
+    'menu.activeIcon.name': 'icon-a',
     'menu.disabledIcon.path': '../dist/svg/icon-a.svg',
     'menu.disabledIcon.name': 'icon-a',
-    'menu.hoverIcon.path': '../dist/svg/icon-c.svg',
-    'menu.hoverIcon.name': 'icon-c',
+    'menu.hoverIcon.path': '../dist/svg/icon-a.svg',
+    'menu.hoverIcon.name': 'icon-a',
     'menu.iconSize.width': '24px',
     'menu.iconSize.height': '24px',
 
@@ -42,10 +42,10 @@ const whiteTheme = {
     'submenu.partition.color': '#e5e5e5',
 
     // submenu icons
-    'submenu.normalIcon.path': '../dist/svg/icon-d.svg',
-    'submenu.normalIcon.name': 'icon-d',
-    'submenu.activeIcon.path': '../dist/svg/icon-b.svg',
-    'submenu.activeIcon.name': 'icon-b',
+    'submenu.normalIcon.path': '../dist/svg/icon-a.svg',
+    'submenu.normalIcon.name': 'icon-a',
+    'submenu.activeIcon.path': '../dist/svg/icon-a.svg',
+    'submenu.activeIcon.name': 'icon-a',
     'submenu.iconSize.width': '32px',
     'submenu.iconSize.height': '32px',
 

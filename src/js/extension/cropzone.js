@@ -4,7 +4,7 @@
  */
 import snippet from 'tui-code-snippet';
 import fabric from 'fabric';
-import {clamp} from '../util';
+import { clamp } from '../util';
 
 const CORNER_TYPE_TOP_LEFT = 'tl';
 const CORNER_TYPE_TOP_RIGHT = 'tr';
@@ -124,7 +124,7 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @private
      */
     _fillOuterRect(ctx, fillStyle) {
-        const {x, y} = this._getCoordinates();
+        const { x, y } = this._getCoordinates();
 
         ctx.save();
         ctx.fillStyle = fillStyle;
@@ -157,7 +157,7 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @private
      */
     _fillInnerRect(ctx) {
-        const {x: outerX, y: outerY} = this._getCoordinates();
+        const { x: outerX, y: outerY } = this._getCoordinates();
         const x = this._caculateInnerPosition(outerX, (outerX[2] - outerX[1]) / 3);
         const y = this._caculateInnerPosition(outerY, (outerY[2] - outerY[1]) / 3);
 
@@ -206,7 +206,7 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @private
      */
     _getCoordinates() {
-        const {canvas, width, height, left, top} = this;
+        const { canvas, width, height, left, top } = this;
         const halfWidth = width / 2;
         const halfHeight = height / 2;
         const canvasHeight = canvas.getHeight(); // fabric object
@@ -237,7 +237,7 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @param {number} [lineWidth] - line width
      * @private
      */
-    _strokeBorder(ctx, strokeStyle, {lineDashWidth, lineDashOffset, lineWidth}) {
+    _strokeBorder(ctx, strokeStyle, { lineDashWidth, lineDashOffset, lineWidth }) {
         const halfWidth = this.width / 2;
         const halfHeight = this.height / 2;
 
@@ -270,7 +270,7 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @private
      */
     _onMoving() {
-        const {height, width, left, top} = this;
+        const { height, width, left, top } = this;
         const maxLeft = this.canvas.getWidth() - width;
         const maxTop = this.canvas.getHeight() - height;
 
@@ -342,8 +342,8 @@ const Cropzone = fabric.util.createClass(fabric.Rect, /** @lends Cropzone.protot
      * @private
      */
     _calcBottomRightScalingSizeFromPointer(x, y) {
-        const {width: maxX, height: maxY} = this.canvas;
-        const {left, top} = this;
+        const { width: maxX, height: maxY } = this.canvas;
+        const { left, top } = this;
 
         // When scaling "Bottom-Right corner": It fixes left and top coordinates
         return {

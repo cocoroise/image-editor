@@ -9,7 +9,7 @@ import consts from '../consts';
 /**
  * FreeDrawing
  * @class FreeDrawing
- * @param {Graphics} graphics - Graphics instance
+ * @param {Graphics} graphics - Graphics  
  * @extends {Component}
  * @ignore
  */

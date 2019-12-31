@@ -6,8 +6,8 @@ import commandFactory from '../factory/command';
 import Promise from 'core-js/library/es6/promise';
 import consts from '../consts';
 
-const {componentNames, commandNames} = consts;
-const {TEXT} = componentNames;
+const { componentNames, commandNames } = consts;
+const { TEXT } = componentNames;
 
 const command = {
     name: commandNames.ADD_TEXT,

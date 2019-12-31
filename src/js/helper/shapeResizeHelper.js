@@ -28,7 +28,7 @@ const DIMENSION_KEYS = {
  * @ignore
  */
 function setStartPoint(shape) {
-    const {originX, originY} = shape;
+    const { originX, originY } = shape;
     const originKey = originX.substring(0, 1) + originY.substring(0, 1);
 
     shape.startPoint = shape.origins[originKey];
@@ -65,7 +65,7 @@ function getPositionsOfRotatedOrigin(origin, pointer, angle) {
  */
 function hasCenterOrigin(shape) {
     return (shape.originX === 'center' &&
-            shape.originY === 'center');
+        shape.originY === 'center');
 }
 
 /**
@@ -78,7 +78,7 @@ function adjustOriginByStartPoint(pointer, shape) {
     const centerPoint = shape.getPointByOrigin('center', 'center');
     const angle = -shape.angle;
     const originPositions = getPositionsOfRotatedOrigin(centerPoint, pointer, angle);
-    const {originX, originY} = originPositions;
+    const { originX, originY } = originPositions;
     const origin = shape.getPointByOrigin(originX, originY);
     const left = shape.left - (centerPoint.x - origin.x);
     const top = shape.top - (centerPoint.x - origin.y);
@@ -103,7 +103,7 @@ function adjustOriginByMovingPointer(pointer, shape) {
     const origin = shape.startPoint;
     const angle = -shape.angle;
     const originPositions = getPositionsOfRotatedOrigin(origin, pointer, angle);
-    const {originX, originY} = originPositions;
+    const { originX, originY } = originPositions;
 
     shape.setPositionByOrigin(origin, originX, originY);
 }
@@ -114,7 +114,7 @@ function adjustOriginByMovingPointer(pointer, shape) {
  * @ignore
  */
 function adjustDimensionOnScaling(shape) {
-    const {type, scaleX, scaleY} = shape;
+    const { type, scaleX, scaleY } = shape;
     const dimensionKeys = DIMENSION_KEYS[type];
     let width = shape[dimensionKeys.w] * scaleX;
     let height = shape[dimensionKeys.h] * scaleY;
@@ -146,7 +146,7 @@ function adjustDimensionOnScaling(shape) {
  * @ignore
  */
 function adjustDimensionOnMouseMove(pointer, shape) {
-    const {type, strokeWidth, startPoint: origin} = shape;
+    const { type, strokeWidth, startPoint: origin } = shape;
     const divisor = DIVISOR[type];
     const dimensionKeys = DIMENSION_KEYS[type];
     const isTriangle = !!(shape.type === 'triangle');
@@ -222,7 +222,7 @@ module.exports = {
      */
     adjustOriginToCenter(shape) {
         const centerPoint = shape.getPointByOrigin('center', 'center');
-        const {originX, originY} = shape;
+        const { originX, originY } = shape;
         const origin = shape.getPointByOrigin(originX, originY);
         const left = shape.left + (centerPoint.x - origin.x);
         const top = shape.top + (centerPoint.y - origin.y);

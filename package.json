@@ -75,7 +75,7 @@
         "doc:dev": "tuidoc --dev",
         "doc": "tuidoc",
         "tslint": "tslint index.d.ts",
-        "lint": "eslint src/**/*.js",
+        "lint": "eslint src/**/*.js --fix",
         "postinstall": "npm install --no-save --no-optional fabric@^3.3.2"
     },
     "dependencies": {

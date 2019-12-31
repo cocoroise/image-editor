@@ -9,7 +9,7 @@ import Component from '../interface/component';
 import consts from '../consts';
 
 const events = consts.eventNames;
-const {rejectMessages} = consts;
+const { rejectMessages } = consts;
 
 const pathMap = {
     arrow: 'M 0 90 H 105 V 120 L 160 60 L 105 0 V 30 H 0 Z',
@@ -130,7 +130,7 @@ class Icon extends Component {
         this._oColor = color;
 
         if (obj && obj.get('type') === 'icon') {
-            obj.set({fill: this._oColor});
+            obj.set({ fill: this._oColor });
             this.getCanvas().renderAll();
         }
     }

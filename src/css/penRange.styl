@@ -1,0 +1,32 @@
+// 选择画笔尺寸的工具
+getBoxSize(val)
+    width:val
+    height:val
+
+.{prefix}-container
+    .{prefix}-penRange
+        height:34px
+        position:relative
+        display: inline-flex
+        justify-content: space-between
+        for i in 1 2 3 4 5 6
+            .{prefix}-penRange-outter-box:nth-of-type({i})
+                .{prefix}-penRange-box
+                    getBoxSize(i * 4 + 4px)
+        .{prefix}-penRange-outter-box
+            getBoxSize(32px)
+            border-radius: 50%
+            margin:2px
+            border:1px solid transparent
+            display: flex
+            justify-content: space-around
+            flex-direction: column
+            &_active
+                border:1px solid #98989D
+        .{prefix}-penRange-box
+            background-color: #98989D
+            border-radius: 50%
+            margin:0 auto
+            &:hover
+                cursor:pointer
+            

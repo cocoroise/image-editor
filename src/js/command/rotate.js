@@ -5,8 +5,8 @@
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
-const {componentNames, commandNames} = consts;
-const {ROTATION} = componentNames;
+const { componentNames, commandNames } = consts;
+const { ROTATION } = componentNames;
 
 const command = {
     name: commandNames.ROTATE_IMAGE,

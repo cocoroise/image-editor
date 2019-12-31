@@ -6,7 +6,7 @@ import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {componentNames, rejectMessages} = consts;
+const { componentNames, rejectMessages } = consts;
 const imageOption = {
     padding: 0,
     crossOrigin: 'Anonymous'
@@ -102,7 +102,7 @@ class ImageLoader extends Component {
                 const originalPhotoObject = this.graphics._canvas.getObjects()[photoObjIx];
                 const nImg = new Image();
                 nImg.onload = () => {
-                    const imgNInstance = new fabric.Image(nImg, {selectable: false});
+                    const imgNInstance = new fabric.Image(nImg, { selectable: false });
                     // 移除刚刚的图片
                     this.graphics._canvas.remove(originalPhotoObject);
 

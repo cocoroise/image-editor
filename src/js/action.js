@@ -1,4 +1,4 @@
-import {extend} from 'tui-code-snippet';
+import { extend } from 'tui-code-snippet';
 import util from './util';
 import Imagetracer from './helper/imagetracer';
 
@@ -53,7 +53,7 @@ export default {
                 this.loadImageFromURL(imagePath, imageName).then(sizeValue => {
                     exitCropOnAction();
                     this.ui.initializeImgUrl = imagePath;
-                    this.ui.resizeEditor({imageSize: sizeValue});
+                    this.ui.resizeEditor({ imageSize: sizeValue });
                     this._graphics.adjustCanvasDimension();
                     this._graphics.renderAll();
                     this.clearUndoStack();
@@ -75,7 +75,7 @@ export default {
                 exitCropOnAction();
                 this.loadImageFromURL(this.ui.initializeImgUrl, 'resetImage').then(sizeValue => {
                     exitCropOnAction();
-                    this.ui.resizeEditor({imageSize: sizeValue});
+                    this.ui.resizeEditor({ imageSize: sizeValue });
                     this.clearUndoStack();
                 });
             },
@@ -101,7 +101,7 @@ export default {
                     exitCropOnAction();
                     this.clearUndoStack();
                     this.ui.activeMenuEvent();
-                    this.ui.resizeEditor({imageSize: sizeValue});
+                    this.ui.resizeEditor({ imageSize: sizeValue });
                 })['catch'](message => (
                     Promise.reject(message)
                 ));
@@ -144,7 +144,7 @@ export default {
         let objId;
 
         this.on({
-            'iconCreateResize': ({moveOriginPointer}) => {
+            'iconCreateResize': ({ moveOriginPointer }) => {
                 const scaleX = (moveOriginPointer.x - startX) / iconWidth;
                 const scaleY = (moveOriginPointer.y - startY) / iconHeight;
 
@@ -288,12 +288,10 @@ export default {
         return extend({
             rotate: (angle, isSilent) => {
                 this.rotate(angle, isSilent);
-                // this.ui.resizeEditor();
                 this.ui.rotate.setRangeBarAngle('rotate', angle);
             },
             setAngle: (angle, isSilent) => {
                 this.setAngle(angle, isSilent);
-                // this.ui.resizeEditor();
                 this.ui.rotate.setRangeBarAngle('setAngle', angle);
             }
         }, this._commonAction());
@@ -417,10 +415,10 @@ export default {
             undoStackChanged: length => {
                 if (length) {
                     this.ui.changeUndoButtonStatus(true);
-                    this.ui.changeResetButtonStatus(true);
+                    // this.ui.changeResetButtonStatus(true);
                 } else {
                     this.ui.changeUndoButtonStatus(false);
-                    this.ui.changeResetButtonStatus(false);
+                    // this.ui.changeResetButtonStatus(false);
                 }
                 this.ui.resizeEditor();
             },
@@ -439,36 +437,36 @@ export default {
                 this.ui.changeDeleteButtonEnabled(true);
                 this.ui.changeDeleteAllButtonEnabled(true);
 
-                if (obj.type === 'cropzone') {
-                    this.ui.crop.changeApplyButtonStatus(true);
-                } else if (['rect', 'circle', 'triangle'].indexOf(obj.type) > -1) {
-                    this.stopDrawingMode();
-                    if (this.ui.submenu !== 'shape') {
-                        this.ui.changeMenu('shape', false, false);
-                    }
-                    this.ui.shape.setShapeStatus({
-                        strokeColor: obj.stroke,
-                        strokeWidth: obj.strokeWidth,
-                        fillColor: obj.fill
-                    });
+                // if (obj.type === 'cropzone') {
+                //     this.ui.crop.changeApplyButtonStatus(true);
+                // } else if (['rect', 'circle', 'triangle'].indexOf(obj.type) > -1) {
+                //     this.stopDrawingMode();
+                //     if (this.ui.submenu !== 'shape') {
+                //         this.ui.changeMenu('shape', false, false);
+                //     }
+                //     this.ui.shape.setShapeStatus({
+                //         strokeColor: obj.stroke,
+                //         strokeWidth: obj.strokeWidth,
+                //         fillColor: obj.fill
+                //     });
 
-                    this.ui.shape.setMaxStrokeValue(Math.min(obj.width, obj.height));
-                } else if (obj.type === 'path' || obj.type === 'line') {
-                    if (this.ui.submenu !== 'draw') {
-                        this.ui.changeMenu('draw', false, false);
-                        this.ui.draw.changeStandbyMode();
-                    }
-                } else if (['i-text', 'text'].indexOf(obj.type) > -1) {
-                    if (this.ui.submenu !== 'text') {
-                        this.ui.changeMenu('text', false, false);
-                    }
-                } else if (obj.type === 'icon') {
-                    this.stopDrawingMode();
-                    if (this.ui.submenu !== 'icon') {
-                        this.ui.changeMenu('icon', false, false);
-                    }
-                    this.ui.icon.setIconPickerColor(obj.fill);
-                }
+                //     this.ui.shape.setMaxStrokeValue(Math.min(obj.width, obj.height));
+                // } else if (obj.type === 'path' || obj.type === 'line') {
+                // if (this.ui.submenu !== 'draw') {
+                //     this.ui.changeMenu('draw', false, false);
+                //     this.ui.draw.changeStandbyMode();
+                // }
+                // } else if (['i-text', 'text'].indexOf(obj.type) > -1) {
+                // if (this.ui.submenu !== 'text') {
+                //     this.ui.changeMenu('text', false, false);
+                // }
+                // } else if (obj.type === 'icon') {
+                // this.stopDrawingMode();
+                // if (this.ui.submenu !== 'icon') {
+                //     this.ui.changeMenu('icon', false, false);
+                // }
+                //     this.ui.icon.setIconPickerColor(obj.fill);
+                // }
             },
             /* eslint-enable complexity */
             addText: pos => {
@@ -493,7 +491,7 @@ export default {
                 if (['i-text', 'text'].indexOf(obj.type) > -1) {
                     this.ui.text.fontSize = util.toInteger(obj.fontSize);
                 } else if (['rect', 'circle', 'triangle'].indexOf(obj.type) >= 0) {
-                    const {width, height} = obj;
+                    const { width, height } = obj;
                     const strokeValue = this.ui.shape.getStrokeValue();
 
                     if (width < strokeValue) {

@@ -41,11 +41,11 @@ const ColorFilter = fabric.util.createClass(fabric.Image.filters.BaseFilter, /**
      * @param {Object} canvas Canvas object passed by fabric
      */
     applyTo(canvas) { // eslint-disable-line
-        const {canvasEl} = canvas;
+        const { canvasEl } = canvas;
         const context = canvasEl.getContext('2d');
         const imageData = context.getImageData(0, 0, canvasEl.width, canvasEl.height);
-        const {data} = imageData;
-        const {threshold} = this;
+        const { data } = imageData;
+        const { threshold } = this;
         let filterColor = fabric.Color.sourceFromHex(this.color);
         let i, len;
 
@@ -86,7 +86,7 @@ const ColorFilter = fabric.util.createClass(fabric.Image.filters.BaseFilter, /**
      */
     _getColor(imageData, x, y) {
         const color = [0, 0, 0, 0];
-        const {data, width} = imageData;
+        const { data, width } = imageData;
         const bytes = 4;
         const position = ((width * y) + x) * bytes;
 

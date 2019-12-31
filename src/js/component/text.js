@@ -23,7 +23,7 @@ const resetStyles = {
     textAlign: 'left',
     textDecoraiton: ''
 };
-const {browser} = snippet;
+const { browser } = snippet;
 
 const TEXTAREA_CLASSNAME = 'tui-image-eidtor-textarea';
 const TEXTAREA_STYLES = util.makeStyleText({
@@ -587,7 +587,7 @@ class Text extends Component {
      * @private
      */
     _onFabricMouseUp(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const newClickTime = (new Date()).getTime();
 
         if (target.isEditing || this._isDoubleClick(newClickTime)) {

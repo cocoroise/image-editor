@@ -6,7 +6,7 @@ import fabric from 'fabric';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {eventNames} = consts;
+const { eventNames } = consts;
 
 /**
  * Line

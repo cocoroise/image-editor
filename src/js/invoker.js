@@ -4,8 +4,8 @@ import Promise from 'core-js/library/es6/promise';
 import commandFactory from './factory/command';
 import consts from './consts';
 
-const {eventNames, rejectMessages} = consts;
-const {isFunction, isString, CustomEvents} = snippet;
+const { eventNames, rejectMessages } = consts;
+const { isFunction, isString, CustomEvents } = snippet;
 
 /**
  * Invoker
@@ -48,7 +48,7 @@ class Invoker {
     _invokeExecution(command) {
         this.lock();
 
-        let {args} = command;
+        let { args } = command;
         if (!args) {
             args = [];
         }
@@ -80,7 +80,7 @@ class Invoker {
     _invokeUndo(command) {
         this.lock();
 
-        let {args} = command;
+        let { args } = command;
         if (!args) {
             args = [];
         }

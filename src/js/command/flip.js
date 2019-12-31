@@ -5,8 +5,8 @@
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
-const {componentNames, commandNames} = consts;
-const {FLIP} = componentNames;
+const { componentNames, commandNames } = consts;
+const { FLIP } = componentNames;
 
 const command = {
     name: commandNames.FLIP_IMAGE,

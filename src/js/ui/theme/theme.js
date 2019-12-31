@@ -1,5 +1,5 @@
-import {extend, forEach} from 'tui-code-snippet';
-import {styleLoad} from '../../util';
+import { extend, forEach } from 'tui-code-snippet';
+import { styleLoad } from '../../util';
 import style from '../template/style';
 import standardTheme from './standard';
 
@@ -45,8 +45,8 @@ class Theme {
                 break;
             case 'submenu.partition':
                 result = {
-                    vertical: this._makeCssText(extend({}, option, {borderLeft: `1px solid ${option.color}`})),
-                    horizontal: this._makeCssText(extend({}, option, {borderBottom: `1px solid ${option.color}`}))
+                    vertical: this._makeCssText(extend({}, option, { borderLeft: `1px solid ${option.color}` })),
+                    horizontal: this._makeCssText(extend({}, option, { borderBottom: `1px solid ${option.color}` }))
                 };
                 break;
 

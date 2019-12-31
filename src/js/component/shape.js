@@ -7,9 +7,9 @@ import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
 import resizeHelper from '../helper/shapeResizeHelper';
-import {extend, inArray} from 'tui-code-snippet';
+import { extend, inArray, snippet } from 'tui-code-snippet';
 
-const {rejectMessages, eventNames} = consts;
+const { rejectMessages, eventNames } = consts;
 const KEY_CODES = consts.keyCodes;
 
 const DEFAULT_TYPE = 'rect';
@@ -31,8 +31,8 @@ const DEFAULT_OPTIONS = {
     isRegular: false
 };
 
-const shapeType = ['rect', 'circle', 'triangle'];
-
+const shapeType = ['rect', 'circle', 'triangle', 'line', 'arrow'];
+const ARROW_PATH = 'M 0 90 H 105 V 120 L 160 60 L 105 0 V 30 H 0 Z';
 /**
  * Shape
  * @class Shape
@@ -229,6 +229,7 @@ class Shape extends Component {
      */
     _createInstance(type, options) {
         let instance;
+        const selectionStyle = consts.fObjectOptions.SELECTION_STYLE;
 
         switch (type) {
             case 'rect':
@@ -241,6 +242,16 @@ class Shape extends Component {
                 break;
             case 'triangle':
                 instance = new fabric.Triangle(options);
+                break;
+            case 'line':
+                instance = new fabric.Line(extend({
+                    type: 'line'
+                }, selectionStyle, options, this.graphics.controlStyle));
+                break;
+            case 'arrow':
+                instance = new fabric.Path(ARROW_PATH, extend({
+                    type: 'icon'
+                }, selectionStyle, options, this.graphics.controlStyle));
                 break;
             default:
                 instance = {};

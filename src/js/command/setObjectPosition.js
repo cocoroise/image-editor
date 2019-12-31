@@ -6,7 +6,7 @@ import commandFactory from '../factory/command';
 import Promise from 'core-js/library/es6/promise';
 import consts from '../consts';
 
-const {commandNames, rejectMessages} = consts;
+const { commandNames, rejectMessages } = consts;
 
 const command = {
     name: commandNames.SET_OBJECT_POSITION,
@@ -42,7 +42,7 @@ const command = {
      * @returns {Promise}
      */
     undo(graphics) {
-        const {objectId, props} = this.undoData;
+        const { objectId, props } = this.undoData;
 
         graphics.setObjectProperties(objectId, props);
         graphics.renderAll();

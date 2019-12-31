@@ -7,7 +7,7 @@ import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {componentNames} = consts;
+const { componentNames } = consts;
 
 /**
  * Image Rotation component
@@ -19,6 +19,7 @@ const {componentNames} = consts;
 class Rotation extends Component {
     constructor(graphics) {
         super(componentNames.ROTATION, graphics);
+        this._graphics = graphics;
     }
 
     /**
@@ -49,7 +50,7 @@ class Rotation extends Component {
         canvasImage.set({
             angle
         }).center().setCoords();
-        this.adjustCanvasDimension();
+        this._graphics.resetCanvas();
         const newImageCenter = canvasImage.getCenterPoint();
         this._rotateForEachObject(oldImageCenter, newImageCenter, angle - oldAngle);
 

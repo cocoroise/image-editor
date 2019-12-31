@@ -10,7 +10,8 @@ body > textarea
     min-height: 300px;
     height: 90%;
     position: relative;
-    background-color: #282828;
+    left:20%;
+    background-color: white;
     overflow: hidden;
     letter-spacing: 0.3px;
   
@@ -63,7 +64,6 @@ body > textarea
            &:hover
                cursor:pointer;
         .-header-papers-left
-            border: 1px solid;
             border-radius: 5px;
             height: 50px;
             width: 50px;
@@ -76,7 +76,6 @@ body > textarea
                 transform: scale(1.05);
                 box-shadow: 2px 2px 2px rgba(155,155,155,.5);
         .-header-papers-right
-            border: 1px solid;
             border-radius: 5px;
             height: 50px;
             width: 50px;
@@ -111,9 +110,9 @@ body > textarea
         display: inline-block;
         position: relative;
         width: 120px;
-        height: 40px;
+        height: 44px;
         padding: 0;
-        line-height: 40px;
+        line-height: 44px;
         outline: none;
         border-radius: 20px;
         border: 1px solid #ddd;
@@ -174,20 +173,24 @@ body > textarea
 .{prefix}-container
     .{prefix}-menu
         width: auto;
-        list-style: none;
         padding: 0;
+        width:40px;
         margin: 0 auto;
-        display: table-cell;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         text-align: center;
-        vertical-align: middle;
         white-space: nowrap;
         > .{prefix}-item
             position: relative;
-            display: inline-block;
+            padding-top:4px;
+            flex:1;
+            width:40px;
+            height:44px;
+            margin:5px 0;
             border-radius: 2px;
-            padding: 7px 8px 3px 8px;
             cursor: pointer;
-            margin: 0 4px;
         > .{prefix}-item[tooltip-content]:hover
             &:before
                 content: '';
@@ -216,7 +219,7 @@ body > textarea
                 left: 0;
                 min-width: 24px;
         > .{prefix}-item.active
-            background-color: #fff;
+            background-color: #DFDFDF;
             transition: all .3s ease;
     .{prefix}-wrap
         position: absolute;

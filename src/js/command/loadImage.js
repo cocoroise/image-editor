@@ -5,8 +5,8 @@
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
-const {componentNames, commandNames} = consts;
-const {IMAGE_LOADER} = componentNames;
+const { componentNames, commandNames } = consts;
+const { IMAGE_LOADER } = componentNames;
 
 const command = {
     name: commandNames.LOAD_IMAGE,
@@ -49,7 +49,7 @@ const command = {
      */
     undo(graphics) {
         const loader = graphics.getComponent(IMAGE_LOADER);
-        const {objects, name, image} = this.undoData;
+        const { objects, name, image } = this.undoData;
 
         graphics.removeAll(true);
         graphics.add(objects);

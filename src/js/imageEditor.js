@@ -10,12 +10,12 @@ import action from './action';
 import commandFactory from './factory/command';
 import Graphics from './graphics';
 import consts from './consts';
-import {sendHostName} from './util';
+import { sendHostName } from './util';
 
 const events = consts.eventNames;
 const commands = consts.commandNames;
-const {keyCodes, rejectMessages} = consts;
-const {isUndefined, forEach, CustomEvents} = snippet;
+const { keyCodes, rejectMessages } = consts;
+const { isUndefined, forEach, CustomEvents } = snippet;
 
 /**
  * Image editor
@@ -219,7 +219,7 @@ class ImageEditor {
      *   @param {boolean} applyGroupSelectionStyle - whether apply with group selection style or not
      * @private
      */
-    _setSelectionStyle(selectionStyle, {applyCropSelectionStyle, applyGroupSelectionStyle}) {
+    _setSelectionStyle(selectionStyle, { applyCropSelectionStyle, applyGroupSelectionStyle }) {
         if (selectionStyle) {
             this._graphics.setSelectionStyle(selectionStyle);
         }
@@ -318,7 +318,7 @@ class ImageEditor {
      */
     /* eslint-disable complexity */
     _onKeyDown(e) {
-        const {ctrlKey, keyCode, metaKey} = e;
+        const { ctrlKey, keyCode, metaKey } = e;
         const activeObject = this._graphics.getActiveObject();
         const activeObjectGroup = this._graphics.getActiveObjects();
         const existRemoveObject = activeObject || (activeObjectGroup && activeObjectGroup.size());
@@ -1546,7 +1546,9 @@ class ImageEditor {
         return this.execute(commands.SET_OBJECT_POSITION, id, posInfo);
     }
 
-    // 作业批改部分方法
+    /**
+     * 作业批改部分方法
+     */
     resetCanvas() {
         this._graphics.resetCanvas();
     }
@@ -1555,6 +1557,16 @@ class ImageEditor {
         this.resetCanvas();
 
         return this.toDataURL();
+    }
+
+    getCanvasObjects() {
+        const objects = this._graphics.getObjects();
+
+        return !!(objects.length > 0);
+    }
+
+    setAngleToDefault() {
+        this.getActions().rotate.setAngle(0, true);
     }
 }
 

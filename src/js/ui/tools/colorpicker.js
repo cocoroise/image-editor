@@ -1,22 +1,22 @@
 import snippet from 'tui-code-snippet';
 import tuiColorPicker from 'tui-color-picker';
 const PICKER_COLOR = [
+    '#D53331',
+    '#EB3468',
+    '#E56B2F',
+    '#F6C246',
+    '#BC2865',
+    '#55318A',
+    '#9E2387',
+    '#1C4E86',
+    '#63C9FA',
+    '#439ED3',
+    '#3A8944',
+    '#7EC83D',
     '#000000',
-    '#2a2a2a',
-    '#545454',
-    '#7e7e7e',
-    '#a8a8a8',
-    '#d2d2d2',
-    '#ffffff',
-    '',
-    '#c30000',
-    '#ff6518',
-    '#ffbb3b',
-    '#03bd9e',
-    '#00a9ff',
-    '#515ce6',
-    '#9e5fff',
-    '#ff5583'
+    '#323333',
+    '#869397',
+    '#FFFEFF'
 ];
 
 /**
@@ -25,7 +25,7 @@ const PICKER_COLOR = [
  * @ignore
  */
 class Colorpicker {
-    constructor(colorpickerElement, defaultColor = '#ff0000', toggleDirection = 'up', usageStatistics) {
+    constructor(colorpickerElement, defaultColor = '#d53331', toggleDirection = 'up', usageStatistics) {
         const title = colorpickerElement.getAttribute('title');
         this.usageStatistics = usageStatistics;
 
@@ -33,7 +33,6 @@ class Colorpicker {
 
         this._colorpickerElement = colorpickerElement;
         this._toggleDirection = toggleDirection;
-        this._makePickerButtonElement(colorpickerElement, defaultColor);
         this._makePickerLayerElement(colorpickerElement, title);
         this._color = defaultColor;
         this.picker = tuiColorPicker.create({
@@ -43,6 +42,7 @@ class Colorpicker {
             usageStatistics: this.usageStatistics
         });
 
+        this._makePickerButtonElement(colorpickerElement, defaultColor);
         this._addEvent(colorpickerElement);
     }
 
@@ -60,22 +60,6 @@ class Colorpicker {
      */
     set color(color) {
         this._color = color;
-        this._changeColorElement(color);
-    }
-
-    /**
-     * Change color element
-     * @param {string} color color value
-     * #private
-     */
-    _changeColorElement(color) {
-        if (color) {
-            this.colorElement.classList.remove('transparent');
-            this.colorElement.style.backgroundColor = color;
-        } else {
-            this.colorElement.style.backgroundColor = '#fff';
-            this.colorElement.classList.add('transparent');
-        }
     }
 
     /**
@@ -84,16 +68,9 @@ class Colorpicker {
      * @param {string} defaultColor color value
      * @private
      */
-    _makePickerButtonElement(colorpickerElement, defaultColor) {
-        colorpickerElement.classList.add('tui-image-editor-button');
-
-        this.colorElement = document.createElement('div');
-        this.colorElement.className = 'color-picker-value';
-        if (defaultColor) {
-            this.colorElement.style.backgroundColor = defaultColor;
-        } else {
-            this.colorElement.classList.add('transparent');
-        }
+    _makePickerButtonElement(colorpickerElement) {
+        const ele = colorpickerElement.querySelectorAll('ul.tui-colorpicker-clearfix li');
+        this._addActiveColorStyle(ele[0], this._color);
     }
 
     /**
@@ -102,25 +79,16 @@ class Colorpicker {
      * @param {string} title picker title
      * @private
      */
-    _makePickerLayerElement(colorpickerElement, title) {
-        const label = document.createElement('label');
-        const triangle = document.createElement('div');
-
+    _makePickerLayerElement(colorpickerElement) {
         this.pickerControl = document.createElement('div');
         this.pickerControl.className = 'color-picker-control';
 
         this.pickerElement = document.createElement('div');
         this.pickerElement.className = 'color-picker';
 
-        label.innerHTML = title;
-        triangle.className = 'triangle';
-
         this.pickerControl.appendChild(this.pickerElement);
-        this.pickerControl.appendChild(triangle);
 
         colorpickerElement.appendChild(this.pickerControl);
-        colorpickerElement.appendChild(this.colorElement);
-        colorpickerElement.appendChild(label);
     }
 
     /**
@@ -129,83 +97,23 @@ class Colorpicker {
      * @private
      */
     _addEvent(colorpickerElement) {
-        this.picker.on('selectColor', value => {
-            this._changeColorElement(value.color);
-            this._color = value.color;
-            this.fire('change', value.color);
-        });
-        colorpickerElement.addEventListener('click', event => {
-            const {target} = event;
-            const isInPickerControl = target && this._isElementInColorPickerControl(target);
-
-            if (!isInPickerControl || (isInPickerControl && this._isPaletteButton(target))) {
-                this._show = !this._show;
-                this.pickerControl.style.display = this._show ? 'block' : 'none';
-                this._setPickerControlPosition();
-                this.fire('changeShow', this);
+        colorpickerElement.addEventListener('click', e => {
+            const { target: { value } } = e;
+            const ele = colorpickerElement.querySelectorAll('ul.tui-colorpicker-clearfix li');
+            for (const v of ele) {
+                v.style = '';
             }
-            event.stopPropagation();
-        });
-        document.body.addEventListener('click', () => {
-            this.hide();
-        });
+            this._addActiveColorStyle(e.target.parentNode, value);
+            this.fire('change', value);
+            this._color = value;
+            e.stopPropagation();
+        }, true);
     }
 
-    /**
-     * Check hex input or not
-     * @param {Element} target - Event target element
-     * @returns {boolean}
-     * @private
-     */
-    _isPaletteButton(target) {
-        return target.className === 'tui-colorpicker-palette-button';
-    }
-
-    /**
-     * Check given element is in pickerControl element
-     * @param {Element} element - element to check
-     * @returns {boolean}
-     * @private
-     */
-    _isElementInColorPickerControl(element) {
-        let parentNode = element;
-
-        while (parentNode !== document.body) {
-            if (!parentNode) {
-                break;
-            }
-
-            if (parentNode === this.pickerControl) {
-                return true;
-            }
-
-            parentNode = parentNode.parentNode;
-        }
-
-        return false;
-    }
-
-    hide() {
-        this._show = false;
-        this.pickerControl.style.display = 'none';
-    }
-
-    /**
-     * Set picker control position
-     * @private
-     */
-    _setPickerControlPosition() {
-        const controlStyle = this.pickerControl.style;
-        const halfPickerWidth = (this._colorpickerElement.clientWidth / 2) + 2;
-        const left = (this.pickerControl.offsetWidth / 2) - halfPickerWidth;
-        let top = (this.pickerControl.offsetHeight + 10) * -1;
-
-        if (this._toggleDirection === 'down') {
-            top = 30;
-        }
-
-        controlStyle.top = `${top}px`;
-        controlStyle.left = `-${left}px`;
+    _addActiveColorStyle(element, color) {
+        element.style.border = `1px solid ${color}`;
+        element.style.borderRadius = `50%`;
+        element.style.margin = `-1px`;
     }
 }
 

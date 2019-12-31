@@ -4,7 +4,7 @@
  * @param {Object} active - iconStyle
  * @returns {string}
  */
-export default ({locale, iconStyle: {normal, active}}) => (`
+export default ({ locale, iconStyle: { normal, active } }) => (`
     <ul class="tui-image-editor-submenu-item">
         <li id="tie-crop-preset-button">
             <div class="tui-image-editor-button preset preset-none active">

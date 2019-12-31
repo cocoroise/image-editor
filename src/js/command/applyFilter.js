@@ -5,8 +5,8 @@
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
-const {componentNames, rejectMessages, commandNames} = consts;
-const {FILTER} = componentNames;
+const { componentNames, rejectMessages, commandNames } = consts;
+const { FILTER } = componentNames;
 
 const command = {
     name: commandNames.APPLY_FILTER,

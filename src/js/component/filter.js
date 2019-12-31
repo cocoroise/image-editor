@@ -2,7 +2,7 @@
  * @author NHN Ent. FE Development Team <dl_javascript@nhn.com>
  * @fileoverview Add filter module
  */
-import {isUndefined, extend, forEach, filter} from 'tui-code-snippet';
+import { isUndefined, extend, forEach, filter } from 'tui-code-snippet';
 import Promise from 'core-js/library/es6/promise';
 import fabric from 'fabric';
 import Component from '../interface/component';
@@ -13,8 +13,8 @@ import Sharpen from '../extension/sharpen';
 import Emboss from '../extension/emboss';
 import ColorFilter from '../extension/colorFilter';
 
-const {rejectMessages} = consts;
-const {filters} = fabric.Image;
+const { rejectMessages } = consts;
+const { filters } = fabric.Image;
 filters.Mask = Mask;
 filters.Blur = Blur;
 filters.Sharpen = Sharpen;
@@ -190,7 +190,7 @@ class Filter extends Component {
 
         if (sourceImg) {
             const fabricType = this._getFabricFilterType(type);
-            const {length} = sourceImg.filters;
+            const { length } = sourceImg.filters;
             let item, i;
 
             for (i = 0; i < length; i += 1) {

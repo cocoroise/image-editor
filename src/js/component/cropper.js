@@ -6,8 +6,8 @@ import snippet from 'tui-code-snippet';
 import fabric from 'fabric';
 import Component from '../interface/component';
 import Cropzone from '../extension/cropzone';
-import {keyCodes, componentNames} from '../consts';
-import {clamp} from '../util';
+import { keyCodes, componentNames } from '../consts';
+import { clamp } from '../util';
 
 const MOUSE_MOVE_THRESHOLD = 10;
 const DEFAULT_OPTION = {
@@ -167,7 +167,7 @@ class Cropper extends Component {
     _onFabricMouseMove(fEvent) {
         const canvas = this.getCanvas();
         const pointer = canvas.getPointer(fEvent.e);
-        const {x, y} = pointer;
+        const { x, y } = pointer;
         const cropzone = this._cropzone;
 
         if (Math.abs(x - this._startX) + Math.abs(y - this._startY) > MOUSE_MOVE_THRESHOLD) {

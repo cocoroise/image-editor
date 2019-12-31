@@ -22,7 +22,7 @@ const Mask = fabric.util.createClass(fabric.Image.filters.BlendImage, /** @lends
         }
 
         const canvas = pipelineState.canvasEl;
-        const {width, height} = canvas;
+        const { width, height } = canvas;
         const maskCanvasEl = this._createCanvasOfMask(width, height);
         const ctx = canvas.getContext('2d');
         const maskCtx = maskCanvasEl.getContext('2d');
@@ -56,9 +56,9 @@ const Mask = fabric.util.createClass(fabric.Image.filters.BlendImage, /** @lends
      * @private
      */
     _drawMask(maskCtx) {
-        const {mask} = this;
+        const { mask } = this;
         const maskImg = mask.getElement();
-        const {angle, left, scaleX, scaleY, top} = mask;
+        const { angle, left, scaleX, scaleY, top } = mask;
 
         maskCtx.save();
         maskCtx.translate(left, top);
@@ -77,7 +77,7 @@ const Mask = fabric.util.createClass(fabric.Image.filters.BlendImage, /** @lends
      * @private
      */
     _mapData(maskCtx, imageData, width, height) {
-        const {data, height: imgHeight, width: imgWidth} = imageData;
+        const { data, height: imgHeight, width: imgWidth } = imageData;
         const sourceData = data;
         const len = imgWidth * imgHeight * 4;
         const maskData = maskCtx.getImageData(0, 0, width, height).data;

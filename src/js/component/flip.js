@@ -7,7 +7,7 @@ import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
 
-const {componentNames, rejectMessages} = consts;
+const { componentNames, rejectMessages } = consts;
 
 /**
  * Flip
@@ -67,7 +67,7 @@ class Flip extends Component {
      */
     _invertAngle(isChangingFlipX, isChangingFlipY) {
         const canvasImage = this.getCanvasImage();
-        let {angle} = canvasImage;
+        let { angle } = canvasImage;
 
         if (isChangingFlipX) {
             angle *= -1;

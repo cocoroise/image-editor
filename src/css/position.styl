@@ -14,19 +14,19 @@
                 left: 42px;
                 white-space: nowrap;
     .{prefix}-submenu
+            height:fit-content;
             left: 0;
             top: 50%;
             width: 248px;
             transform: translateY(-50%);
     .{prefix}-main-container
-        left: 64px;
-        // width: calc(100% - 64px);
+        left: 40px;
+        // width: calc(100% - 64px); 
         width:100%;
         height: 100%;
     .{prefix}-controls
-        width: 64px;
-        height: 100%;
-        display: table;
+        width: 40px;
+        height: 410px;
 
 /* POSITION LEFT & RIGHT */
 .{prefix}-container
@@ -39,6 +39,7 @@
             vertical-align: middle;
     .{prefix}-controls li
         display: inline-block;
+        height: 25px;
     .{prefix}-icpartition
         position: relative;
         top: -7px;
@@ -47,11 +48,10 @@
     .{prefix}-submenu
         .{prefix}-partition
             display: block;
-            width: 75%;
+            width: 98%;
             margin: auto;
             > div
                 border-left: 0;
-                height:10px;
                 border-bottom: 1px solid #3c3c3c;
                 width: 100%;
                 margin: 0;
@@ -148,9 +148,9 @@
             padding-top: 24px;
             vertical-align: top;
     .{prefix}-controls-logo
-        display: table-cell;
+        display: block;
     .{prefix}-controls-buttons
-        display: table-cell;
+        display: block;
     .{prefix}-main
         top: 64px;
         height: calc(100% - 80px);

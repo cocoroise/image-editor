@@ -1,5 +1,5 @@
 import snippet from 'tui-code-snippet';
-import {toInteger} from '../../util';
+import { toInteger } from '../../util';
 
 /**
  * Range control class
@@ -12,14 +12,14 @@ class Range {
         this.rangeElement = rangeElement;
         this._drawRangeElement();
 
-        this.rangeWidth = toInteger(window.getComputedStyle(rangeElement, null).width) - 12;
+        this.rangeWidth = rangeElement && toInteger(window.getComputedStyle(rangeElement, null).width) - 12;
         this._min = options.min || 0;
         this._max = options.max || 100;
         this._absMax = (this._min * -1) + this._max;
         this.realTimeEvent = options.realTimeEvent || false;
 
-        this._addClickEvent();
-        this._addDragEvent();
+        // this._addClickEvent();
+        // this._addDragEvent();
         this.value = options.value;
         this.trigger('change');
     }
@@ -77,20 +77,22 @@ class Range {
      * @private
      */
     _drawRangeElement() {
-        this.rangeElement.classList.add('tui-image-editor-range');
+        if (this.rangeElement) {
+            this.rangeElement.classList.add('tui-image-editor-range');
 
-        this.bar = document.createElement('div');
-        this.bar.className = 'tui-image-editor-virtual-range-bar';
+            this.bar = document.createElement('div');
+            this.bar.className = 'tui-image-editor-virtual-range-bar';
 
-        this.subbar = document.createElement('div');
-        this.subbar.className = 'tui-image-editor-virtual-range-subbar';
+            this.subbar = document.createElement('div');
+            this.subbar.className = 'tui-image-editor-virtual-range-subbar';
 
-        this.pointer = document.createElement('div');
-        this.pointer.className = 'tui-image-editor-virtual-range-pointer';
+            this.pointer = document.createElement('div');
+            this.pointer.className = 'tui-image-editor-virtual-range-pointer';
 
-        this.bar.appendChild(this.subbar);
-        this.bar.appendChild(this.pointer);
-        this.rangeElement.appendChild(this.bar);
+            this.bar.appendChild(this.subbar);
+            this.bar.appendChild(this.pointer);
+            this.rangeElement.appendChild(this.bar);
+        }
     }
 
     /**

@@ -8,19 +8,19 @@ import templateHtml from './template/submenu/flip';
  * @ignore
  */
 class Flip extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics, showSubmenu }) {
         super(subMenuElement, {
             locale,
             name: 'flip',
             iconStyle,
             menuBarPosition,
             templateHtml,
-            usageStatistics
+            usageStatistics,
+            showSubmenu
         });
-        this.flipStatus = false;
 
         this._els = {
-            flipButton: this.selector('#tie-flip-button')
+            flipButton: document.querySelector('#tie-btn-flip')
         };
     }
 
@@ -41,27 +41,25 @@ class Flip extends Submenu {
      */
     _changeFlip(event) {
         const button = event.target.closest('.tui-image-editor-button');
-        if (button) {
-            const flipType = this.getButtonType(button, ['flipX', 'flipY', 'resetFlip']);
-            if (!this.flipStatus && flipType === 'resetFlip') {
-                return;
-            }
+        // if (button) {
+        // const flipType = this.getButtonType(button, ['flipX', 'flipY', 'resetFlip']);
+        const flipType = 'flipX';
 
-            this._actions.flip(flipType).then(flipStatus => {
-                const flipClassList = this._els.flipButton.classList;
-                this.flipStatus = false;
+        this._actions.flip(flipType).then(flipStatus => {
+            const flipClassList = this._els.flipButton.classList;
+            // this.flipStatus = false;
 
-                flipClassList.remove('resetFlip');
-                snippet.forEach(['flipX', 'flipY'], type => {
-                    flipClassList.remove(type);
-                    if (flipStatus[type]) {
-                        flipClassList.add(type);
-                        flipClassList.add('resetFlip');
-                        this.flipStatus = true;
-                    }
-                });
-            });
-        }
+            // flipClassList.remove('resetFlip');
+            // snippet.forEach(['flipX', 'flipY'], type => {
+            //     flipClassList.remove(type);
+            //     if (flipStatus[type]) {
+            //         flipClassList.add(type);
+            //         flipClassList.add('resetFlip');
+            //         this.flipStatus = true;
+            //     }
+            // });
+        });
+        // }
     }
 }
 

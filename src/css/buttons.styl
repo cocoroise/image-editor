@@ -55,10 +55,15 @@
   &.rect .{prefix}-button.rect,
   &.circle .{prefix}-button.circle,
   &.triangle .{prefix}-button.triangle
-    svg > use.normal
-        display: none;
-    svg > use.active
-        display: block;
+  &.line .{prefix}-button.line
+  &.arrow .{prefix}-button.arrow
+      width:34px;
+      height:34px;
+      text-align: center;
+      box-sizing: border-box;
+      border-radius: 2px;
+      border:1px solid #D53331;
+    
 
 /* TEXT BUTTON */
 #tie-text-effect-button

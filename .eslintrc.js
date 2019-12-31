@@ -24,6 +24,7 @@ module.exports = {
         }],
         "linebreak-style": ['error', 'windows'],
         "no-unused-vars": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "object-curly-spacing": ["error", "always", { "arraysInObjects": false }]
     }
 };

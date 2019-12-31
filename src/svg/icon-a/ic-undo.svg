@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-    <g fill="none" fill-rule="evenodd">
-        <path d="M24 0H0v24h24z" opacity=".5"/>
-        <path fill="#434343" d="M3 6h12a6 6 0 1 1 0 12H3v1h12a7 7 0 0 0 0-14H3v1z"/>
-        <path stroke="#434343" stroke-linecap="square" d="M5 3L2.5 5.5 5 8"/>
-    </g>
-</svg>
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1577417247262" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7689" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M423.466667 141.568a42.666667 42.666667 0 0 1-2.048 60.288l-142.506667 132.992h336.512a280.576 280.576 0 0 1 0 561.152H170.666667a42.666667 42.666667 0 1 1 0-85.333333h444.757333a195.242667 195.242667 0 1 0 0-390.485334H278.912l142.506667 133.034667a42.666667 42.666667 0 0 1-58.24 62.378667L141.568 408.746667a42.666667 42.666667 0 0 1 0-62.421334L363.178667 139.52a42.666667 42.666667 0 0 1 60.288 2.090667z" p-id="7690"></path></svg>

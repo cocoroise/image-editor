@@ -27,8 +27,8 @@ import util from './util';
 const components = consts.componentNames;
 const events = consts.eventNames;
 
-const {drawingModes, fObjectOptions} = consts;
-const {extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents} = snippet;
+const { drawingModes, fObjectOptions } = consts;
+const { extend, stamp, isArray, isString, forEachArray, forEachOwnProperties, CustomEvents } = snippet;
 
 const DEFAULT_CSS_MAX_WIDTH = 2000;
 const DEFAULT_CSS_MAX_HEIGHT = 2000;
@@ -166,7 +166,7 @@ class Graphics {
      * Destroy canvas element
      */
     destroy() {
-        const {wrapperEl} = this._canvas;
+        const { wrapperEl } = this._canvas;
 
         this._canvas.clear();
 
@@ -440,7 +440,7 @@ class Graphics {
         this._canvas.setZoom(1);
 
         // ! 参数：use coordinates without viewportTransform
-        const {width, height} = canvasImage.getBoundingRect(true);
+        const { width, height } = canvasImage.getBoundingRect(true);
         const maxDimension = this._calcMaxDimension(width, height);
         // 图片展示的尺寸
         this.setCanvasBackstoreDimension({
@@ -495,7 +495,7 @@ class Graphics {
      * @param {boolean} [withRendering] - If true, The changed image will be reflected in the canvas
      */
     setImageProperties(setting, withRendering) {
-        const {canvasImage} = this;
+        const { canvasImage } = this;
 
         if (!canvasImage) {
             return;
@@ -687,10 +687,10 @@ class Graphics {
     setObjectProperties(id, props) {
         const object = this.getObject(id);
         const clone = extend({}, props);
-
-        object.set(clone);
-
-        object.setCoords();
+        if (object) {
+            object.set(clone);
+            object.setCoords();
+        }
 
         this.getCanvas().renderAll();
 
@@ -750,7 +750,7 @@ class Graphics {
      */
     setObjectPosition(id, posInfo) {
         const targetObj = this.getObject(id);
-        const {x, y, originX, originY} = posInfo;
+        const { x, y, originX, originY } = posInfo;
         if (!targetObj) {
             return false;
         }
@@ -833,7 +833,7 @@ class Graphics {
      * @private
      */
     _createDrawingModeInstances() {
-        this._register(this._drawingModeMap, new CropperDrawingMode());
+        // this._register(this._drawingModeMap, new CropperDrawingMode());
         this._register(this._drawingModeMap, new FreeDrawingMode());
         this._register(this._drawingModeMap, new LineDrawingMode());
         this._register(this._drawingModeMap, new ShapeDrawingMode());
@@ -846,7 +846,7 @@ class Graphics {
      */
     _createComponents() {
         this._register(this._componentMap, new ImageLoader(this));
-        this._register(this._componentMap, new Cropper(this));
+        // this._register(this._componentMap, new Cropper(this));
         this._register(this._componentMap, new Flip(this));
         this._register(this._componentMap, new Rotation(this));
         this._register(this._componentMap, new FreeDrawing(this));
@@ -907,11 +907,11 @@ class Graphics {
         } else if (hScaleFactor <= 1 && hScaleFactor < wScaleFactor) {
             cssMaxWidth = width * hScaleFactor;
             cssMaxHeight = height * hScaleFactor;
-        } else if ((wScaleFactor > 1.5 && wScaleFactor < hScaleFactor) || (hScaleFactor > 1.5 && hScaleFactor < wScaleFactor)) {
+        } else if ((wScaleFactor > 1.5 && wScaleFactor < hScaleFactor)
+            || (hScaleFactor > 1.5 && hScaleFactor < wScaleFactor)) {
             cssMaxWidth = width * 1.5;
             cssMaxHeight = height * 1.5;
         }
-        console.log('_calcMaxDimension width', width, cssMaxWidth);
 
         return {
             width: Math.floor(cssMaxWidth),
@@ -1035,7 +1035,7 @@ class Graphics {
      * @private
      */
     _onObjectMoved(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_MOVED, params);
@@ -1047,7 +1047,7 @@ class Graphics {
      * @private
      */
     _onObjectScaled(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_SCALED, params);
@@ -1059,7 +1059,7 @@ class Graphics {
      * @private
      */
     _onObjectSelected(fEvent) {
-        const {target} = fEvent;
+        const { target } = fEvent;
         const params = this.createObjectProperties(target);
 
         this.fire(events.OBJECT_ACTIVATED, params);
@@ -1071,7 +1071,7 @@ class Graphics {
      * @private
      */
     _onPathCreated(obj) {
-        const {x: left, y: top} = obj.path.getCenterPoint();
+        const { x: left, y: top } = obj.path.getCenterPoint();
         obj.path.set(extend({
             left,
             top

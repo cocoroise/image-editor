@@ -1,8 +1,8 @@
-import Range from './tools/range';
+import Range from './tools/penRange';
 import Submenu from './submenuBase';
 import templateHtml from './template/submenu/rotate';
-import {toInteger} from '../util';
-import {defaultRotateRangeValus} from '../consts';
+import { toInteger } from '../util';
+import { defaultRotateRangeValus } from '../consts';
 
 const CLOCKWISE = 90;
 const COUNTERCLOCKWISE = -90;
@@ -13,32 +13,33 @@ const COUNTERCLOCKWISE = -90;
  * @ignore
  */
 class Rotate extends Submenu {
-    constructor(subMenuElement, {locale, iconStyle, menuBarPosition, usageStatistics}) {
+    constructor(subMenuElement, { locale, iconStyle, menuBarPosition, usageStatistics, showSubmenu }) {
         super(subMenuElement, {
             locale,
             name: 'rotate',
             iconStyle,
             menuBarPosition,
             templateHtml,
-            usageStatistics
+            usageStatistics,
+            showSubmenu
         });
         this._value = 0;
         this._els = {
-            rotateButton: this.selector('#tie-retate-button'),
-            rotateRange: new Range(this.selector('#tie-rotate-range'), defaultRotateRangeValus),
-            rotateRangeValue: this.selector('#tie-ratate-range-value')
+            rotateButton: document.querySelector('#tie-btn-rotate')
+            // rotateRange: new Range(this.selector('#tie-rotate-range'), defaultRotateRangeValus),
+            // rotateRangeValue: this.selector('#tie-ratate-range-value')
         };
     }
 
     setRangeBarAngle(type, angle) {
-        let resultAngle = angle;
+        const resultAngle = angle;
 
-        if (type === 'rotate') {
-            resultAngle = parseInt(this._els.rotateRangeValue.value, 10) + angle;
-        }
+        // if (type === 'rotate') {
+        //     resultAngle = parseInt(this._els.rotateRangeValue.value, 10) + angle;
+        // }
 
-        this._els.rotateRangeValue.value = resultAngle;
-        this._setRangeBarRatio(resultAngle);
+        // this._els.rotateRangeValue.value = resultAngle;
+        // this._setRangeBarRatio(resultAngle);
     }
 
     _setRangeBarRatio(angle) {
@@ -55,8 +56,8 @@ class Rotate extends Submenu {
         // {rotate, setAngle}
         this.actions = actions;
         this._els.rotateButton.addEventListener('click', this._changeRotateForButton.bind(this));
-        this._els.rotateRange.on('change', this._changeRotateForRange.bind(this));
-        this._els.rotateRangeValue.setAttribute('readonly', true);
+        // this._els.rotateRange.on('change', this._changeRotateForRange.bind(this));
+        // this._els.rotateRangeValue.setAttribute('readonly', true);
     }
 
     /**
@@ -78,21 +79,23 @@ class Rotate extends Submenu {
      * @private
      */
     _changeRotateForButton(event) {
-        const button = event.target.closest('.tui-image-editor-button');
-        const angle = this._els.rotateRangeValue.value;
+        // const button = event.target.closest('.tui-image-editor-button');
+        const angle = 90;
+        this.actions.rotate(angle);
 
-        if (button) {
-            const rotateType = this.getButtonType(button, ['counterclockwise', 'clockwise']);
-            const rotateAngle = {
-                clockwise: CLOCKWISE,
-                counterclockwise: COUNTERCLOCKWISE
-            }[rotateType];
-            const newAngle = parseInt(angle, 10) + rotateAngle;
-            const isRotatable = newAngle >= -360 && newAngle <= 360;
-            if (isRotatable) {
-                this.actions.rotate(rotateAngle);
-            }
-        }
+        // if (button) {
+        // const rotateType = this.getButtonType(button, ['counterclockwise', 'clockwise']);
+        //     const rotateType = 'counterclockwise';
+        //     const rotateAngle = {
+        //         clockwise: CLOCKWISE,
+        //         counterclockwise: COUNTERCLOCKWISE
+        //     }[rotateType];
+        //     const newAngle = parseInt(angle, 10) + rotateAngle;
+        //     const isRotatable = newAngle >= -360 && newAngle <= 360;
+        //     if (isRotatable) {
+        //         this.actions.rotate(rotateAngle);
+        //     }
+        // }
     }
 }
 

@@ -5,8 +5,8 @@
 import commandFactory from '../factory/command';
 import consts from '../consts';
 
-const {componentNames, commandNames} = consts;
-const {FILTER} = componentNames;
+const { componentNames, commandNames } = consts;
+const { FILTER } = componentNames;
 
 const command = {
     name: commandNames.REMOVE_FILTER,
@@ -31,7 +31,7 @@ const command = {
      */
     undo(graphics, type) {
         const filterComp = graphics.getComponent(FILTER);
-        const {options} = this.undoData;
+        const { options } = this.undoData;
 
         return filterComp.add(type, options);
     }

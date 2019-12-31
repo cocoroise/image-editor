@@ -6,7 +6,7 @@ import commandFactory from '../factory/command';
 import Promise from 'core-js/library/es6/promise';
 import consts from '../consts';
 
-const {commandNames} = consts;
+const { commandNames } = consts;
 
 const command = {
     name: commandNames.CLEAR_OBJECTS,

@@ -17,11 +17,12 @@
         }
 
         .tui-image-editor-header {
-            margin: 10px;
+            padding: 10px 0;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            border-bottom: 1px solid #DFDFDF;
         }
 
         .tui-image-editor-header-buttons {
@@ -35,13 +36,12 @@
             margin: 0 10px;
             padding: 0;
             display: inline-block;
-            background-color: #fdba3b;
+            background-color: #75C82B;
             color: #fff;
             line-height: 40px;
             outline: none;
             border-radius: 20px;
             font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
             vertical-align: middle;
             letter-spacing: 0.3px;
@@ -61,7 +61,6 @@
             border-radius: 20px;
             border: 1px solid #ddd;
             font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
             vertical-align: middle;
             letter-spacing: 0.3px;
@@ -69,82 +68,70 @@
         }
 
         .tui-image-editor-header-papers {
-            display: flex;
-            justify-content: space-between;
-            height: 150px;
-            padding: 10px;
+            height: calc(100% - 64px);
             background-color: rgba(255, 255, 255, .7);
             z-index: 1;
             position: absolute;
             top: 62px;
-            width: 97%;
+            width: 256px;
             text-align: center;
-            transition: all 1s;
+            overflow: hidden;
         }
 
         .tui-image-editor-header-papers-container {
-            width: 66%;
-            height: 150px;
+            height: 100%;
             display: flex;
-            overflow-x: auto;
-            overflow-y: hidden;
-            border: 1px solid gray;
-            border-radius: 5px;
-        }
-
-        .tui-image-editor-header-papers-left {
-            border: 1px solid;
-            border-radius: 5px;
-            height: 50px;
-            width: 50px;
-            margin-top: 50px;
-            margin-left: 100px;
-            text-align: center;
-            line-height: 40px;
-        }
-
-        .tui-image-editor-header-papers-left:hover {
-            cursor: pointer;
-            transform: scale(1.05);
-            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
-        }
-
-        .tui-image-editor-header-papers-right:hover {
-            cursor: pointer;
-            transform: scale(1.05);
-            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
-        }
-
-        .tui-image-editor-header-papers-right {
-            border: 1px solid;
-            border-radius: 5px;
-            height: 50px;
-            width: 50px;
-            float: right;
-            text-align: center;
-            margin-right: 100px;
-            margin-top: 50px;
-            line-height: 40px;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .tui-image-editor-header-papers-box {
-            height: 92%;
+            width: 200px;
+            height: 164px;
+            border-radius: 4px;
             flex: 0;
-            margin: 5px;
+            margin: 8px 10px;
+            background-color: #fff;
+            background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+        }
+
+        .tui-image-editor-header-papers-box>img {
+            max-height: 100%;
+            max-width: 100%;
+            vertical-align: middle;
         }
 
         .tui-image-editor-header-papers-box:hover {
             cursor: pointer;
-            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .3);
         }
 
         .tui-image-editor-selectedBox {
-            border: 2px solid #fdba3b;
-            box-shadow: 2px 2px 2px rgba(155, 155, 155, .5);
+            border: 4px solid #75C82B;
+            border-radius: 4px;
+            box-shadow: 2px 2px 2px rgba(155, 155, 155, .3);
         }
 
         .displayNone {
             display: none !important;
+        }
+
+        ::-webkit-scrollbar {
+            background-color: white;
+            width: 8px;
+            height: 50px;
+            background-clip: padding-box;
+        }
+
+
+        /*滚动条中间滑动部分*/
+        ::-webkit-scrollbar-thumb {
+            background-color: #E8E8E8;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -153,19 +140,14 @@
     <div class="tui-image-editor-header">
         <div class="tui-image-editor-header-buttons">
             <div id="paper_list_btn" class="primary_btn">作业列表</div>
-            <!-- <div id="paper_reset" class="normal_btn">
-                重新批改
-            </div> -->
             <div id="paper_list_next" class="normal_btn">下一题</div>
             <div id="paper_save" class="primary_btn">
                 保存
             </div>
         </div>
-        <div class="tui-image-editor-header-papers displayNone">
-            <div id="papaer_image_pre" class="tui-image-editor-header-papers-left">👈</div>
+        <div class="tui-image-editor-header-papers">
             <div class="tui-image-editor-header-papers-container">
             </div>
-            <div id="papaer_image_next" class="tui-image-editor-header-papers-right">👉</div>
         </div>
     </div>
     <div id="tui-image-editor-container"></div>
@@ -189,10 +171,10 @@
                     name: 'SampleImage'
                 },
                 theme: whiteTheme,
-                initMenu: 'select',
+                initMenu: 'draw',
                 menuBarPosition: 'left',
                 uiSize: {
-                    width: '100%',
+                    width: '80%',
                     height: '93%'
                 },
             },
@@ -206,37 +188,21 @@
         }
         let selectIndex = 0;
         const paperRef = document.getElementsByClassName("tui-image-editor-header")[0];
-
-        // 作业列表
-        const paper_list_btn = document.getElementById("paper_list_btn");
         // 下一题
         const paper_list_next = document.getElementById("paper_list_next");
         // 保存作业
         const paper_save = document.getElementById("paper_save");
         // 所有作业的ref
         const paperList = document.getElementsByClassName("tui-image-editor-header-papers")[0];
-        // 上一张作业
-        const papaer_image_pre = document.getElementById("papaer_image_pre")
-        // 下一张作业
-        const papaer_image_next = document.getElementById("papaer_image_next")
 
         // 添加所有的监听事件
         function addAllEvents() {
-            paper_list_btn.addEventListener('click', function (e) {
-                paperList.classList.toggle('displayNone');
-            })
             paper_list_next.addEventListener('click', function (e) {
                 console.log('click--> 下一题')
             })
             paper_save.addEventListener('click', function (e) {
                 const imageUrl = imageEditor.downLoadImage();
                 console.log('click--> 保存作业', imageUrl)
-            })
-            papaer_image_pre.addEventListener('click', function (e) {
-                changeImage(selectIndex - 1);
-            })
-            papaer_image_next.addEventListener('click', function (e) {
-                changeImage(selectIndex + 1);
             })
         }
         function getRemoteImage() {
@@ -259,39 +225,45 @@
             const imageBox = document.getElementsByClassName('tui-image-editor-header-papers-box');
             const allImageRef = imageLists.map((imageUrl, index) => {
                 if (index === 0) {
-                    return `<img data-index="${index}" class="tui-image-editor-header-papers-box tui-image-editor-selectedBox" src="${imageUrl}"/>`;
+                    return `<div class="tui-image-editor-header-papers-box tui-image-editor-selectedBox" ><img data-index="${index}" src="${imageUrl}"/></div>`;
                 }
 
-                return `<img data-index="${index}" class="tui-image-editor-header-papers-box" src="${imageUrl}"/>`;
+                return `<div class="tui-image-editor-header-papers-box"><img data-index="${index}" src="${imageUrl}"/></div>`;
             });
-            imageContainer.innerHTML = allImageRef;
+            imageContainer.innerHTML = allImageRef.join('');
             snippet.forEach(imageBox, element => {
                 element.addEventListener('click', function (e) {
-                    changeImage(e.target.dataset.index)
+                    changeImage(Number(e.target.dataset.index))
                 })
             })
         }
         // 改变图片
         function changeImage(index) {
-            image_box = document.getElementsByClassName("tui-image-editor-header-papers-box");
-            const srcList = [];
-            snippet.forEach(image_box, element => {
-                srcList.push(element.src);
-            });
-            if (index < 0) {
-                selectIndex = 0;
-            } else if (index >= srcList.length) {
-                selectIndex = srcList.length - 1;
+            const isDraw = imageEditor.getCanvasObjects();
+            if (isDraw && !(window.confirm('您有未保存的批改记录，确认要切换吗？'))) {
+                return;
             } else {
-                selectIndex = index;
-            }
+                image_box = document.getElementsByClassName("tui-image-editor-header-papers-box");
+                const srcList = [];
+                snippet.forEach(image_box, element => {
+                    srcList.push(element.childNodes[0].src);
+                });
+                if (index < 0) {
+                    selectIndex = 0;
+                } else if (index >= srcList.length) {
+                    selectIndex = srcList.length - 1;
+                } else {
+                    selectIndex = index;
+                }
 
-            snippet.forEach(image_box, element => {
-                element.classList.remove('tui-image-editor-selectedBox');
-            });
-            image_box[selectIndex].classList.add('tui-image-editor-selectedBox');
-            imageEditor.loadImageFromURL(srcList[selectIndex], 'paperName');
-            imageEditor.resetCanvas();
+                snippet.forEach(image_box, element => {
+                    element.classList.remove('tui-image-editor-selectedBox');
+                });
+                image_box[selectIndex].classList.add('tui-image-editor-selectedBox');
+                imageEditor.loadImageFromURL(srcList[selectIndex], 'paperName');
+                imageEditor.setAngleToDefault();
+                imageEditor.resetCanvas();
+            }
         }
         addAllEvents();
         getRemoteImage();
