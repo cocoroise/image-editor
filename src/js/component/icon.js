@@ -14,7 +14,7 @@ const { rejectMessages } = consts;
 const pathMap = {
     arrow: 'M 0 90 H 105 V 120 L 160 60 L 105 0 V 30 H 0 Z',
     cancel: 'M 0 30 L 30 60 L 0 90 L 30 120 L 60 90 L 90 120 L 120 90 ' +
-            'L 90 60 L 120 30 L 90 0 L 60 30 L 30 0 Z'
+        'L 90 60 L 120 30 L 90 0 L 60 30 L 30 0 Z'
 };
 
 /**
@@ -64,7 +64,6 @@ class Icon extends Component {
             const registerdIcon = Object.keys(consts.defaultIconPath).indexOf(type) >= 0;
             const useDragAddIcon = this.useDragAddIcon && registerdIcon;
             const icon = path ? this._createIcon(path) : null;
-
             if (!icon) {
                 reject(rejectMessages.invalidParameters);
             }

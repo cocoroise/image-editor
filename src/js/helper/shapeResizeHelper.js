@@ -5,10 +5,20 @@
 const DIVISOR = {
     rect: 1,
     circle: 2,
-    triangle: 1
+    triangle: 1,
+    icon: 2,
+    line: 1
 };
 const DIMENSION_KEYS = {
     rect: {
+        w: 'width',
+        h: 'height'
+    },
+    icon: {
+        w: 'width',
+        h: 'height'
+    },
+    line: {
         w: 'width',
         h: 'height'
     },
@@ -148,6 +158,7 @@ function adjustDimensionOnScaling(shape) {
 function adjustDimensionOnMouseMove(pointer, shape) {
     const { type, strokeWidth, startPoint: origin } = shape;
     const divisor = DIVISOR[type];
+
     const dimensionKeys = DIMENSION_KEYS[type];
     const isTriangle = !!(shape.type === 'triangle');
     const options = {};
@@ -172,7 +183,7 @@ function adjustDimensionOnMouseMove(pointer, shape) {
 
     options[dimensionKeys.w] = width;
     options[dimensionKeys.h] = height;
-
+    console.log('dddd', width, height);
     shape.set(options);
 }
 

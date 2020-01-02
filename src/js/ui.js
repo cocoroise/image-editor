@@ -198,11 +198,11 @@ class Ui {
      * @ignore
      */
     changeDeleteAllButtonEnabled(enableStatus) {
-        if (enableStatus) {
-            this._els.deleteAll.classList.add('enabled');
-        } else {
-            this._els.deleteAll.classList.remove('enabled');
-        }
+        // if (enableStatus) {
+        //     this._els.deleteAll.classList.add('enabled');
+        // } else {
+        //     this._els.deleteAll.classList.remove('enabled');
+        // }
     }
 
     /**
@@ -238,7 +238,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['select', 'draw', 'text', 'shape', 'flip', 'rotate', 'mask'],
+            menu: ['select', 'draw', 'text', 'shape', 'icon', 'flip', 'rotate', 'mask'],
             // is submenu show
             showSubmenu: {
                 'select': false,

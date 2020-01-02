@@ -21,7 +21,8 @@ class Mask extends Submenu {
 
         this._els = {
             // applyButton: this.selector('#tie-mask-apply'),
-            maskImageButton: this.selector('#tie-mask-image-file')
+            maskImageButton: this.selector('#tie-mask-image-file'),
+            addIconButton: subMenuElement.getElementsByClassName('tui-image-editor-maskContainer')[0]
         };
     }
 
@@ -34,6 +35,7 @@ class Mask extends Submenu {
     addEvent(actions) {
         this.actions = actions;
         this._els.maskImageButton.addEventListener('change', this._loadMaskFile.bind(this));
+        this._els.addIconButton.addEventListener('click', this._addIcon.bind(this));
         // this._els.applyButton.addEventListener('click', this._applyMask.bind(this));
     }
 
@@ -45,6 +47,15 @@ class Mask extends Submenu {
     //     this.actions.applyFilter();
     //     this._els.applyButton.classList.remove('active');
     // }
+
+    // add icon
+    _addIcon(event) {
+        console.log('event', event.target.dataset.type);
+        const type = event.target.dataset.type || 0;
+        // const image_path = `../src/js/ui/theme/img/icon-${type}.png`;
+        const image_path = `../theme/img/icon-${type}.png`;
+        console.log('image', require(image_path));
+    }
 
     /**
      * Load mask file

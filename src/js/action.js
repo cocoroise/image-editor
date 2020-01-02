@@ -435,7 +435,7 @@ export default {
                 this.activeObjectId = obj.id;
 
                 this.ui.changeDeleteButtonEnabled(true);
-                this.ui.changeDeleteAllButtonEnabled(true);
+                // this.ui.changeDeleteAllButtonEnabled(true);
 
                 // if (obj.type === 'cropzone') {
                 //     this.ui.crop.changeApplyButtonStatus(true);

@@ -15,8 +15,5 @@ export default ({ locale, iconStyle: { normal, active } }) => (`
         <li>
             <div id="tie-draw-color" title="颜色"></div>
         </li>
-        <li class="tui-image-editor-partition only-left-right">
-            <div></div>
-        </li>
     </ul>
 `);

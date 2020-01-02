@@ -6,10 +6,10 @@ import fabric from 'fabric';
 import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
+import Icon from './icon';
 import resizeHelper from '../helper/shapeResizeHelper';
 import { extend, inArray, snippet } from 'tui-code-snippet';
-
-const { rejectMessages, eventNames } = consts;
+const { rejectMessages, eventNames, defaultIconPath } = consts;
 const KEY_CODES = consts.keyCodes;
 
 const DEFAULT_TYPE = 'rect';
@@ -32,7 +32,7 @@ const DEFAULT_OPTIONS = {
 };
 
 const shapeType = ['rect', 'circle', 'triangle', 'line', 'arrow'];
-const ARROW_PATH = 'M 0 90 H 105 V 120 L 160 60 L 105 0 V 30 H 0 Z';
+// const ARROW_PATH = 'M 0 90 H 105 V 120 L 160 60 L 105 0 V 30 H 0 Z';
 /**
  * Shape
  * @class Shape
@@ -181,12 +181,19 @@ class Shape extends Component {
         return new Promise(resolve => {
             const canvas = this.getCanvas();
             options = this._extendOptions(options);
-            const shapeObj = this._createInstance(type, options);
+            let shapeObj = null;
+            if (type === 'arrow') {
+                const IconHelper = new Icon(this.graphics);
 
-            this._bindEventOnShape(shapeObj);
+                shapeObj = IconHelper.add('arrow', options);
+                // canvas.setActiveObject(shapeObj);
+            } else {
+                shapeObj = this._createInstance(type, options);
 
-            canvas.add(shapeObj).setActiveObject(shapeObj);
-
+                this._bindEventOnShape(shapeObj);
+                canvas.add(shapeObj).setActiveObject(shapeObj);
+            }
+            this._addWithDragEvent(canvas);
             const objectProperties = this.graphics.createObjectProperties(shapeObj);
 
             resolve(objectProperties);
@@ -248,11 +255,11 @@ class Shape extends Component {
                     type: 'line'
                 }, selectionStyle, options, this.graphics.controlStyle));
                 break;
-            case 'arrow':
-                instance = new fabric.Path(ARROW_PATH, extend({
-                    type: 'icon'
-                }, selectionStyle, options, this.graphics.controlStyle));
-                break;
+            // case 'arrow':
+            //     instance = new fabric.Path(defaultIconPath[`icon-${type}`], extend({
+            //         type: 'icon'
+            //     }, selectionStyle, options, this.graphics.controlStyle));
+            //     break;
             default:
                 instance = {};
         }
@@ -317,6 +324,28 @@ class Shape extends Component {
 
                 canvas.setCursor('crosshair');
                 resizeHelper.resize(currentObj, pointer, true);
+            }
+        });
+    }
+
+    _addWithDragEvent(canvas) {
+        canvas.on({
+            'mouse:move': fEvent => {
+                canvas.selection = false;
+
+                this.fire(eventNames.ICON_CREATE_RESIZE, {
+                    moveOriginPointer: canvas.getPointer(fEvent.e)
+                });
+            },
+            'mouse:up': fEvent => {
+                this.fire(eventNames.ICON_CREATE_END, {
+                    moveOriginPointer: canvas.getPointer(fEvent.e)
+                });
+
+                canvas.defaultCursor = 'default';
+                canvas.off('mouse:up');
+                canvas.off('mouse:move');
+                canvas.selection = true;
             }
         });
     }
