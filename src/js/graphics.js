@@ -554,8 +554,8 @@ class Graphics {
 
         return new Promise(resolve => {
             fabric.Image.fromURL(imgUrl, image => {
-                image.scaleToWidth(200);
-                image.scaleToHeight(200);
+                image.scaleToWidth(100);
+                image.scaleToHeight(100);
                 callback(image);
                 resolve(this.createObjectProperties(image));
             }, imgOptions

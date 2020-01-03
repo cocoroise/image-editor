@@ -50,11 +50,9 @@ class Mask extends Submenu {
 
     // add icon
     _addIcon(event) {
-        console.log('event', event.target.dataset.type);
         const type = event.target.dataset.type || 0;
-        // const image_path = `../src/js/ui/theme/img/icon-${type}.png`;
-        const image_path = `../theme/img/icon-${type}.png`;
-        console.log('image', require(image_path));
+        const imagePath = `../src/js/ui/theme/img/icon-${type}.png`;
+        this.actions.loadImageObject(imagePath);
     }
 
     /**

@@ -256,6 +256,9 @@ export default {
                     });
                 })
             ),
+            loadImageObject: imgURL => {
+                this._graphics.addImageObject(imgURL);
+            },
             applyFilter: () => {
                 this.applyFilter('mask', {
                     maskObjId: this.activeObjectId

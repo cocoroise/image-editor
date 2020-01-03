@@ -10,7 +10,7 @@ export default ({ locale, iconStyle: { normal, active } }) => (`
             <div class="tui-image-editor-button tui-image-editor-maskContainer">
                 <div class="tui-image-editor-mask-box">
                     <input type="file" accept="image/*" id="tie-mask-image-file">
-                    <svg class="svg_ic-submenu">
+                    <svg class="svg_ic-submenu dashed-border">
                         <use xlink:href="${normal.path}#${normal.name}-ic-mask-load" class="normal"/>
                         <use xlink:href="${active.path}#${active.name}-ic-mask-load" class="active"/>
                     </svg>
