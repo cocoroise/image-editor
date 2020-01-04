@@ -92,7 +92,7 @@ class Ui {
             applyGroupSelectionStyle: true,
             selectionStyle: {
                 cornerStyle: 'circle',
-                cornerSize: 16,
+                cornerSize: 8,
                 cornerColor: '#fff',
                 cornerStrokeColor: '#fff',
                 transparentCorners: false,
@@ -238,7 +238,7 @@ class Ui {
             },
             locale: {},
             menuIconPath: '',
-            menu: ['select', 'draw', 'text', 'shape', 'icon', 'flip', 'rotate', 'mask'],
+            menu: ['select', 'draw', 'text', 'shape', 'flip', 'rotate', 'mask'],
             // is submenu show
             showSubmenu: {
                 'select': false,

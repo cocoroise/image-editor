@@ -30,7 +30,7 @@ export default ({ locale, iconStyle: { normal, active } }) => (`
                 <label> -90 </label>
             </div>
         </li>
-        <li class="tui-image-editor-partition only-left-right">
+        <li class="tui-image-editor-partition">
             <div></div>
         </li>
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">

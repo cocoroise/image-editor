@@ -13,7 +13,9 @@ export default ({ locale, iconStyle: { normal, active } }) => (`
             <div></div>
         </li>
         <li>
-            <div id="tie-draw-color" title="颜色"></div>
+        <div id="tie-draw-color" title="颜色"></div>
         </li>
+        <div class="tui-image-editor-whiteSpace">
+        </div>
     </ul>
 `);

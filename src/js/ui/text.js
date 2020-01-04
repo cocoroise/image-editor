@@ -27,7 +27,7 @@ class Text extends Submenu {
         };
         this.align = 'left';
         this._els = {
-            textEffectButton: this.selector('#tie-text-effect-button'),
+            // textEffectButton: this.selector('#tie-text-effect-button'),
             textColorpicker: new Colorpicker(
                 this.selector('#tie-text-color'), '#c30000', this.toggleDirection, this.usageStatistics
             ),
@@ -42,7 +42,7 @@ class Text extends Submenu {
      */
     addEvent(actions) {
         this.actions = actions;
-        this._els.textEffectButton.addEventListener('click', this._setTextEffectHandler.bind(this));
+        // this._els.textEffectButton.addEventListener('click', this._setTextEffectHandler.bind(this));
         this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
     }

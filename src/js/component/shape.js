@@ -6,7 +6,6 @@ import fabric from 'fabric';
 import Promise from 'core-js/library/es6/promise';
 import Component from '../interface/component';
 import consts from '../consts';
-import Icon from './icon';
 import resizeHelper from '../helper/shapeResizeHelper';
 import { extend, inArray, snippet } from 'tui-code-snippet';
 const { rejectMessages, eventNames, defaultIconPath } = consts;
@@ -181,22 +180,14 @@ class Shape extends Component {
         return new Promise(resolve => {
             const canvas = this.getCanvas();
             options = this._extendOptions(options);
-            let shapeObj = null;
-            if (type === 'arrow') {
-                const IconHelper = new Icon(this.graphics);
-
-                shapeObj = IconHelper.add('arrow', options);
-                // canvas.setActiveObject(shapeObj);
-            } else {
-                shapeObj = this._createInstance(type, options);
-
+            const shapeObj = this._createInstance(type, options);
+            if (shapeObj) {
                 this._bindEventOnShape(shapeObj);
                 canvas.add(shapeObj).setActiveObject(shapeObj);
-            }
-            this._addWithDragEvent(canvas);
-            const objectProperties = this.graphics.createObjectProperties(shapeObj);
+                const objectProperties = this.graphics.createObjectProperties(shapeObj);
 
-            resolve(objectProperties);
+                resolve(objectProperties);
+            }
         });
     }
 
@@ -261,7 +252,7 @@ class Shape extends Component {
             //     }, selectionStyle, options, this.graphics.controlStyle));
             //     break;
             default:
-                instance = {};
+                instance = null;
         }
 
         return instance;

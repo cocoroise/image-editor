@@ -317,7 +317,60 @@ export default {
      * @private
      */
     _shapeAction() {
+        let cacheIconType;
+        let cacheIconColor;
+        let startX;
+        let startY;
+        let iconWidth;
+        let iconHeight;
+        let objId;
+
+        this.on({
+            'iconCreateResize': ({ moveOriginPointer }) => {
+                const scaleX = (moveOriginPointer.x - startX) / iconWidth;
+                const scaleY = (moveOriginPointer.y - startY) / iconHeight;
+                console.log('create');
+                this.setObjectPropertiesQuietly(objId, {
+                    scaleX: Math.abs(scaleX * 2),
+                    scaleY: Math.abs(scaleY * 2)
+                });
+            },
+            'iconCreateEnd': () => {
+                console.log('create end');
+                this.ui.icon.clearIconType();
+                this.changeSelectableAll(true);
+            }
+        });
+
+        const mouseDown = (e, originPointer) => {
+            startX = originPointer.x;
+            startY = originPointer.y;
+            this.addIcon(cacheIconType, {
+                left: originPointer.x,
+                top: originPointer.y,
+                fill: '',
+                stroke: cacheIconColor,
+                strokeWidth: 8
+            }).then(obj => {
+                objId = obj.id;
+                iconWidth = obj.width;
+                iconHeight = obj.height;
+            });
+        };
+
         return extend({
+            // icon menu移植过来的
+            addIcon: (iconType, iconColor) => {
+                cacheIconType = iconType;
+                cacheIconColor = iconColor;
+                this.changeCursor('crosshair');
+                this.off('mousedown');
+                this.once('mousedown', mouseDown.bind(this));
+            },
+            // draw menu移植过来的
+            setDrawMode: settings => {
+                this.startDrawingMode('LINE_DRAWING', settings);
+            },
             changeShape: changeShapeObject => {
                 if (this.activeObjectId) {
                     this.changeShape(this.activeObjectId, changeShapeObject);

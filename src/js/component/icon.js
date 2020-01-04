@@ -72,7 +72,6 @@ class Icon extends Component {
                 type: 'icon',
                 fill: this._oColor
             }, selectionStyle, options, this.graphics.controlStyle));
-
             canvas.add(icon).setActiveObject(icon);
 
             if (useDragAddIcon) {

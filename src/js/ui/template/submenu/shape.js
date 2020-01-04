@@ -64,12 +64,13 @@ export default ({ locale, iconStyle: { normal, active } }) => (`
         <li class="tui-image-editor-newline tui-image-editor-range-wrap">
             <div id="tie-stroke-range"></div>
         </li>
-        <li class="tui-image-editor-partition only-left-right">
+        <li class="tui-image-editor-partition">
             <div></div>
         </li>
         <li id="tie-shape-color-button">
             <div id="tie-color-stroke" title="颜色"></div>
         </li>
-        
+        <div class="tui-image-editor-whiteSpace">
+        </div>
     </ul>
 `);

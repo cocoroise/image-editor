@@ -132,6 +132,15 @@ class Shape extends Submenu {
             this.actions.stopDrawingMode();
             this.actions.discardSelection();
             const shapeType = this.getButtonType(button, ['circle', 'triangle', 'rect', 'line', 'arrow']);
+            if (shapeType === 'arrow') {
+                this.actions.addIcon('arrow', '#d53331');
+            }
+            // 画完默认不选中
+            if (shapeType === 'line') {
+                this.actions.setDrawMode({ color: '#d53331' });
+
+                return;
+            }
             if (this.type === shapeType) {
                 this.changeStandbyMode();
 

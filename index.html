@@ -116,6 +116,215 @@
             box-shadow: 2px 2px 2px rgba(155, 155, 155, .3);
         }
 
+        #papers_problem {
+            width: 114px;
+            height: 40px;
+            line-height: 40px;
+            background: #FFFFFF;
+            border-radius: 5px;
+            text-align: center;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: red;
+        }
+
+        #papers_problem:hover {
+            cursor: pointer;
+        }
+
+        .papers_problem:hover {
+            cursor: pointer;
+        }
+
+        /* --------------以下是评分的css----------- */
+        #score_container {
+            z-index: 10;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score_container_box {
+            width: 600px;
+            height: 312px;
+            background: #FFFFFF;
+            border: 1px solid #DFDFDF;
+            border-radius: 12px;
+            padding: 15px 22px;
+        }
+
+        .score_container_box h3 {
+            text-align: center;
+        }
+
+        .score_container_normalProblem-content {
+            width: 200px;
+            height: 32px;
+            display: inline-block;
+        }
+
+        .score_container_normalProblem-content input {
+            height: 32px;
+            font-size: 16px;
+            border-radius: 4px;
+            outline: none;
+            background: none;
+            text-align: center;
+            line-height: 32px;
+            border: 1px solid #DBDBDB;
+        }
+
+        .score_container_normalProblem-content span {
+            height: 24px;
+            width: 24px;
+            margin-left: 12px;
+            display: inline-block;
+            line-height: 24px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .score_container_otherProblem-content {
+            width: 83%;
+            height: 123px;
+        }
+
+        .score_container-btns {
+            width: 308px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .score_container-btns span {
+            width: 144px;
+            height: 40px;
+            line-height: 44px;
+            border-radius: 20px;
+            border: 1px solid #DFDFDF;
+        }
+
+        .score_container-btns span:hover {
+            cursor: pointer;
+        }
+
+        .green-text {
+            border: 1px solid #75C82B;
+            color: #75C82B;
+        }
+
+        .yellow-text {
+            border: 1px solid #FF8A00;
+            color: #FF8A00;
+        }
+
+        .red-text {
+            border: 1px solid #EB5757;
+            color: #EB5757;
+        }
+
+        /* --------------以上是评分的css----------- */
+        #modal_container {
+            z-index: 10;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal_container_box {
+            width: 600px;
+            height: 312px;
+            background: #FFFFFF;
+            border: 1px solid #DFDFDF;
+            border-radius: 12px;
+            padding: 15px 22px;
+        }
+
+        .modal_container_box h3 {
+            text-align: center;
+        }
+
+        .modal_container_normalProblem-content {
+            width: 380px;
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .modal_container-header {
+            margin-right: 21px;
+            vertical-align: middle;
+        }
+
+        .modal_container_normalProblem-content span {
+            height: 28px;
+            width: 80px;
+            font-size: 14px;
+            padding: 0 5px;
+            line-height: 28px;
+            text-align: center;
+            border: 1px solid #DBDBDB;
+            border-radius: 4px;
+        }
+
+        .modal_container_normalProblem-content span:hover {
+            cursor: pointer;
+        }
+
+        .modal_container_otherProblem {
+            display: flex;
+            margin-top: 16px;
+        }
+
+        .modal_container_otherProblem-content {
+            width: 83%;
+            height: 123px;
+        }
+
+        .modal_container-btns {
+            width: 308px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .modal_container-btns span {
+            width: 144px;
+            height: 40px;
+            line-height: 44px;
+            border-radius: 20px;
+            border: 1px solid #DFDFDF;
+        }
+
+        .modal_container-btns span:hover {
+            cursor: pointer;
+        }
+
+        .green-btn {
+            background-color: #75C82B;
+            color: white;
+        }
+
+        .active-btn {
+            background-color: #DBDBDB;
+        }
+
         .displayNone {
             display: none !important;
         }
@@ -137,6 +346,51 @@
 </head>
 
 <body>
+    <div id="modal_container" class="displayNone">
+        <div class="modal_container_box">
+            <h3>图片有问题</h3>
+            <div class="modal_container_normalProblem">
+                <span class="modal_container-header">常见原因</span>
+                <div class="modal_container_normalProblem-content">
+                    <span>图片看不清</span>
+                    <span>内容错误</span>
+                    <span>内容不全</span>
+                </div>
+            </div>
+            <div class="modal_container_otherProblem">
+                <span class="modal_container-header">其他原因</span>
+                <textarea class="modal_container_otherProblem-content" maxlength="1000" placeholder="请输入原因"></textarea>
+            </div>
+            <div class="modal_container-btns">
+                <span>取消</span>
+                <span class="green-btn">提交</span>
+            </div>
+        </div>
+    </div>
+    <!-- -------------------评分---------------------- -->
+    <div id="score_container">
+        <div class="score_container_box">
+            <h3>莉莉同学</h3>
+            <div class="modal_container_normalProblem">
+                <span class="modal_container-header">评分</span>
+                <div class="score_container_normalProblem-content">
+                    <input id="score_input" type="number" max="100" min="0" name="score" value="80"
+                        oninput="inputHandle(event)">
+                    <span class="green-text">优</span>
+                    <span class="yellow-text displayNone">中</span>
+                    <span class="red-text displayNone">差</span>
+                </div>
+            </div>
+            <div class="modal_container_otherProblem">
+                <span class="modal_container-header">评语</span>
+                <textarea class="score_container_otherProblem-content" maxlength="1000" placeholder="请输入评语"></textarea>
+            </div>
+            <div class="score_container-btns">
+                <span>保存并返回</span>
+                <span class="green-btn">保存并下一位</span>
+            </div>
+        </div>
+    </div>
     <div class="tui-image-editor-header">
         <div class="tui-image-editor-header-buttons">
             <div id="paper_list_btn" class="primary_btn">作业列表</div>
@@ -151,6 +405,7 @@
         </div>
     </div>
     <div id="tui-image-editor-container"></div>
+    <div id="papers_problem">图片有问题？</div>
     <script type="text/javascript" src="https://cdn.bootcss.com/fabric.js/3.4.0/fabric.min.js"></script>
     <script type="text/javascript"
         src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
@@ -194,7 +449,16 @@
         const paper_save = document.getElementById("paper_save");
         // 所有作业的ref
         const paperList = document.getElementsByClassName("tui-image-editor-header-papers")[0];
-
+        // 图片有问题
+        const papersProblemContainer = document.getElementById("modal_container")
+        const papersProblem = document.querySelectorAll(".modal_container-btns span")
+        const papersProblemBtn = document.getElementById("papers_problem")
+        const paperProblemReasons = document.querySelectorAll(".modal_container_normalProblem-content span")
+        // 评分
+        const scoreContainer = document.getElementById("score_container")
+        const scoreBtn = document.querySelectorAll(".score_container-btns span")
+        const scoreInput = document.getElementById("score_input")
+        const scoreClass = document.querySelectorAll(".score_container_normalProblem-content span")
         // 添加所有的监听事件
         function addAllEvents() {
             paper_list_next.addEventListener('click', function (e) {
@@ -204,7 +468,56 @@
                 const imageUrl = imageEditor.downLoadImage();
                 console.log('click--> 保存作业', imageUrl)
             })
+            // 图片有问题
+            papersProblemBtn.addEventListener('click', function (e) {
+                papersProblemContainer.classList.remove("displayNone");
+            })
+            papersProblem[0].addEventListener('click', function (e) {
+                papersProblemContainer.classList.add("displayNone");
+                console.log('图片有问题--> 取消')
+            })
+            papersProblem[1].addEventListener('click', function (e) {
+                papersProblemContainer.classList.add("displayNone");
+                const reasons = [];
+                const otherProblems = document.getElementsByClassName("modal_container_otherProblem-content")[0].value;
+                const reasonsRef = document.querySelectorAll(".active-btn");
+                reasonsRef.forEach(e => {
+                    reasons.push(e.innerText)
+                })
+                console.log('图片有问题--> 提交', otherProblems, reasons)
+            })
+            // 评语
+            scoreBtn[0].addEventListener('click', function (e) {
+                scoreContainer.classList.add("displayNone");
+
+                console.log('返回')
+            })
+            scoreBtn[1].addEventListener('click', function (e) {
+                const scoreValue = scoreInput.value;
+                const scoreText = document.getElementsByClassName("score_container_otherProblem-content")[0].value;
+                scoreContainer.classList.add("displayNone");
+                console.log('下一位', scoreValue, scoreText)
+            })
+            for (let node of paperProblemReasons) {
+                node.addEventListener('click', function (e) {
+                    e.target.classList.toggle("active-btn")
+                })
+            }
         }
+        function inputHandle(e) {
+            const value = e.target.value;
+            scoreClass.forEach(e => {
+                e.classList.add("displayNone")
+            })
+            if (value >= 80) {
+                scoreClass[0].classList.remove('displayNone')
+            } else if (value < 80 && value >= 60) {
+                scoreClass[1].classList.remove('displayNone')
+            } else {
+                scoreClass[2].classList.remove('displayNone')
+            }
+        }
+
         function getRemoteImage() {
             // 接口获取数据
             const imageLists = [

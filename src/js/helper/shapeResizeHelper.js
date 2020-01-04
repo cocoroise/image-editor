@@ -145,7 +145,7 @@ function adjustDimensionOnScaling(shape) {
 
     options[dimensionKeys.w] = width;
     options[dimensionKeys.h] = height;
-
+    console.log('adjustDimensionOnScaling');
     shape.set(options);
 }
 
@@ -183,7 +183,7 @@ function adjustDimensionOnMouseMove(pointer, shape) {
 
     options[dimensionKeys.w] = width;
     options[dimensionKeys.h] = height;
-    console.log('dddd', width, height);
+
     shape.set(options);
 }
 
