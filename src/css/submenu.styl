@@ -23,7 +23,7 @@
                 display: inline-block;
                 font-weight: normal;
                 font-size: 11px;
-                margin:0 3px;
+                margin:4px;
             .{prefix}-button.preset
                 margin: 0 9px 20px 5px;
             label
@@ -78,7 +78,7 @@
     .{prefix}-main.{prefix}-menu-filter .{prefix}-submenu > div.{prefix}-menu-filter
         display: inline-block;
         border-radius: 4px;
-        background-color: #F8F8F8; 
+        background-color: white; 
         border: 1px solid #DFDFDF;
     .{prefix}-main.{prefix}-menu-crop,
     .{prefix}-main.{prefix}-menu-flip,
@@ -92,29 +92,32 @@
     .{prefix}-main.{prefix}-menu-filter
       .{prefix}-submenu
         display: block;
+        position: relative;
     .{prefix}-main.{prefix}-menu-draw .{prefix}-submenu > div.{prefix}-menu-draw
         position: relative;
-        top: -193px;
+        top: 4px;
     .{prefix}-main.{prefix}-menu-text .{prefix}-submenu > div.{prefix}-menu-text
         position: relative;
-        top: -150px;
+        top: 44px;
     .{prefix}-main.{prefix}-menu-shape .{prefix}-submenu > div.{prefix}-menu-shape
         position: relative;
-        top: -77px;
+        top: 57px;
     .{prefix}-main.{prefix}-menu-mask .{prefix}-submenu > div.{prefix}-menu-mask
         position: relative;
-        top: -18px;
+        top: 132px;
     .{prefix}-maskContainer
-        width:233px;
-        height:108px;
+        width:237px;
+        height:98px;
         .{prefix}-mask-box
-            text-align: center;
             display: inline-block;
             width:40px;
             height:40px;
-            margin:1px;
+            margin:2px;
             img 
                 width:100%;
+            &:nth-of-type(6)
+                margin-left: -42px;
+        
     .{prefix}-whiteSpace
         display: block;
         height:12px;

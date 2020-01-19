@@ -10,8 +10,8 @@ body > textarea
     min-height: 300px;
     height: 90%;
     position: relative;
-    left:20%;
-    background-color: white;
+    left:260px;
+    background-color:#f8f8f8;
     overflow: hidden;
     letter-spacing: 0.3px;
   
@@ -156,11 +156,11 @@ body > textarea
         bottom: 0;
         width: 100%;
         overflow: auto;
+        background-color: #f8f8f8;
         .-size-wrap
             display: table;
             width: 100%;
             height: 100%
-            background: white;
             .-align-wrap
                 display: table-cell;
                 vertical-align: middle;
@@ -183,27 +183,27 @@ body > textarea
         text-align: center;
         white-space: nowrap;
         > .{prefix}-item
+            width:40px;
+            height:40px;
             position: relative;
             padding-top:4px;
-            flex:1;
-            width:40px;
-            height:44px;
+            line-height: 44px;
             margin:5px 0;
             border-radius: 2px;
             cursor: pointer;
         > .{prefix}-item[tooltip-content]:hover
             &:before
-                content: '';
-                position: absolute;
-                display: inline-block;
-                margin: 0 auto 0;
-                width: 0;
-                height: 0;
-                border-right: 7px solid transparent;
-                border-top: 7px solid #2f2f2f;
-                border-left: 7px solid transparent;
-                left: 13px;
-                top: -2px;
+                // content: '';
+                // position: absolute;
+                // display: inline-block;
+                // margin: 0 auto 0;
+                // width: 0;
+                // height: 0;
+                // border-right: 7px solid transparent;
+                // border-top: 7px solid #2f2f2f;
+                // border-left: 7px solid transparent;
+                // left: 13px;
+                // top: -2px;
             &:after
                 content: attr(tooltip-content);
                 position: absolute;

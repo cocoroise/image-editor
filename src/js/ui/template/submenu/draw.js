@@ -7,6 +7,14 @@
 export default ({ locale, iconStyle: { normal, active } }) => (`
     <ul class="tui-image-editor-submenu-item">
         <li class="tui-image-editor-newline">
+            <div id="tie-draw-penShow">
+                <span class="tie-draw-penShow-content"></span>
+            </div>
+        </li>
+        <li class="tui-image-editor-partition">
+            <div></div>
+        </li>
+        <li class="tui-image-editor-newline">
             <div id="tie-draw-range"></div>
         </li>
         <li class="tui-image-editor-partition">

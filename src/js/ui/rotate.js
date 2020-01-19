@@ -83,6 +83,8 @@ class Rotate extends Submenu {
         const angle = 90;
         this.actions.rotate(angle);
 
+        this.actions.discardMemu('rotate');
+
         // if (button) {
         // const rotateType = this.getButtonType(button, ['counterclockwise', 'clockwise']);
         //     const rotateType = 'counterclockwise';

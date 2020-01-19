@@ -47,6 +47,7 @@ class Flip extends Submenu {
 
         this._actions.flip(flipType).then(flipStatus => {
             const flipClassList = this._els.flipButton.classList;
+            this._actions.discardMemu('flip');
             // this.flipStatus = false;
 
             // flipClassList.remove('resetFlip');

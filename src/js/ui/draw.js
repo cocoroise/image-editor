@@ -27,7 +27,8 @@ class Draw extends Submenu {
             drawColorpicker: new Colorpicker(
                 this.selector('#tie-draw-color'), '#D53331', this.toggleDirection, this.usageStatistics
             ),
-            drawRange: new Range(this.selector('#tie-draw-range'), 2)
+            drawRange: new Range(this.selector('#tie-draw-range'), 2),
+            drawShwRect: subMenuElement.querySelector('.tie-draw-penShow-content')
         };
 
         this.color = this._els.drawColorpicker.color;
@@ -44,6 +45,7 @@ class Draw extends Submenu {
         this._els.drawColorpicker.on('change', this._changeDrawColor.bind(this));
         this._els.drawRange.on('change', this._changeDrawRange.bind(this));
         this.setDrawMode();
+        this._changePenRect();
     }
 
     /**
@@ -54,6 +56,12 @@ class Draw extends Submenu {
             width: this.width,
             color: util.getRgb(this.color, DRAW_OPACITY)
         });
+    }
+
+    // excute when return to this menu
+    changeStartMode() {
+        this.actions.stopDrawingMode();
+        this.setDrawMode();
     }
 
     /**
@@ -72,6 +80,7 @@ class Draw extends Submenu {
     _changeDrawColor(color) {
         this.color = color || 'transparent';
         this.setDrawMode();
+        this._changePenRect();
     }
 
     /**
@@ -83,6 +92,12 @@ class Draw extends Submenu {
         value = util.toInteger(value);
         this.width = value;
         this.setDrawMode();
+        this._changePenRect();
+    }
+
+    _changePenRect() {
+        const rectRef = this._els.drawShwRect;
+        rectRef.setAttribute('style', `background-color:${this.color};height:${this.width}px`);
     }
 }
 

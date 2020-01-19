@@ -108,11 +108,11 @@ class ImageEditor {
          */
         this._graphics = new Graphics(
             this.ui ? this.ui.getEditorArea() : wrapper, {
-                cssMaxWidth: options.cssMaxWidth,
-                cssMaxHeight: options.cssMaxHeight,
-                useItext: !!this.ui,
-                useDragAddIcon: !!this.ui
-            }
+            cssMaxWidth: options.cssMaxWidth,
+            cssMaxHeight: options.cssMaxHeight,
+            useItext: !!this.ui,
+            useDragAddIcon: !!this.ui
+        }
         );
         /**
          * Event handler list

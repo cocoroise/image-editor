@@ -145,7 +145,6 @@ function adjustDimensionOnScaling(shape) {
 
     options[dimensionKeys.w] = width;
     options[dimensionKeys.h] = height;
-    console.log('adjustDimensionOnScaling');
     shape.set(options);
 }
 
@@ -158,7 +157,6 @@ function adjustDimensionOnScaling(shape) {
 function adjustDimensionOnMouseMove(pointer, shape) {
     const { type, strokeWidth, startPoint: origin } = shape;
     const divisor = DIVISOR[type];
-
     const dimensionKeys = DIMENSION_KEYS[type];
     const isTriangle = !!(shape.type === 'triangle');
     const options = {};

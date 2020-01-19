@@ -99,14 +99,16 @@ class Colorpicker {
     _addEvent(colorpickerElement) {
         colorpickerElement.addEventListener('click', e => {
             const { target: { value } } = e;
-            const ele = colorpickerElement.querySelectorAll('ul.tui-colorpicker-clearfix li');
-            for (const v of ele) {
-                v.style = '';
+            if (value) {
+                const ele = colorpickerElement.querySelectorAll('ul.tui-colorpicker-clearfix li');
+                for (const v of ele) {
+                    v.style = '';
+                }
+                this._addActiveColorStyle(e.target.parentNode, value);
+                this.fire('change', value);
+                this._color = value;
+                e.stopPropagation();
             }
-            this._addActiveColorStyle(e.target.parentNode, value);
-            this.fire('change', value);
-            this._color = value;
-            e.stopPropagation();
         }, true);
     }
 

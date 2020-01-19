@@ -27,7 +27,7 @@ class Shape extends Submenu {
             usageStatistics,
             showSubmenu
         });
-        this.type = null;
+        this.type = 'line';
         this.options = SHAPE_DEFAULT_OPTION;
 
         this._els = {
@@ -49,10 +49,10 @@ class Shape extends Submenu {
      */
     addEvent(actions) {
         this.actions = actions;
-
         this._els.shapeSelectButton.addEventListener('click', this._changeShapeHandler.bind(this));
         this._els.strokeRange.on('change', this._changeStrokeRangeHandler.bind(this));
         this._els.strokeColorpicker.on('change', this._changeStrokeColorHandler.bind(this));
+        // this.changeStartMode();
     }
 
     /**
@@ -77,6 +77,7 @@ class Shape extends Submenu {
      */
     changeStartMode() {
         this.actions.stopDrawingMode();
+        this.startDraw();
     }
 
     /**
@@ -84,7 +85,10 @@ class Shape extends Submenu {
      */
     changeStandbyMode() {
         this.type = null;
+        // this.actions.stopDrawingMode();
+        // this.actions.cancelAddIcon();
         this.actions.changeSelectableAll(true);
+
         this._els.shapeSelectButton.classList.remove('circle');
         this._els.shapeSelectButton.classList.remove('triangle');
         this._els.shapeSelectButton.classList.remove('rect');
@@ -102,6 +106,22 @@ class Shape extends Submenu {
             strokeMaxValue = defaultShapeStrokeValus.max;
         }
         this._els.strokeRange.max = strokeMaxValue;
+    }
+
+    // start draw mode
+    startDraw() {
+        this.actions.stopDrawingMode();
+        this.actions.setDrawMode(
+            {
+                color: this.options.stroke,
+                width: this.options.strokeWidth
+            }
+        );
+    }
+
+    clearIconType() {
+        this._els.shapeSelectButton.classList.remove(this.type);
+        this.type = null;
     }
 
     /**
@@ -129,17 +149,19 @@ class Shape extends Submenu {
     _changeShapeHandler(event) {
         const button = event.target.closest('.tui-image-editor-button');
         if (button) {
-            this.actions.stopDrawingMode();
             this.actions.discardSelection();
             const shapeType = this.getButtonType(button, ['circle', 'triangle', 'rect', 'line', 'arrow']);
-            if (shapeType === 'arrow') {
-                this.actions.addIcon('arrow', '#d53331');
-            }
-            // 画完默认不选中
-            if (shapeType === 'line') {
-                this.actions.setDrawMode({ color: '#d53331' });
+            if (shapeType === 'line') { // 画完默认不选中
+                this.changeStandbyMode();
+                this.startDraw();
+                this.type = shapeType;
+                this._els.shapeSelectButton.classList.add(shapeType);
+                this.actions.changeSelectableAll(false);
 
                 return;
+            }
+            if (shapeType === 'arrow') {
+                this.actions.addIcon('arrow', this.options.stroke);
             }
             if (this.type === shapeType) {
                 this.changeStandbyMode();
@@ -148,7 +170,8 @@ class Shape extends Submenu {
             }
             this.changeStandbyMode();
             this.type = shapeType;
-            event.currentTarget.classList.add(shapeType);
+            this._els.shapeSelectButton.classList.add(shapeType);
+            console.log('aaa', this._els.shapeSelectButton.classList);
             this.actions.changeSelectableAll(false);
             this.actions.modeChange('shape');
         }
@@ -165,21 +188,11 @@ class Shape extends Submenu {
         this.actions.changeShape({
             strokeWidth: value
         });
-
-        this.actions.setDrawingShape(this.type, this.options);
-    }
-
-    /**
-     * Change shape color
-     * @param {string} color - fill color
-     * @private
-     */
-    _changeFillColorHandler(color) {
-        color = color || 'transparent';
-        this.options.fill = color;
-        this.actions.changeShape({
-            fill: color
-        });
+        if (this.type === 'line') {
+            this.startDraw();
+        } else {
+            this.actions.setDrawingShape(this.type, this.options);
+        }
     }
 
     /**
@@ -190,9 +203,13 @@ class Shape extends Submenu {
     _changeStrokeColorHandler(color) {
         color = color || 'transparent';
         this.options.stroke = color;
-        this.actions.changeShape({
-            stroke: color
-        });
+        if (this.type === 'line') {
+            this.startDraw();
+        } else {
+            this.actions.changeShape({
+                stroke: color
+            });
+        }
     }
 }
 

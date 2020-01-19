@@ -329,14 +329,12 @@ export default {
             'iconCreateResize': ({ moveOriginPointer }) => {
                 const scaleX = (moveOriginPointer.x - startX) / iconWidth;
                 const scaleY = (moveOriginPointer.y - startY) / iconHeight;
-                console.log('create');
                 this.setObjectPropertiesQuietly(objId, {
                     scaleX: Math.abs(scaleX * 2),
                     scaleY: Math.abs(scaleY * 2)
                 });
             },
             'iconCreateEnd': () => {
-                console.log('create end');
                 this.ui.icon.clearIconType();
                 this.changeSelectableAll(true);
             }
@@ -355,6 +353,7 @@ export default {
                 objId = obj.id;
                 iconWidth = obj.width;
                 iconHeight = obj.height;
+                this.ui.shape.clearIconType();
             });
         };
 
@@ -366,6 +365,12 @@ export default {
                 this.changeCursor('crosshair');
                 this.off('mousedown');
                 this.once('mousedown', mouseDown.bind(this));
+            },
+            cancelAddIcon: () => {
+                this.off('mousedown');
+                // this.ui.shape.clearIconType();
+                this.changeSelectableAll(true);
+                this.changeCursor('default');
             },
             // draw menu移植过来的
             setDrawMode: settings => {
@@ -592,6 +597,7 @@ export default {
                         break;
                 }
             },
+            discardMemu: menuName => this.ui.changeMenu(menuName),
             deactivateAll: this.deactivateAll.bind(this),
             changeSelectableAll: this.changeSelectableAll.bind(this),
             discardSelection: this.discardSelection.bind(this),

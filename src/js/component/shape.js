@@ -242,9 +242,7 @@ class Shape extends Component {
                 instance = new fabric.Triangle(options);
                 break;
             case 'line':
-                instance = new fabric.Line(extend({
-                    type: 'line'
-                }, selectionStyle, options, this.graphics.controlStyle));
+                instance = new fabric.Line();
                 break;
             // case 'arrow':
             //     instance = new fabric.Path(defaultIconPath[`icon-${type}`], extend({
@@ -319,28 +317,6 @@ class Shape extends Component {
         });
     }
 
-    _addWithDragEvent(canvas) {
-        canvas.on({
-            'mouse:move': fEvent => {
-                canvas.selection = false;
-
-                this.fire(eventNames.ICON_CREATE_RESIZE, {
-                    moveOriginPointer: canvas.getPointer(fEvent.e)
-                });
-            },
-            'mouse:up': fEvent => {
-                this.fire(eventNames.ICON_CREATE_END, {
-                    moveOriginPointer: canvas.getPointer(fEvent.e)
-                });
-
-                canvas.defaultCursor = 'default';
-                canvas.off('mouse:up');
-                canvas.off('mouse:move');
-                canvas.selection = true;
-            }
-        });
-    }
-
     /**
      * MouseDown event handler on canvas
      * @param {{target: fabric.Object, e: MouseEvent}} fEvent - Fabric event object
@@ -376,7 +352,6 @@ class Shape extends Component {
         const width = startPointX - pointer.x;
         const height = startPointY - pointer.y;
         const shape = this._shapeObj;
-
         if (!shape) {
             this.add(this._type, {
                 left: startPointX,

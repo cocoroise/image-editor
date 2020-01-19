@@ -18,7 +18,7 @@ class Mask extends Submenu {
             usageStatistics,
             showSubmenu
         });
-
+        this.subMenuElement = subMenuElement;
         this._els = {
             // applyButton: this.selector('#tie-mask-apply'),
             maskImageButton: this.selector('#tie-mask-image-file'),
@@ -53,6 +53,7 @@ class Mask extends Submenu {
         const type = event.target.dataset.type || 0;
         const imagePath = `../src/js/ui/theme/img/icon-${type}.png`;
         this.actions.loadImageObject(imagePath);
+        this.actions.discardMemu('mask');
     }
 
     /**

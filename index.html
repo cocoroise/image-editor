@@ -25,7 +25,35 @@
             border-bottom: 1px solid #DFDFDF;
         }
 
+        .tui-image-editor-header-title {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-left: 24px;
+        }
+
+        .tui-image-editor-header-title_content {
+            font-size: 14px;
+            font-weight: 400;
+            margin-left: 7px;
+            margin-top: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tui-image-editor-header-title_content span {
+            margin-left: 4px;
+        }
+
+        .tui-image-editor-header-title_content img:nth-of-type(2) {
+            margin-left: 16px;
+            margin-right: -1px;
+        }
+
         .tui-image-editor-header-buttons {
+            width: 30%;
+            float: right;
             display: flex;
             justify-content: flex-end;
         }
@@ -91,7 +119,6 @@
             width: 200px;
             height: 164px;
             border-radius: 4px;
-            flex: 0;
             margin: 8px 10px;
             background-color: #fff;
             background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%), linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
@@ -150,9 +177,22 @@
             align-items: center;
         }
 
+        .score_close {
+            display: inline-block;
+            position: absolute;
+            right: 24px;
+            top: 10px;
+            user-select: none;
+        }
+
+        .score_close:hover {
+            cursor: pointer;
+        }
+
         .score_container_box {
             width: 600px;
             height: 312px;
+            position: relative;
             background: #FFFFFF;
             border: 1px solid #DFDFDF;
             border-radius: 12px;
@@ -248,10 +288,23 @@
         .modal_container_box {
             width: 600px;
             height: 312px;
+            position: relative;
             background: #FFFFFF;
             border: 1px solid #DFDFDF;
             border-radius: 12px;
             padding: 15px 22px;
+        }
+
+        .modal_close {
+            display: inline-block;
+            position: absolute;
+            right: 24px;
+            top: 10px;
+            user-select: none;
+        }
+
+        .modal_close:hover {
+            cursor: pointer;
         }
 
         .modal_container_box h3 {
@@ -332,7 +385,7 @@
         ::-webkit-scrollbar {
             background-color: white;
             width: 8px;
-            height: 50px;
+            height: 0px;
             background-clip: padding-box;
         }
 
@@ -348,6 +401,7 @@
 <body>
     <div id="modal_container" class="displayNone">
         <div class="modal_container_box">
+            <span class="modal_close">×</span>
             <h3>图片有问题</h3>
             <div class="modal_container_normalProblem">
                 <span class="modal_container-header">常见原因</span>
@@ -368,8 +422,9 @@
         </div>
     </div>
     <!-- -------------------评分---------------------- -->
-    <div id="score_container">
-        <div class="score_container_box">
+    <div id="score_container" class="displayNone">
+        <div class=" score_container_box">
+            <span class="score_close">×</span>
             <h3>莉莉同学</h3>
             <div class="modal_container_normalProblem">
                 <span class="modal_container-header">评分</span>
@@ -392,6 +447,15 @@
         </div>
     </div>
     <div class="tui-image-editor-header">
+        <div class="tui-image-editor-header-title">
+            <span>《李白诗词赏析》</span>
+            <div class="tui-image-editor-header-title_content">
+                <img src="./theme/book.png" alt="header">
+                <span>第1讲 将进酒</span>
+                <img src="./theme/header.png" alt="book">
+                <span>黎莉莉</span>
+            </div>
+        </div>
         <div class="tui-image-editor-header-buttons">
             <div id="paper_list_btn" class="primary_btn">作业列表</div>
             <div id="paper_list_next" class="normal_btn">下一题</div>
@@ -404,7 +468,7 @@
             </div>
         </div>
     </div>
-    <div id="tui-image-editor-container"></div>
+    <div id="tui-image-editor-container" class="GS-LOG-AUTO" gs-log-key="AXXZXJS_10"></div>
     <div id="papers_problem">图片有问题？</div>
     <script type="text/javascript" src="https://cdn.bootcss.com/fabric.js/3.4.0/fabric.min.js"></script>
     <script type="text/javascript"
@@ -415,6 +479,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="./dist/tui-image-editor.js"></script>
     <script type="text/javascript" src="./theme/whiteTheme.js"></script>
+    <script type="text/javascript" src="./logger.js"></script>
     <script>
         const windowHeight = document.body.clientHeight - 100;
         const windowWidth = document.body.clientWidth - 100;
@@ -429,7 +494,7 @@
                 initMenu: 'draw',
                 menuBarPosition: 'left',
                 uiSize: {
-                    width: '80%',
+                    width: '85%',
                     height: '93%'
                 },
             },
@@ -454,11 +519,14 @@
         const papersProblem = document.querySelectorAll(".modal_container-btns span")
         const papersProblemBtn = document.getElementById("papers_problem")
         const paperProblemReasons = document.querySelectorAll(".modal_container_normalProblem-content span")
+        const paperProblemClose = document.getElementsByClassName("modal_close")[0]
         // 评分
         const scoreContainer = document.getElementById("score_container")
         const scoreBtn = document.querySelectorAll(".score_container-btns span")
         const scoreInput = document.getElementById("score_input")
         const scoreClass = document.querySelectorAll(".score_container_normalProblem-content span")
+        const scoreClose = document.getElementsByClassName("score_close")[0]
+
         // 添加所有的监听事件
         function addAllEvents() {
             paper_list_next.addEventListener('click', function (e) {
@@ -474,6 +542,7 @@
             })
             papersProblem[0].addEventListener('click', function (e) {
                 papersProblemContainer.classList.add("displayNone");
+                resetProblemModal();
                 console.log('图片有问题--> 取消')
             })
             papersProblem[1].addEventListener('click', function (e) {
@@ -484,12 +553,16 @@
                 reasonsRef.forEach(e => {
                     reasons.push(e.innerText)
                 })
+                resetProblemModal();
                 console.log('图片有问题--> 提交', otherProblems, reasons)
+            })
+            paperProblemClose.addEventListener('click', function (e) {
+                papersProblemContainer.classList.add("displayNone");
+                resetProblemModal();
             })
             // 评语
             scoreBtn[0].addEventListener('click', function (e) {
                 scoreContainer.classList.add("displayNone");
-
                 console.log('返回')
             })
             scoreBtn[1].addEventListener('click', function (e) {
@@ -497,6 +570,9 @@
                 const scoreText = document.getElementsByClassName("score_container_otherProblem-content")[0].value;
                 scoreContainer.classList.add("displayNone");
                 console.log('下一位', scoreValue, scoreText)
+            })
+            scoreClose.addEventListener('click', function (e) {
+                scoreContainer.classList.add("displayNone");
             })
             for (let node of paperProblemReasons) {
                 node.addEventListener('click', function (e) {
@@ -517,7 +593,13 @@
                 scoreClass[2].classList.remove('displayNone')
             }
         }
-
+        // 关闭后清空modal
+        function resetProblemModal() {
+            paperProblemReasons.forEach(v => {
+                v.classList.remove('active-btn')
+            })
+            document.getElementsByClassName("modal_container_otherProblem-content")[0].value = ''
+        }
         function getRemoteImage() {
             // 接口获取数据
             const imageLists = [
@@ -578,6 +660,11 @@
                 imageEditor.resetCanvas();
             }
         }
+        // 埋点相关的方法
+        // 埋点
+        window.onload = () => {
+            LoggerService.setActionConf();
+        };
         addAllEvents();
         getRemoteImage();
     </script>

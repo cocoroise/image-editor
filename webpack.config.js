@@ -84,10 +84,10 @@ module.exports = {
     ],
     devtool: 'cheap-module-source-map',
     devServer: {
+        host: '0.0.0.0',
         historyApiFallback: false,
         progress: true,
         inline: true,
-        host: 'localhost',
         disableHostCheck: true
     }
 };

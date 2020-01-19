@@ -4,11 +4,11 @@
     .{prefix}-menu
         > .{prefix}-item[tooltip-content]
             &:before
-                left: 28px;
-                top: 11px;
-                border-right: 7px solid #2f2f2f;
-                border-top: 7px solid transparent;
-                border-bottom: 7px solid transparent;
+                // left: 28px;
+                // top: 11px;
+                // border-right: 7px solid #2f2f2f;
+                // border-top: 7px solid transparent;
+                // border-bottom: 7px solid transparent;
             &:after
                 top: 7px;
                 left: 42px;
@@ -16,7 +16,7 @@
     .{prefix}-submenu
             height:fit-content;
             left: 0;
-            top: 50%;
+            top: 295px;
             width: 248px;
             transform: translateY(-50%);
     .{prefix}-main-container
@@ -26,7 +26,7 @@
         height: 100%;
     .{prefix}-controls
         width: 40px;
-        height: 410px;
+        height: 528px;
 
 /* POSITION LEFT & RIGHT */
 .{prefix}-container
@@ -39,7 +39,7 @@
             vertical-align: middle;
     .{prefix}-controls li
         display: inline-block;
-        height: 25px;
+        // height: 25px;
     .{prefix}-icpartition
         position: relative;
         top: -7px;
@@ -59,7 +59,7 @@
             margin-right: 0;
         .{prefix}-submenu-item
             li
-                margin-top: 12px;
+                margin-top: 8px;
             .tui-colorpicker-clearfix li
                 margin-top: 0;
 
@@ -80,12 +80,6 @@
   &.right
     .{prefix}-menu
         > .{prefix}-item[tooltip-content]
-            &:before
-                left: -3px;
-                top: 11px;
-                border-left: 7px solid #2f2f2f;
-                border-top: 7px solid transparent;
-                border-bottom: 7px solid transparent;
             &:after
                 top: 7px;
                 left: unset;

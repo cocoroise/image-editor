@@ -26,6 +26,7 @@ class Text extends Submenu {
             // underline: false
         };
         this.align = 'left';
+        this.value = 16;
         this._els = {
             // textEffectButton: this.selector('#tie-text-effect-button'),
             textColorpicker: new Colorpicker(
@@ -43,7 +44,7 @@ class Text extends Submenu {
     addEvent(actions) {
         this.actions = actions;
         // this._els.textEffectButton.addEventListener('click', this._setTextEffectHandler.bind(this));
-        this._els.textRange.on('change', this._changeTextRnageHandler.bind(this));
+        this._els.textRange.on('change', this._changeTextRangeHandler.bind(this));
         this._els.textColorpicker.on('change', this._changeColorHandler.bind(this));
     }
 
@@ -74,7 +75,8 @@ class Text extends Submenu {
      * @returns {string} - text size
      */
     get fontSize() {
-        return this._els.textRange.value;
+        return this.value;
+        // return this._els.textRange.value;
     }
 
     /**
@@ -82,7 +84,8 @@ class Text extends Submenu {
      * @param {Number} value - text size
      */
     set fontSize(value) {
-        this._els.textRange.value = value;
+        this.value = value;
+        // this._els.textRange.value = value;
     }
 
     /**
@@ -108,11 +111,14 @@ class Text extends Submenu {
      * @param {number} value - range value
      * @private
      */
-    _changeTextRnageHandler(value) {
-        value = toInteger(value);
-        this.actions.changeTextStyle({
-            fontSize: value
-        });
+    _changeTextRangeHandler(value) {
+        const changeValue = toInteger(value) + 4;
+        if (this.value !== changeValue) {
+            this.value = changeValue;
+            this.actions.changeTextStyle({
+                fontSize: this.value
+            });
+        }
     }
 
     /**

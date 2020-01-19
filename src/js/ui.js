@@ -72,7 +72,7 @@ class Ui {
             'redo': this._menuElement.querySelector('#tie-btn-redo'),
             'reset': this._menuElement.querySelector('#tie-btn-reset'),
             'delete': this._menuElement.querySelector('#tie-btn-delete'),
-            'deleteAll': this._menuElement.querySelector('#tie-btn-delete-all'),
+            'deleteAll': this._menuElement.querySelector('#tie-btn-delete'),
             'download': this._selectedElement.querySelectorAll('.tui-image-editor-download-btn'),
             'load': this._selectedElement.querySelectorAll('.tui-image-editor-load-btn')
         };
@@ -198,11 +198,11 @@ class Ui {
      * @ignore
      */
     changeDeleteAllButtonEnabled(enableStatus) {
-        // if (enableStatus) {
-        //     this._els.deleteAll.classList.add('enabled');
-        // } else {
-        //     this._els.deleteAll.classList.remove('enabled');
-        // }
+        if (enableStatus) {
+            this._els.deleteAll.classList.add('enabled');
+        } else {
+            this._els.deleteAll.classList.remove('enabled');
+        }
     }
 
     /**
@@ -451,8 +451,8 @@ class Ui {
         this._addHelpActionEvent('undo');
         this._addHelpActionEvent('redo');
         // this._addHelpActionEvent('reset');changeResetButtonStatus
-        this._addHelpActionEvent('delete');
-        // this._addHelpActionEvent('deleteAll');
+        // this._addHelpActionEvent('delete');
+        this._addHelpActionEvent('deleteAll');
 
         // this._addDownloadEvent();
 
@@ -586,7 +586,7 @@ class Ui {
         if (windowHeight <= this.imageSize.newHeight) {
             height = windowHeight;
         }
-        // console.log('imageSize', this.imageSize);
+        // console.log('imageSize', containerHeight, containerWidth);
 
         return {
             width: containerWidth,
