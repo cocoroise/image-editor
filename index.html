@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>批改编辑器</title>
+    <title>Image Editor</title>
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css" rel="stylesheet">
     <link type="text/css" href="./dist/tui-image-editor.css" rel="stylesheet">
     <style>
@@ -27,9 +27,11 @@
 
         .tui-image-editor-header-title {
             display: inline-block;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             margin-left: 24px;
+            height: 36px;
+            line-height: 36px;
         }
 
         .tui-image-editor-header-title_content {
@@ -59,23 +61,26 @@
         }
 
         .primary_btn {
-            height: 40px;
-            width: 120px;
-            margin: 0 10px;
+            height: 36px;
+            width: 99px;
+            margin-right:48px;
             padding: 0;
             display: inline-block;
-            background-color: #75C82B;
+            background-color: black;
             color: #fff;
-            line-height: 40px;
+            line-height: 36px;
             outline: none;
             border-radius: 20px;
             font-size: 16px;
             cursor: pointer;
             vertical-align: middle;
-            letter-spacing: 0.3px;
+            letter-spacing: 1.1px;
             text-align: center;
+            opacity: .8;
         }
-
+        .primary_btn:hover{
+            opacity: 1;
+        }
         .normal_btn {
             height: 40px;
             width: 120px;
@@ -399,68 +404,13 @@
 </head>
 
 <body>
-    <div id="modal_container" class="displayNone">
-        <div class="modal_container_box">
-            <span class="modal_close">×</span>
-            <h3>图片有问题</h3>
-            <div class="modal_container_normalProblem">
-                <span class="modal_container-header">常见原因</span>
-                <div class="modal_container_normalProblem-content">
-                    <span>图片看不清</span>
-                    <span>内容错误</span>
-                    <span>内容不全</span>
-                </div>
-            </div>
-            <div class="modal_container_otherProblem">
-                <span class="modal_container-header">其他原因</span>
-                <textarea class="modal_container_otherProblem-content" maxlength="1000" placeholder="请输入原因"></textarea>
-            </div>
-            <div class="modal_container-btns">
-                <span>取消</span>
-                <span class="green-btn">提交</span>
-            </div>
-        </div>
-    </div>
-    <!-- -------------------评分---------------------- -->
-    <div id="score_container" class="displayNone">
-        <div class=" score_container_box">
-            <span class="score_close">×</span>
-            <h3>莉莉同学</h3>
-            <div class="modal_container_normalProblem">
-                <span class="modal_container-header">评分</span>
-                <div class="score_container_normalProblem-content">
-                    <input id="score_input" type="number" max="100" min="0" name="score" value="80"
-                        oninput="inputHandle(event)">
-                    <span class="green-text">优</span>
-                    <span class="yellow-text displayNone">中</span>
-                    <span class="red-text displayNone">差</span>
-                </div>
-            </div>
-            <div class="modal_container_otherProblem">
-                <span class="modal_container-header">评语</span>
-                <textarea class="score_container_otherProblem-content" maxlength="1000" placeholder="请输入评语"></textarea>
-            </div>
-            <div class="score_container-btns">
-                <span>保存并返回</span>
-                <span class="green-btn">保存并下一位</span>
-            </div>
-        </div>
-    </div>
     <div class="tui-image-editor-header">
         <div class="tui-image-editor-header-title">
-            <span>《李白诗词赏析》</span>
-            <div class="tui-image-editor-header-title_content">
-                <img src="./theme/book.png" alt="header">
-                <span>第1讲 将进酒</span>
-                <img src="./theme/header.png" alt="book">
-                <span>黎莉莉</span>
-            </div>
+            <span>Image Editor</span>
         </div>
         <div class="tui-image-editor-header-buttons">
-            <div id="paper_list_btn" class="primary_btn">作业列表</div>
-            <div id="paper_list_next" class="normal_btn">下一题</div>
             <div id="paper_save" class="primary_btn">
-                保存
+                Save
             </div>
         </div>
         <div class="tui-image-editor-header-papers">
@@ -468,18 +418,17 @@
             </div>
         </div>
     </div>
-    <div id="tui-image-editor-container" class="GS-LOG-AUTO" gs-log-key="AXXZXJS_10"></div>
-    <div id="papers_problem">图片有问题？</div>
-    <script type="text/javascript" src="https://cdn.bootcss.com/fabric.js/3.4.0/fabric.min.js"></script>
+    <div id="tui-image-editor-container"></div>
+    <!-- <script type="text/javascript" src="https://cdn.bootcss.com/fabric.js/3.4.0/fabric.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.4.0/fabric.js"></script>
     <script type="text/javascript"
         src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
     <script type="text/javascript" src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="./dist/tui-image-editor.js"></script>
     <script type="text/javascript" src="./theme/whiteTheme.js"></script>
-    <script type="text/javascript" src="./logger.js"></script>
     <script>
         const windowHeight = document.body.clientHeight - 100;
         const windowWidth = document.body.clientWidth - 100;
@@ -487,7 +436,7 @@
         const imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
             includeUI: {
                 loadImage: {
-                    path: 'https://q-independent.aixuexi.com/B:1019:K/1575302400/469564a5bb444ae78fc79705c43ee618.JPEG',
+                    path: './theme/img1.jpg',
                     name: 'SampleImage'
                 },
                 theme: whiteTheme,
@@ -508,110 +457,27 @@
         }
         let selectIndex = 0;
         const paperRef = document.getElementsByClassName("tui-image-editor-header")[0];
-        // 下一题
-        const paper_list_next = document.getElementById("paper_list_next");
+
         // 保存作业
         const paper_save = document.getElementById("paper_save");
         // 所有作业的ref
         const paperList = document.getElementsByClassName("tui-image-editor-header-papers")[0];
-        // 图片有问题
-        const papersProblemContainer = document.getElementById("modal_container")
-        const papersProblem = document.querySelectorAll(".modal_container-btns span")
-        const papersProblemBtn = document.getElementById("papers_problem")
-        const paperProblemReasons = document.querySelectorAll(".modal_container_normalProblem-content span")
-        const paperProblemClose = document.getElementsByClassName("modal_close")[0]
-        // 评分
-        const scoreContainer = document.getElementById("score_container")
-        const scoreBtn = document.querySelectorAll(".score_container-btns span")
-        const scoreInput = document.getElementById("score_input")
-        const scoreClass = document.querySelectorAll(".score_container_normalProblem-content span")
-        const scoreClose = document.getElementsByClassName("score_close")[0]
 
         // 添加所有的监听事件
         function addAllEvents() {
-            paper_list_next.addEventListener('click', function (e) {
-                console.log('click--> 下一题')
-            })
             paper_save.addEventListener('click', function (e) {
                 const imageUrl = imageEditor.downLoadImage();
                 console.log('click--> 保存作业', imageUrl)
             })
-            // 图片有问题
-            papersProblemBtn.addEventListener('click', function (e) {
-                papersProblemContainer.classList.remove("displayNone");
-            })
-            papersProblem[0].addEventListener('click', function (e) {
-                papersProblemContainer.classList.add("displayNone");
-                resetProblemModal();
-                console.log('图片有问题--> 取消')
-            })
-            papersProblem[1].addEventListener('click', function (e) {
-                papersProblemContainer.classList.add("displayNone");
-                const reasons = [];
-                const otherProblems = document.getElementsByClassName("modal_container_otherProblem-content")[0].value;
-                const reasonsRef = document.querySelectorAll(".active-btn");
-                reasonsRef.forEach(e => {
-                    reasons.push(e.innerText)
-                })
-                resetProblemModal();
-                console.log('图片有问题--> 提交', otherProblems, reasons)
-            })
-            paperProblemClose.addEventListener('click', function (e) {
-                papersProblemContainer.classList.add("displayNone");
-                resetProblemModal();
-            })
-            // 评语
-            scoreBtn[0].addEventListener('click', function (e) {
-                scoreContainer.classList.add("displayNone");
-                console.log('返回')
-            })
-            scoreBtn[1].addEventListener('click', function (e) {
-                const scoreValue = scoreInput.value;
-                const scoreText = document.getElementsByClassName("score_container_otherProblem-content")[0].value;
-                scoreContainer.classList.add("displayNone");
-                console.log('下一位', scoreValue, scoreText)
-            })
-            scoreClose.addEventListener('click', function (e) {
-                scoreContainer.classList.add("displayNone");
-            })
-            for (let node of paperProblemReasons) {
-                node.addEventListener('click', function (e) {
-                    e.target.classList.toggle("active-btn")
-                })
-            }
-        }
-        function inputHandle(e) {
-            const value = e.target.value;
-            scoreClass.forEach(e => {
-                e.classList.add("displayNone")
-            })
-            if (value >= 80) {
-                scoreClass[0].classList.remove('displayNone')
-            } else if (value < 80 && value >= 60) {
-                scoreClass[1].classList.remove('displayNone')
-            } else {
-                scoreClass[2].classList.remove('displayNone')
-            }
-        }
-        // 关闭后清空modal
-        function resetProblemModal() {
-            paperProblemReasons.forEach(v => {
-                v.classList.remove('active-btn')
-            })
-            document.getElementsByClassName("modal_container_otherProblem-content")[0].value = ''
         }
         function getRemoteImage() {
-            // 接口获取数据
+            // get images from serve
             const imageLists = [
-                'https://q-independent.aixuexi.com/B:1019:K/1575302400/469564a5bb444ae78fc79705c43ee618.JPEG',
-                'http://q1o1pb6ht.bkt.clouddn.com/mini.jpg',
-                'http://q1o1pb6ht.bkt.clouddn.com/wallhaven-754100.jpg',
-                'https://q-independent.aixuexi.com/B:1019:K/1565020800/e8f0d6162c9d4bb6ad5614748728a766.jpg',
-                'https://q-independent.aixuexi.com/B:1019:K/1564934400/b6b8168ac96e4079bb5b7657e39a88af.JPEG',
-                'https://q-independent.aixuexi.com/B:1019:K/1574784000/208312426bab42798b1803ec92c63f9d.jpg',
-                'https://q-independent.aixuexi.com/B:1019:K/1575302400/d14b6961209844009f05f5a8055794f5.JPEG',
-                'https://q-independent.aixuexi.com/B:1019:K/1575302400/1b11ecad4833426ca868d91d3f23f620.JPEG',
-                'https://q-independent.aixuexi.com/B:1019:K/1575302400/61a313239bf84486b864c59fb6463333.JPEG']
+                './theme/img1.jpg',
+                './theme/img2.jpg',
+                './theme/img3.jpg',
+                './theme/img4.jpg',
+                './theme/img5.jpg']
             loadAllPapers(imageLists);
         }
         // 加载所有的试卷
@@ -634,37 +500,27 @@
         }
         // 改变图片
         function changeImage(index) {
-            const isDraw = imageEditor.getCanvasObjects();
-            if (isDraw && !(window.confirm('您有未保存的批改记录，确认要切换吗？'))) {
-                return;
+            image_box = document.getElementsByClassName("tui-image-editor-header-papers-box");
+            const srcList = [];
+            snippet.forEach(image_box, element => {
+                srcList.push(element.childNodes[0].src);
+            });
+            if (index < 0) {
+                selectIndex = 0;
+            } else if (index >= srcList.length) {
+                selectIndex = srcList.length - 1;
             } else {
-                image_box = document.getElementsByClassName("tui-image-editor-header-papers-box");
-                const srcList = [];
-                snippet.forEach(image_box, element => {
-                    srcList.push(element.childNodes[0].src);
-                });
-                if (index < 0) {
-                    selectIndex = 0;
-                } else if (index >= srcList.length) {
-                    selectIndex = srcList.length - 1;
-                } else {
-                    selectIndex = index;
-                }
-
-                snippet.forEach(image_box, element => {
-                    element.classList.remove('tui-image-editor-selectedBox');
-                });
-                image_box[selectIndex].classList.add('tui-image-editor-selectedBox');
-                imageEditor.loadImageFromURL(srcList[selectIndex], 'paperName');
-                imageEditor.setAngleToDefault();
-                imageEditor.resetCanvas();
+                selectIndex = index;
             }
+
+            snippet.forEach(image_box, element => {
+                element.classList.remove('tui-image-editor-selectedBox');
+            });
+            image_box[selectIndex].classList.add('tui-image-editor-selectedBox');
+            imageEditor.loadImageFromURL(srcList[selectIndex], 'paperName');
+            imageEditor.setAngleToDefault();
+            imageEditor.resetCanvas();
         }
-        // 埋点相关的方法
-        // 埋点
-        window.onload = () => {
-            LoggerService.setActionConf();
-        };
         addAllEvents();
         getRemoteImage();
     </script>

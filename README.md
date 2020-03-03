@@ -1,8 +1,8 @@
 ## 🔧 Development
 
-The TOAST UI products are open-source.
-After fixing issues, create a pull request(PR).
-Run npm scripts and develop with the following process.
+This repo is forked from TOAST UI.
+I add some feature and rewrite it ui.
+![](./image-editor.png)
 
 ### Setup
 
@@ -12,15 +12,7 @@ Install node modules.
 Before starting development, check for any errors.
 
 ```sh
-$ git clone https://github.com/{username}/tui.image-editor.git
-$ cd tui.image-editor
 $ npm install
-$ npm run test
-```
-
-### Run webpack-dev-server
-
-```sh
 $ npm run serve
 ```
 
@@ -35,12 +27,5 @@ $ npm run serve
 * [tui.code-snippet](https://github.com/nhn/tui.code-snippet/releases/tag/v1.3.0) >=1.3.0
 * [tui.color-picker](https://github.com/nhn/tui.color-picker/releases/tag/v2.2.0) >=2.2.0
 
-
-## 🍞 TOAST UI Family
-* [TOAST UI Editor](https://github.com/nhn/tui.editor)
-* [TOAST UI Grid](https://github.com/nhn/tui.grid)
-* [TOAST UI Chart](https://github.com/nhn/tui.chart)
-* [TOAST UI Calendar](https://github.com/nhn/tui.calendar)
-* [TOAST UI Components](https://github.com/nhn)
 
 

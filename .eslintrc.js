@@ -1,30 +1,43 @@
 module.exports = {
-    "extends": "tui/es6",
-    "env": {
-        "browser": true,
-        "amd": true,
-        "node": true,
-        "jasmine": true,
-        "jquery": true,
-        "es6": true
+    extends: "tui/es6",
+    env: {
+        browser: true,
+        amd: true,
+        node: true,
+        jasmine: true,
+        jquery: true,
+        es6: true
     },
-    "globals": {
-        "fabric": true,
-        "tui": true,
-        "loadFixtures": true
+    globals: {
+        fabric: true,
+        tui: true,
+        loadFixtures: true
     },
-    "parserOptions": {
-        "sourceType": "module"
+    parserOptions: {
+        sourceType: "module"
     },
-    'rules': {
-        indent: [2, 4, { SwitchCase: 1, ignoreComments: false, ImportDeclaration: 1, flatTernaryExpressions: false }],
-        'prefer-destructuring': ['error', {
-            VariableDeclarator: { array: true, object: true },
-            AssignmentExpression: { array: false, object: false }
-        }],
-        "linebreak-style": ['error', 'windows'],
+    rules: {
+        indent: [
+            2,
+            4,
+            {
+                SwitchCase: 1,
+                ignoreComments: false,
+                ImportDeclaration: 1,
+                flatTernaryExpressions: false
+            }
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                VariableDeclarator: { array: true, object: true },
+                AssignmentExpression: { array: false, object: false }
+            }
+        ],
+        "linebreak-style": ["error", "windows"],
         "no-unused-vars": "off",
         "no-console": "off",
-        "object-curly-spacing": ["error", "always", { "arraysInObjects": false }]
+        "object-curly-spacing": ["error", "always", { arraysInObjects: false }],
+        quotes: ["off", "double", { avoidEscape: true }]
     }
 };

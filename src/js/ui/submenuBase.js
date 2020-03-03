@@ -14,10 +14,22 @@ class Submenu {
      * @param {boolean} [usageStatistics=false] - template for SubMenuElement
      * @param {boolean} [showSubmenu=true] - is show submenu
      */
-    constructor(subMenuElement, { locale, name, iconStyle, menuBarPosition, templateHtml, usageStatistics, showSubmenu }) {
+    // eslint-disable-next-line max-len
+    constructor(
+        subMenuElement,
+        {
+            locale,
+            name,
+            iconStyle,
+            menuBarPosition,
+            templateHtml,
+            usageStatistics,
+            showSubmenu
+        }
+    ) {
         this.selector = str => subMenuElement.querySelector(str);
         this.menuBarPosition = menuBarPosition;
-        this.toggleDirection = menuBarPosition === 'top' ? 'down' : 'up';
+        this.toggleDirection = menuBarPosition === "top" ? "down" : "up";
         this.colorPickerControls = [];
         this.usageStatistics = usageStatistics;
         this.showSubmenu = showSubmenu;
@@ -45,7 +57,7 @@ class Submenu {
      * @returns {string} - button type
      */
     getButtonType(button, buttonNames) {
-        return button.className.match(RegExp(`(${buttonNames.join('|')})`))[0];
+        return button.className.match(RegExp(`(${buttonNames.join("|")})`))[0];
     }
 
     /**
@@ -63,13 +75,13 @@ class Submenu {
      * Interface method whose implementation is optional.
      * Returns the menu to its default state.
      */
-    changeStandbyMode() { }
+    changeStandbyMode() {}
 
     /**
      * Interface method whose implementation is optional.
      * Executed when the menu starts.
      */
-    changeStartMode() { }
+    changeStartMode() {}
 
     /**
      * Make submenu dom element
@@ -80,8 +92,11 @@ class Submenu {
      * @param {*} templateHtml - template for SubMenuElement
      * @private
      */
-    _makeSubMenuElement(subMenuElement, { locale, name, iconStyle, templateHtml, showSubmenu }) {
-        const iconSubMenu = document.createElement('div');
+    _makeSubMenuElement(
+        subMenuElement,
+        { locale, name, iconStyle, templateHtml, showSubmenu }
+    ) {
+        const iconSubMenu = document.createElement("div");
         iconSubMenu.className = `tui-image-editor-menu-${name}`;
         iconSubMenu.innerHTML = templateHtml({
             locale,
